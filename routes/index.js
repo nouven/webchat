@@ -1,19 +1,12 @@
 const user = require('../models/user');
+const loginRoute = require('./loginRoute');
+const signinRoute= require('./signupRoute');
+const messagesRoute = require('./messagesRoute');
+const middleware = require("../middlewares/middlewres");
 
 function route (app){
-    app.use('/signup',(req, res)=>{
-
-    });
-
-    app.use('/login',(req, res)=>{
-
-        user.find({},(err, data)=>{
-            if(!err){
-                console.log(data);
-                res.cookie('user_id',data[0].id);
-            }
-        })
-        res.render('login');
-    })
+    app.use('/signup', signinRoute);
+    app.use('/login',loginRoute);
+    app.use('/',middleware.auth, messagesRoute);
 }
 module.exports  = route;
