@@ -1,12 +1,18 @@
-const order = require('../models/order');
+const user = require('../models/user');
 
 function route (app){
     app.use('/signup',(req, res)=>{
-        order.find({},(err, orders)=>{
-            if(!err)res.json(orders);
-        })
+
     });
+
     app.use('/login',(req, res)=>{
+
+        user.find({},(err, data)=>{
+            if(!err){
+                console.log(data);
+                res.cookie('user_id',data[0].id);
+            }
+        })
         res.render('login');
     })
 }
