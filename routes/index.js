@@ -1,13 +1,12 @@
-const order = require('../models/order');
+const user = require('../models/user');
+const loginRoute = require('./loginRoute');
+const signinRoute= require('./signupRoute');
+const messagesRoute = require('./messagesRoute');
+const middleware = require("../middlewares/middlewres");
 
 function route (app){
-    app.use('/signup',(req, res)=>{
-        order.find({},(err, orders)=>{
-            if(!err)res.json(orders);
-        })
-    });
-    app.use('/login',(req, res)=>{
-        res.render('login');
-    })
+    app.use('/signup', signinRoute);
+    app.use('/login',loginRoute);
+    app.use('/',middleware.auth, messagesRoute);
 }
 module.exports  = route;
