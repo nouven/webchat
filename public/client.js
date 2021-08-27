@@ -38,4 +38,5 @@ socket.on('initMess',(obj)=>{
 socket.on('initfriend',(friend)=>{
 
 })
-//
+// typing_mess-submit;
+
