@@ -8,6 +8,14 @@ const server = http.createServer(app);
 const {Server} = require('socket.io');
 const io = new Server(server);
 const exphbs = require('express-handlebars');
+const passport = require('passport');
+const session = require('express-session');
+
+const oauth = require('./configs/oauth');
+// app.use(session({secret: 'cats'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 //body parsevar
 bodyParser = require('body-parser')
 // parse application/x-www-form-urlencoded
@@ -23,6 +31,7 @@ app.set('view engine', '.html');
 
 const db = require('./configs/db');
 const route = require('./routes');
+const serverSide = require('./server');
 
 
 db.connect();
@@ -31,7 +40,7 @@ db.connect();
 route(app);
 
 io.on("connection",(socket)=>{
-    console.log('connected');
+    serverSide(io, socket);
 })
 
 

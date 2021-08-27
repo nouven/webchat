@@ -1,0 +1,116 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../font/fontawesome-free-5.15.3-web/css/all.css" />
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/chat.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="app">
+    <div class="app__body">
+
+      <!-- Side bar -->
+      <div class="sidebar">
+        <div class="sidebar__header" id="show_info">
+          <!-- <img
+            src='#'
+            alt="Avatar" class="avatar" />
+            <span>name</span>
+          <div class="sidebar__headerRight">
+            <button type="button" class="btn btn-outline-primary">
+              <i class="fas fa-ellipsis-v "></i>
+            </button>
+          </div> -->
+        </div>
+
+        <div class="sidebar__search">
+          <div class="sidebar__searchContainer">
+            <input type="text" placeholder="Search" class="sidebar__searchInput" id="typing_search"></input>
+            <i class="fas fa-search sidebar__searchIcon"></i>
+          </div>
+        </div>
+
+        <div class="sidebar__chats" id="show_rooms">
+          <!-- <div class="sidebarChat">
+            <img
+              src="https://scontent.fhan5-5.fna.fbcdn.net/v/t1.6435-9/228713886_2993150524340198_2752976921324728670_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E77XdUhaw5QAX_RGbFf&_nc_oc=AQlAPmeMZS0uoWkxSOfXpVN3J1SeaEZS3pwW1t2NhQcxf5DZkCVygr56fU9froEGZHWFqlQa8g4M4Brt9nV8i1TW&_nc_ht=scontent.fhan5-5.fna&oh=a51edd9961577d5b99e44b71e9deef99&oe=614A1C69"
+              alt="Avatar" class="avatar" />
+            <div class="sidebarChat__info">
+              <h2 class="sidebarChat__info-name">Thực tập cơ sở nhóm 13</h2>
+              <p>Last Message</p>
+            </div>
+          </div> -->
+        </div>
+        </div>
+
+      <!-- Chat -->
+      <div class="chat">
+        <div class="chat__header" id="show_curr_room">
+          <img id="show_curr_room_img"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHSR0zLO6F4gwew26l3DZYUTxtBc_VywwEaw&usqp=CAU"
+            alt="Avatar" class="avatar" />
+
+          <div class="chat__headerInfo">
+            <h3 class="chat__headerInfo-name" id="show_curr_room_name"></h3>
+            <p class="chat__headerInfo-status">Description</p>
+          </div>
+
+          <div class="chat__headerRight">
+          </div>
+        </div>
+
+        <div class="chat__body" id="show_messages">
+
+          <!-- <p class="chat__sender">
+            <span class="chat__name">Vũ</span>
+            Messages
+            <span class="chat__time">12:00</span>
+          </p>
+
+          <p class="chat__sender chat__receiver">
+            <span class="chat__name">Vũ</span>
+            Messages
+            <span class="chat__time">12:00</span>
+          </p> -->
+        </div>
+
+
+        <div class="chat__footer">
+          <i class="far fa-smile chat__footer-icons"></i>
+          <form class="chat__footer-form" id="form_typing_mess">
+            <input placeholder="Type a message" type="text" class="chat__footer-input" />
+            <button type="submit" class="chat__footer-button"></button>
+          </form>
+          <i class="fas fa-link chat__footer-icons"></i>
+        </div>
+      </div>
+
+      <div class="find__job">
+        <p>Something here...</p>
+      </div>
+    </div>
+  </div>
+  <input type="text" value="{{user_id}}" id="user_id" >
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+    integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+    crossorigin="anonymous"></script>
+</body>
+<script>
+  const user_id = document.querySelector('#user_id');
+  user_id.setAttribute("style", "display: none");
+</script>
+<script src="socket.io/socket.io.js"></script>
+<script src="../initTag/initTag.js"></script>
+<script src="../client.js"></script>
+
