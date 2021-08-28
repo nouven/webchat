@@ -6,7 +6,7 @@ class InitTag{
     //obj{rom};
     initRoom(socket,info, parTag, obj, show_curr_room, show_messages, form_typing_mess){
         const newTag = document.createElement('a');
-        newTag.setAttribute('href', `#${obj.id}`);
+        newTag.setAttribute('href', `#${obj._id}`);
         newTag.innerHTML =`
           <div class="sidebarChat">
             <img
@@ -23,7 +23,7 @@ class InitTag{
           form_typing_mess.setAttribute('style',"visibility: visible");
           //show current room 
           info.befRoom = info.curRoom;
-          info.curRoom = obj.id;
+          info.curRoom = obj._id;
           if(info.befRoom != info.curRoom){
             //reset show_messages
             show_messages.innerHTML = '';

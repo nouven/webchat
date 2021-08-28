@@ -19,7 +19,7 @@ module.exports = function(io, socket){
                 result.rooms.forEach(elmt=> {
                     room.findById(elmt).then((result)=>{
                         socket.emit('initRoom',{
-                            id: result._id,
+                            _id: result._id,
                             name: result.name,
                             avatar: result.avatar
                         })
@@ -30,7 +30,7 @@ module.exports = function(io, socket){
                 result.friends.forEach(elmt=> {
                     user.findById(elmt).then((result)=>{
                         socket.emit('initFriend',{
-                            id: result._id,
+                            _id: result._id,
                             name: result.name,
                             avatar: result.avatar
                         })
