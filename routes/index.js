@@ -14,9 +14,11 @@ function route (app){
     //test
     app.get('/test',(req, res)=>{
         
-        // room.update({_id: '6129bbf13d226e38706e8933'},{
-        //     users:[{_id:isValidObjectId("6129bb3062382d3721655b61") },{_id:isValidObjectId("6129bb1d62382d3721655b5d" )}]
-        // }).then((result)=>{
+            // users:["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d" ,"6129bbab62382d3721655b64"]
+            // room.create({
+            //     name: 'room_1',
+            //     users:["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d" ,"6129bbab62382d3721655b64"]
+            // })
 
         // })
         // room1 = new room({
