@@ -35,7 +35,7 @@
           </div>
 
           <div class="addMember">
-            <button class="addMember__btn">
+            <button class="addRoom__btn">
               <i class="fas fa-users"></i>
             </button>
           </div>
@@ -67,6 +67,10 @@
           </div>
 
           <div class="chat__headerRight">
+            <button class="addMember__btn">
+              <i class="fas fa-user-plus"></i>
+            </button>
+            
           </div>
         </div>
 
@@ -96,8 +100,17 @@
         </div>
       </div>
 
-      <div class="find__job">
-        <p>Something here...</p>
+      <div class="friend">
+        <div class="friend__container">
+          <div class="friend__knowing">
+            <span>Người liên hệ</span>
+          </div>
+          <ul class="friend__list">
+            <li class="friend__items">
+
+            </li>
+          </ul>
+        </div>
       </div>
 
     </div>
@@ -130,11 +143,37 @@
         </div>
       </div>
     </div>
+
+    <div class="modal-friend">
+      <div class="modal-friend__container">
+        <div class="modal-friend__close">
+          <i class="fas fa-times"></i>
+        </div>
+        <header class="modal-friend-header">
+          <i class="fas fa-suitcase"></i>
+          <label class="modal-friend-header-label" >Add friend</label>
+        </header>
+
+        <div class="modal-friend__body">
+          <label for="" class="modal-friend__label">
+            Friend Name
+          </label>
+          <input type="text" class="modal-friend__input" placeholder="Search friend name">
+
+          <button class="add-friend">
+            ADD FRIEND
+          </button>
+        </div>
+      </div>
+    </div>
+
+   
+
   </div>
  
   <input type="text" value="{{user_id}}" id="user_id" >
   <script>
-    const add = document.querySelectorAll('.addMember__btn');
+    const add = document.querySelectorAll('.addRoom__btn');
     const modal = document.querySelector('.modal');
     const close = document.querySelector('.modal__close')
     const modalContainer = document.querySelector('.modal__container');
