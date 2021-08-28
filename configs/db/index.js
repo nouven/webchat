@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const url = "localhost:mongodb://localhost:27017/test_1";
-// const url ="mongodb+srv://test:BDG1XrrQpLQjWo6m@cluster0.bclts.mongodb.net/webchat_test?retryWrites=true&w=majority";
+const url =
+  "mongodb+srv://new_user:btKUdUEtgU3Nuvoy@cluster0.bclts.mongodb.net/webchat_test";
 async function connect() {
   try {
     await mongoose.connect(url, {
