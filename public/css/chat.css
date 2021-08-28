@@ -164,6 +164,7 @@
 
 .sidebar__searchContainer {
   display: flex;
+  flex: 0.7;
   align-items: center;
   background-color: #fff;
   width: 100%;
@@ -221,4 +222,110 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: rgb(144, 144, 144);
   border-radius: 10px;
+}
+
+.addMember {
+  display: flex;
+  flex: 0.3;
+  justify-content: flex-end;
+}
+
+.addMember__btn {
+  border: none;
+  padding: 6px;
+  background: #f6f6f6;
+}
+
+.modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.open {
+  display: flex;
+}
+
+.modal__container {
+  background-color: #fff;
+  width: 550px;
+  min-height: 330px;
+  position: relative;
+  animation: fadeIn ease-in-out 0.3s;
+}
+.modal__close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  padding: 15px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.modal__close:hover {
+  opacity: 1;
+  color: black;
+}
+.modal-header {
+  display: flex;
+  background: #009688;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  color: #fff;
+}
+
+.modal-header-label {
+  margin-left: 8px;
+}
+.modal__body {
+  padding: 16px;
+}
+.modal__label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.modal__input {
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 24px;
+}
+
+.modal__input:hover {
+  border: 1px solid blue;
+}
+
+.add {
+  border: none;
+  width: 100%;
+  background: #009688;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.add:hover {
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-150px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
