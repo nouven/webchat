@@ -8,7 +8,6 @@ const user = new Schema({
     friendReqs:[String],
     rooms: {
         type: Array,
-        default:["6126751a711da7dbbd358799", "6126751a711da7dbbd35879a"]
     },
     keys:[String],
     avatar:{
