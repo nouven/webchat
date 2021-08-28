@@ -9,8 +9,8 @@ module.exports = function(io, socket){
         console.log(data);
     })
     //init
-    socket.on('init',(userId)=>{
-        user.findById(userId).then((result)=>{
+    socket.on('init',(_id)=>{
+        user.findById(_id).then((result)=>{
             socket.emit('initInfo', {
                 name :result.name,
                 avatar: result.avatar,
@@ -45,17 +45,35 @@ module.exports = function(io, socket){
     socket.on('onclick_room',obj=>{
         if(obj.befRoom){
             socket.leave(obj.befRoom);
-        }else{
+        }
+        socket.join(obj.curRoom);
+        room.findById(obj.curRoom).then((result)=>{
+            if(result.messages.length == 0){
+                return;
+            }else{
+                result.messages.forEach(elmt=>{
+                    socket.emit('initMess',elmt);
+                })
+            }
+        })
+    })
+    //typing_mess-submit
+    //obj{name, id ,content, curRoom} of sender
+    socket.on('typing_mess-submit',(obj)=>{
+        if(obj.curRoom){
             room.findById(obj.curRoom).then((result)=>{
-                if(result.messages.length == 0){
-                    return;
-                }else{
-                    result.messages.forEach(elmt=>{
-                        socket.emit('initMess',elmt);
-                    })
-                }
-            })
+                result.messages.unshift({
+                    _id: obj._id,
+                    name: obj.name,
+                    content: obj.content 
+                });
+                result.save();
+            });
+            io.to(obj.curRoom).emit('initMess',({
+                _id: obj._id,
+                name: obj.name,
+                content: obj.content
+            }))
         }
     })
-    //
 }

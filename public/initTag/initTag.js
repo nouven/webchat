@@ -4,7 +4,7 @@ class InitTag{
     // const avatar = room.avatar;
     // const name = room.name;
     //obj{rom};
-    initRoom(socket,info, parTag, obj, show_curr_room){
+    initRoom(socket,info, parTag, obj, show_curr_room, show_messages, form_typing_mess){
         const newTag = document.createElement('a');
         newTag.setAttribute('href', `#${obj.id}`);
         newTag.innerHTML =`
@@ -20,19 +20,25 @@ class InitTag{
         parTag.appendChild(newTag);
         //onclick
         newTag.addEventListener('click',(e)=>{
+          form_typing_mess.setAttribute('style',"visibility: visible");
           //show current room 
-          info.curRoom = info.befRoom;
-          info.befRoom = obj.id;
-          const imgTag = show_curr_room.querySelector('#show_curr_room_img');
-          const nameTag = show_curr_room.querySelector('#show_curr_room_name');
-          imgTag.setAttribute('src',`${obj.avatar}`);
-          nameTag.innerHTML = obj.name;
-          //show old message
-          socket.emit('onclick_room',info);
+          info.befRoom = info.curRoom;
+          info.curRoom = obj.id;
+          if(info.befRoom != info.curRoom){
+            //reset show_messages
+            show_messages.innerHTML = '';
+            const imgTag = show_curr_room.querySelector('#show_curr_room_img');
+            const nameTag = show_curr_room.querySelector('#show_curr_room_name');
+            imgTag.setAttribute('src',`${obj.avatar}`);
+            nameTag.innerHTML = obj.name;
+            //show old message
+            socket.emit('onclick_room',info);
+          }
         })
     }
     //obj{info}
     initInfo(socket , info , parTag,obj){
+        info.name = obj.name;
         const newTag = document.createElement('div');
         newTag.innerHTML = `
            <div class="sidebar__headerRight">
@@ -52,8 +58,9 @@ class InitTag{
 //     name: String,
 //     content: String,
     initMess(socket, info, obj, parTag){
+      console.log(obj);
       const newTag = document.createElement('div');
-      if(obj.userId == info.userId){
+      if(obj._id!= info._id){
         newTag.innerHTML = `
           <p class="chat__sender">
             <span class="chat__name">${obj.name}</span>
@@ -63,7 +70,7 @@ class InitTag{
         `;
       }else{
         newTag.innerHTML = `
-          <p class="chat__receiver">
+          <p class="chat__receiver chat__sender">
             <span class="chat__name">${obj.name}</span>
             ${obj.content}
             <span class="chat__time"></span>

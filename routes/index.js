@@ -16,14 +16,15 @@ function route (app){
 
         // room1 = new room({
         //     name: 'room_1',
-        //     users: ["612613d7d2336e7a0788c71b","612631704a028594439fbe61","612614e79be8017ae0e526ba"],
+        //     users: ["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d","6129bbab62382d3721655b64"],
         // });
         // room2 = new room({
         //     name: 'room_2',
-        //     users: ["612613d7d2336e7a0788c71b","612631704a028594439fbe61",],
+        //     users: ["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d"],
         // });
         // room1.save();
         // room2.save();
+        res.send('successssssssll');
 
     })
     app.post('/test',
