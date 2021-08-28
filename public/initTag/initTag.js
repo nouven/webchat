@@ -54,7 +54,7 @@ class InitTag{
         parTag.appendChild(newTag);
     }
     //obj{message};
-//     userId: String,
+//     _id: String,
 //     name: String,
 //     content: String,
     initMess(socket, info, obj, parTag){

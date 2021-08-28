@@ -1,5 +1,6 @@
 const user = require('./models/user');
 const room = require('./models/room');
+const { emit } = require('./models/user');
 module.exports = function(io, socket){
     console.log(socket.id+" connected!");
     socket.on('disconnect',()=>{
@@ -15,29 +16,29 @@ module.exports = function(io, socket){
                 name :result.name,
                 avatar: result.avatar,
             });
-            if(result.rooms.length > 0){
-                result.rooms.forEach(elmt=> {
-                    room.findById(elmt).then((result)=>{
-                        socket.emit('initRoom',{
-                            _id: result._id,
-                            name: result.name,
-                            avatar: result.avatar
-                        })
-                    })
-                });
-            }
-            if(result.friends.length > 0){
-                result.friends.forEach(elmt=> {
-                    user.findById(elmt).then((result)=>{
-                        socket.emit('initFriend',{
-                            _id: result._id,
-                            name: result.name,
-                            avatar: result.avatar
-                        })
-                    })
-                });
-            }
+            // if(result.friends.length > 0){
+            //     result.friends.forEach(elmt=> {
+            //         user.findById(elmt).then((result)=>{
+            //             socket.emit('initFriend',{
+            //                 _id: result._id,
+            //                 name: result.name,
+            //                 avatar: result.avatar
+            //             })
+            //         })
+            //     });
+            // }
         });
+        room.find({users:_id}).then((result)=>{
+            if(result){
+                result.forEach(elmt=>{
+                    socket.emit('initRoom',{
+                        _id: elmt._id,
+                        name: elmt.name,
+                        avatar: elmt.avatar
+                    })
+                })
+            }
+        })
     })
     // room
     //onclick_room

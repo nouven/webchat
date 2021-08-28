@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const message = new Schema({
-    userId: String,
+    //_id is user_id of ownmess;
+    _id: String,
     name: String,
     content: String,
 },{

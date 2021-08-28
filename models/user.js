@@ -6,9 +6,6 @@ const user = new Schema({
     password: String,
     friends: [String],
     friendReqs:[String],
-    rooms: {
-        type: Array,
-    },
     keys:[String],
     avatar:{
         type: String,

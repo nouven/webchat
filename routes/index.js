@@ -6,14 +6,19 @@ const middleware = require("../middlewares/middlewres");
 
 const multer  = require('multer')
 const upload = multer({ dest: './public/uploads/' })
-const test = require("../models/tests");
 const room = require('../models/room');
 
 const passport = require('passport');
+const { isValidObjectId } = require('mongoose');
 function route (app){
     //test
     app.get('/test',(req, res)=>{
+        
+        // room.update({_id: '6129bbf13d226e38706e8933'},{
+        //     users:[{_id:isValidObjectId("6129bb3062382d3721655b61") },{_id:isValidObjectId("6129bb1d62382d3721655b5d" )}]
+        // }).then((result)=>{
 
+        // })
         // room1 = new room({
         //     name: 'room_1',
         //     users: ["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d","6129bbab62382d3721655b64"],
