@@ -6,6 +6,7 @@ const message = new Schema({
     //_id is user_id of ownmess;
     _id: String,
     name: String,
+    avatar: String,
     content: String,
 },{
     timestamps: true,

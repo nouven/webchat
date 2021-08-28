@@ -90,9 +90,10 @@
 
 .chat__name {
   position: absolute;
-  top: -18px;
+  top: -17px;
+  left: 5px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 100px;
 }
 
 .chat__receiver {
@@ -204,6 +205,13 @@ body {
   vertical-align: middle;
   width: 50px;
   height: 50px;
+  border-radius: 50%;
+}
+.avatar_onchat {
+  margin-right: 3px;
+  vertical-align: middle;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
 }
 

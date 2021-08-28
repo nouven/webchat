@@ -63,9 +63,10 @@ module.exports = function(io, socket){
     socket.on('typing_mess-submit',(obj)=>{
         if(obj.curRoom){
             room.findById(obj.curRoom).then((result)=>{
-                result.messages.unshift({
+                result.messages.push({
                     _id: obj._id,
                     name: obj.name,
+                    avatar:obj.avatar,
                     content: obj.content 
                 });
                 result.save();
@@ -73,8 +74,42 @@ module.exports = function(io, socket){
             io.to(obj.curRoom).emit('initMess',({
                 _id: obj._id,
                 name: obj.name,
+                avatar:obj.avatar,
                 content: obj.content
             }))
         }
+    })
+    //typing_search
+    socket.on("typing_search",(data)=>{
+        console.log(data);
+        user.find({keys: data}).then(result=>{
+            if(result){
+                result.forEach(elmt=>{
+                    socket.emit('initSearchResult',{
+                        name: elmt.name,
+                        avatar: elmt.avatar,
+                        _id: elmt._id
+                    })
+                })
+            }
+        })
+    })
+    //modal_body-click
+    //obj{name, _id of user}
+    socket.on("modal_body-click",(obj)=>{
+        room.create({
+            name: obj.name,
+            users: obj.user
+        }).then(()=>{
+            room.findOne({name: obj.name, users: obj.user}).then(result=>{
+                if(result){
+                    socket.emit('initRoom',{
+                        _id: result._id,
+                        name: result.name,
+                        avatar: result.avatar
+                    })
+                }
+            })
+        })
     })
 }
