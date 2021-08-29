@@ -39,12 +39,10 @@ class InitTag{
     //obj{info}
     initInfo(socket , info , parTag,obj){
         info.name = obj.name;
+        info.avatar = obj.avatar
         const newTag = document.createElement('div');
         newTag.innerHTML = `
-           <div class="sidebar__headerRight">
-           <img
-             src=${obj.avatar}
-             alt="Avatar" class="avatar" />
+             <img src=${obj.avatar} alt="Avatar" class="avatar" />
              <span>${obj.name}</span>
              <button type="button" class="btn btn-outline-primary">
                <i class="fas fa-ellipsis-v "></i>
@@ -58,25 +56,30 @@ class InitTag{
 //     name: String,
 //     content: String,
     initMess(socket, info, obj, parTag){
-      console.log(obj);
       const newTag = document.createElement('div');
       if(obj._id!= info._id){
         newTag.innerHTML = `
           <p class="chat__sender">
+            <img src=${obj.avatar} class="avatar_onchat" />
             <span class="chat__name">${obj.name}</span>
-            ${obj.content}
-            <span class="chat__time"></span>
+            ${obj.content}<br>
+            <span class="chat__time">${obj.createdAt}</span>
           </p>
         `;
       }else{
         newTag.innerHTML = `
           <p class="chat__receiver chat__sender">
-            <span class="chat__name">${obj.name}</span>
-            ${obj.content}
-            <span class="chat__time"></span>
+            <span class="chat__name"></span>
+            ${obj.content}<br>
+            <span class="chat__time">${obj.createdAt}</span>
           </p>
         `;
       }
-      parTag.appendChild(newTag);
+      newTag.querySelector('.chat__time').style.display= 'none';
+      newTag.addEventListener('click',(e)=>{
+        newTag.querySelector('.chat__time').style.display= 'block';
+        console.log('clicked');
+      })
+      parTag.insertBefore(newTag, parTag.children[0]);
     }
 }
