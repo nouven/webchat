@@ -3,6 +3,17 @@ const socket = io();
 const initTag = new InitTag();
 const show_rooms = document.querySelector('#show_rooms');
 const show_messages = document.querySelector('#show_messages');
+
+//typing_mess
+const form_typing_mess = document.querySelector('#form_typing_mess');
+//typing_search
+const typing_search = document.querySelector('#typing_search');
+const typing_search_dropdown = document.querySelector('#typing_search_dropdown');
+//modal_body
+const modal_body = document.querySelector('.modal__body');
+const modal_body_input = modal_body.querySelector('input');
+const modal_body_button= modal_body.querySelector('button');
+
 const show_info = document.querySelector('#show_info');
 const show_curr_room = document.querySelector('#show_curr_room');
 const info={
@@ -40,10 +51,10 @@ socket.on('initfriend',(friend)=>{
 //obj{name, avatar, _id} of user
 socket.on("initSearchResult",(obj)=>{
     console.log(obj);
+    initTag.initSearchResult(socket, info, typing_search_dropdown, obj);
 })
 // typing_mess-submit;
 // visibility: visible
-const form_typing_mess = document.querySelector('#form_typing_mess');
 form_typing_mess.style.display = "none";
 form_typing_mess.addEventListener('submit',(e)=>{
     e.preventDefault();
@@ -61,20 +72,18 @@ form_typing_mess.addEventListener('submit',(e)=>{
 })
 
 //typing_search-onkey
-const typing_search = document.querySelector('#typing_search');
-const typing_search_dropdown = document.querySelector('#typing_search_dropdown');
 typing_search.addEventListener('keyup',(e)=>{
+    //remove all childNode
+    while(typing_search_dropdown.firstChild){
+        typing_search_dropdown.removeChild(typing_search_dropdown.firstChild);
+    }
+
     const result = typing_search.value.toLowerCase(); 
     if(result){ 
         socket.emit("typing_search", result);
     }
 })
 //modal_body
-const modal_body = document.querySelector('.modal__body');
-const modal_body_input = modal_body.querySelector('input');
-const modal_body_button= modal_body.querySelector('button');
-console.log(modal_body_input);
-console.log(modal_body_button);
 modal_body_button.addEventListener('click',()=>{
     let input = modal_body_input.value.trim();
     if(input){
@@ -82,5 +91,6 @@ modal_body_button.addEventListener('click',()=>{
             name: input,
             user: info._id
         });
+        modal.classList.remove('open');
     }
 })

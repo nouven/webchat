@@ -82,4 +82,14 @@ class InitTag{
       })
       parTag.insertBefore(newTag, parTag.children[0]);
     }
+    //obj{name, avatar} of user,
+    initSearchResult(socket, info, parTag, obj){
+      const newTag = document.createElement('a');
+      newTag.setAttribute("class", "dropdown-item");
+      newTag.innerHTML = `
+        <img src=${obj.avatar} class="avatar_onchat" />
+        ${obj.name}
+      `;
+      parTag.appendChild(newTag);
+    }
 }
