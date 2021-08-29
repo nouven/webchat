@@ -95,7 +95,6 @@ class InitTag {
     });
     parTag.insertBefore(newTag, parTag.children[0]);
   }
-<<<<<<< HEAD
     //obj{name, avatar} of user,
     initSearchResult(socket, info, parTag, obj){
       const newTag = document.createElement('a');
@@ -106,6 +105,4 @@ class InitTag {
       `;
       parTag.appendChild(newTag);
     }
-=======
->>>>>>> fe1c21624ce84635e41482c7c8ea24430a9ed572
 }
