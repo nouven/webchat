@@ -82,7 +82,7 @@ module.exports = function(io, socket){
     //typing_search
     socket.on("typing_search",(data)=>{
         console.log(data);
-        user.find({keys: data}).then(result=>{
+        user.find({keys: data}).limit(5).then(result=>{
             if(result){
                 result.forEach(elmt=>{
                     socket.emit('initSearchResult',{

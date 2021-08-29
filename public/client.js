@@ -58,7 +58,7 @@ socket.on("initSearchResult",(obj)=>{
 form_typing_mess.style.display = "none";
 form_typing_mess.addEventListener('submit',(e)=>{
     e.preventDefault();
-    const inputText = form_typing_mess.querySelector('input').value;
+    const inputText = form_typing_mess.querySelector('input').value.trim();
     form_typing_mess.querySelector('input').value= "";
     if(inputText){
         socket.emit('typing_mess-submit',({
