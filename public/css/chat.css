@@ -12,6 +12,9 @@
 
 .sidebarChat__info {
   margin-left: 18px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .sidebarChat__info-name {
@@ -52,6 +55,7 @@
   display: flex;
   flex: 0.7;
   padding-left: 20px;
+  flex-direction: column;
 }
 
 .chat__headerRight {
@@ -236,6 +240,10 @@
   background-color: #fff;
   overflow-y: auto;
 }
+
+.sidebarChat-link {
+  text-decoration: none;
+}
 * {
   margin: 0;
 }
@@ -247,6 +255,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.btn {
+  border: none;
+  padding: 10px;
+}
+
 .avatar {
   vertical-align: middle;
   width: 50px;
@@ -277,10 +291,15 @@ body {
 
 .friend__list {
   display: flex;
+  padding: 0;
+  flex-direction: column;
 }
 
 .friend__items {
   list-style: none;
+  display: flex;
+  padding: 10px 10px 10px 0;
+  align-items: center;
 }
 
 ::-webkit-scrollbar {
@@ -475,6 +494,14 @@ body {
 
 .open-friend {
   display: flex;
+}
+
+.dropdown-menu {
+  left: -14px !important;
+}
+
+.dropdown-item {
+  padding: 2px 8px 6px 8px;
 }
 
 @keyframes fadeIn {
