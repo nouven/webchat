@@ -1,7 +1,7 @@
 .sidebarChat {
   margin-top: 6px;
   display: flex;
-  padding: 8px;
+  padding: 4px 4px 4px 8px;
   cursor: pointer;
   border-bottom: 1px solid #f6f6f6;
 }
@@ -31,15 +31,14 @@
 .app__body {
   display: flex;
   background-color: #ededed;
-  margin-top: -50px;
-  height: 95vh;
+  margin-top: 0px;
+  height: 100vh;
   width: 100vw;
-  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
 }
 .chat {
   display: flex;
   flex-direction: column;
-  flex: 0.5;
+  flex: 0.6;
 }
 
 .chat__header {
@@ -263,8 +262,8 @@ body {
 
 .avatar {
   vertical-align: middle;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 .avatar_onchat {
@@ -278,8 +277,8 @@ body {
 .friend {
   display: flex;
   flex-direction: column;
-  flex: 0.25;
-  background-color: lightblue;
+  flex: 0.15;
+  background-color: rgb(240, 242, 245);
 }
 
 .friend__container {
@@ -298,8 +297,12 @@ body {
 .friend__items {
   list-style: none;
   display: flex;
-  padding: 10px 10px 10px 0;
+  padding: 4px 6px 6px 4px;
   align-items: center;
+}
+
+.friend__items:hover {
+  background-color: #ebebeb;
 }
 
 ::-webkit-scrollbar {
@@ -344,7 +347,7 @@ body {
 .modal__container {
   background-color: #fff;
   width: 550px;
-  min-height: 330px;
+  min-height: 250px;
   position: relative;
   animation: fadeIn ease-in-out 0.3s;
 }
@@ -403,6 +406,9 @@ body {
   font-size: 16px;
   padding: 10px;
   color: #fff;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .add:hover {
