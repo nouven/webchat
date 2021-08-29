@@ -145,18 +145,54 @@
   flex: 0.25;
 }
 
+.search__btn {
+  border: none;
+  background: #fff;
+  font-size: 15px;
+  padding: 0px 6px 0px 6px;
+  border-radius: 20px;
+}
+
+.sidebar__searchIcon:hover {
+  color: black;
+}
+
 .sidebar__header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 10px;
   border-right: 1px solid lightgray;
 }
 
-.sidebar__headerRight {
+.sidebar__header-wrap {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar__header-container {
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+.sidebar__headerLeft {
+  display: flex;
+  flex: 0.8;
+  align-items: center;
+}
+
+.sidebar__header-userName {
+  display: block;
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+.sidebar__headerRight {
+  display: flex;
+  flex: 0.2;
+  align-items: center;
   justify-content: flex-end;
-  min-width: 10vw;
 }
 
 .sidebar__headerIcon {
@@ -176,6 +212,7 @@
   display: flex;
   flex: 0.7;
   align-items: center;
+  justify-content: space-between;
   background-color: #fff;
   width: 100%;
   height: 34px;
@@ -235,8 +272,8 @@ body {
   padding: 14px;
 }
 
-.friend__knowing {
-}
+/* .friend__knowing {
+} */
 
 .friend__list {
   display: flex;
@@ -346,6 +383,7 @@ body {
   background: #009688;
   font-size: 16px;
   padding: 10px;
+  color: #fff;
 }
 
 .add:hover {
@@ -421,6 +459,7 @@ body {
 
 .add-friend {
   border: none;
+  color: #fff;
   width: 100%;
   background: #009688;
   font-size: 16px;
@@ -432,6 +471,10 @@ body {
 
 .add-friend:hover {
   opacity: 0.9;
+}
+
+.open-friend {
+  display: flex;
 }
 
 @keyframes fadeIn {
