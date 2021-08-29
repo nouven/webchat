@@ -16,9 +16,6 @@
 
       <!-- Side bar -->
       <div class="sidebar">
-        <div class="sidebar__header" id="show_info">
-          <!-- sdagrh -->
-        </div>
 
         <div class="sidebar__search">
           <div class="sidebar__searchContainer">
@@ -82,12 +79,8 @@
             <button class="btn 3dot__btn">
               <i class="fas fa-ellipsis-v "></i>
             </button>
-            
-           
-            
           </div>
         </div>
-
         <div class="chat__body" id="show_messages">
 
           <!-- <p class="chat__sender">
@@ -102,8 +95,6 @@
             <span class="chat__time">12:00</span>
           </p> -->
         </div>
-
-
         <div class="chat__footer">
           <i class="far fa-smile chat__footer-icons"></i>
           <form class="chat__footer-form" id="form_typing_mess">
@@ -117,43 +108,44 @@
     
       <div class="friend">
         <div class="friend__container">
-          <div class="friend__knowing">
-            <span>Người liên hệ</span>
+        <div class="friend__knowing">
+          <div class="sidebar__header">
+            <div class="sidebar__header-wrap" id="show_info">
+              <!-- info here -->
+              <div class="sidebar__headerRight" style="position: relative;">
+                <div style="color:red; position: absolute;transform: translate(-2px, 2px); ">2</div>
+                 <button type="button" class="btn btn-outline-primary">
+                  <i class="fas fa-user-friends"></i>
+                 </button>
+              </div>
+
+              <div class="dropdown">
+                <button  class="btn btn-outline-primary" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <i class="fas fa-ellipsis-v "></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">
+                    <button type="button" class="btn btn-primary">Logout</button>
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <button id="logout"  type="button" class="btn btn-primary">Logout</button>
+                  </a>
+                </div>
+              </div>
+              <!-- <div class="sidebar__headerRight">
+                 <button type="button" class="btn btn-outline-primary">
+                 </button>
+              </div> -->
+            </div>
           </div>
-          <ul class="friend__list">
+          </div>
+          <ul class="friend__list" id="show_friends">
             <li class="friend__items">
               <img
-              src="https://scontent.fhan5-5.fna.fbcdn.net/v/t1.6435-9/228713886_2993150524340198_2752976921324728670_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E77XdUhaw5QAX_RGbFf&_nc_oc=AQlAPmeMZS0uoWkxSOfXpVN3J1SeaEZS3pwW1t2NhQcxf5DZkCVygr56fU9froEGZHWFqlQa8g4M4Brt9nV8i1TW&_nc_ht=scontent.fhan5-5.fna&oh=a51edd9961577d5b99e44b71e9deef99&oe=614A1C69"
+              src="https://raw.githubusercontent.com/TonTon69/Dashboard_UI/main/assets/img/giphy.gif"
               alt="Avatar" class="avatar" />
-            <div class="sidebarChat__info">
-              <h2 class="sidebarChat__info-name">Vũ</h2>
-              </div>
-            </li>
-
-            <li class="friend__items">
-              <img
-              src="https://scontent.fhan5-5.fna.fbcdn.net/v/t1.6435-9/228713886_2993150524340198_2752976921324728670_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E77XdUhaw5QAX_RGbFf&_nc_oc=AQlAPmeMZS0uoWkxSOfXpVN3J1SeaEZS3pwW1t2NhQcxf5DZkCVygr56fU9froEGZHWFqlQa8g4M4Brt9nV8i1TW&_nc_ht=scontent.fhan5-5.fna&oh=a51edd9961577d5b99e44b71e9deef99&oe=614A1C69"
-              alt="Avatar" class="avatar" />
-            <div class="sidebarChat__info">
-              <h2 class="sidebarChat__info-name">Vũ</h2>
-              </div>
-            </li>
-
-            <li class="friend__items">
-              <img
-              src="https://scontent.fhan5-5.fna.fbcdn.net/v/t1.6435-9/228713886_2993150524340198_2752976921324728670_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E77XdUhaw5QAX_RGbFf&_nc_oc=AQlAPmeMZS0uoWkxSOfXpVN3J1SeaEZS3pwW1t2NhQcxf5DZkCVygr56fU9froEGZHWFqlQa8g4M4Brt9nV8i1TW&_nc_ht=scontent.fhan5-5.fna&oh=a51edd9961577d5b99e44b71e9deef99&oe=614A1C69"
-              alt="Avatar" class="avatar" />
-            <div class="sidebarChat__info">
-              <h2 class="sidebarChat__info-name">Vũ</h2>
-              </div>
-            </li>
-
-            <li class="friend__items">
-              <img
-              src="https://scontent.fhan5-5.fna.fbcdn.net/v/t1.6435-9/228713886_2993150524340198_2752976921324728670_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E77XdUhaw5QAX_RGbFf&_nc_oc=AQlAPmeMZS0uoWkxSOfXpVN3J1SeaEZS3pwW1t2NhQcxf5DZkCVygr56fU9froEGZHWFqlQa8g4M4Brt9nV8i1TW&_nc_ht=scontent.fhan5-5.fna&oh=a51edd9961577d5b99e44b71e9deef99&oe=614A1C69"
-              alt="Avatar" class="avatar" />
-            <div class="sidebarChat__info">
-              <h2 class="sidebarChat__info-name">Vũ</h2>
+              <div class="sidebarChat__info">
+                <h2 class="sidebarChat__info-name">Vũ</h2>
               </div>
             </li>
             </ul>
@@ -204,9 +196,9 @@
           <label for="" class="modal-friend__label">
             Friend Name
           </label>
-          <input type="text" class="modal-friend__input" placeholder="Search friend name">
+          <input type="text" id="modal_friend_input" class="modal-friend__input" placeholder="Search friend name">
 
-          <button class="add-friend">
+          <button class="add-friend" id="modal_friend_button">
             ADD FRIEND
           </button>
         </div>

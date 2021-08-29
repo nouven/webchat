@@ -13,6 +13,13 @@ const { isValidObjectId } = require('mongoose');
 function route (app){
     //test
     app.get('/test',(req, res)=>{
+        user.find({_id: {$ne: "612b01881901f03002b782f5"}}).then(result=>{
+            if(result){
+                result.forEach(elmt=>{
+                    console.log(elmt.name);
+                })
+            }
+        })
         
             // users:["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d" ,"6129bbab62382d3721655b64"]
             // room.create({

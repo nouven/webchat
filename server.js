@@ -16,17 +16,17 @@ module.exports = function(io, socket){
                 name :result.name,
                 avatar: result.avatar,
             });
-            // if(result.friends.length > 0){
-            //     result.friends.forEach(elmt=> {
-            //         user.findById(elmt).then((result)=>{
-            //             socket.emit('initFriend',{
-            //                 _id: result._id,
-            //                 name: result.name,
-            //                 avatar: result.avatar
-            //             })
-            //         })
-            //     });
-            // }
+        });
+        user.find({friends: _id}).then(result=>{
+            if(result){
+                result.forEach(elmt=>{
+                    socket.emit('initFriend',{
+                        _id: elmt._id,
+                        name: elmt.name,
+                        avatar: elmt.avatar,
+                    })
+                })
+            }
         });
         room.find({users:_id}).then((result)=>{
             if(result){
@@ -80,9 +80,9 @@ module.exports = function(io, socket){
         }
     })
     //typing_search
-    socket.on("typing_search",(data)=>{
-        console.log(data);
-        user.find({keys: data}).limit(5).then(result=>{
+    //obj{result of seearch, _id }
+    socket.on("typing_search",(obj)=>{
+        user.find({keys: obj.result, friends:{$ne: obj._id}, _id:{$ne:obj._id}}).limit(5).then(result=>{
             if(result){
                 result.forEach(elmt=>{
                     socket.emit('initSearchResult',{

@@ -7,9 +7,10 @@ const user = new Schema({
     friends: [String],
     friendReqs:[String],
     keys:[String],
+    cookie:[String],
     avatar:{
         type: String,
-        default: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png",
+        default: "https://raw.githubusercontent.com/TonTon69/Dashboard_UI/main/assets/img/giphy.gif",
     }
 },{
     timestamps: true

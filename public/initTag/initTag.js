@@ -4,14 +4,7 @@ class InitTag {
   // const name = room.name;
   //obj{rom};
   initRoom(
-    socket,
-    info,
-    parTag,
-    obj,
-    show_curr_room,
-    show_messages,
-    form_typing_mess
-  ) {
+    socket,info,parTag,obj,show_curr_room,show_messages,form_typing_mess){
     const newTag = document.createElement("a");
     newTag.classList.add("sidebarChat-link");
     newTag.setAttribute("href", `#${obj._id}`);
@@ -49,21 +42,13 @@ class InitTag {
     info.name = obj.name;
     info.avatar = obj.avatar;
     const newTag = document.createElement("div");
-    newTag.classList.add("sidebar__header-wrap");
+    // newTag.classList.add("sidebar__header-wrap");
+    newTag.classList.add("sidebar__headerLeft");
     newTag.innerHTML = `
-              <div class="sidebar__header-container">
-              <div class="sidebar__headerLeft">
               <img src=${obj.avatar} alt="Avatar" class="avatar" />
               <span class="sidebar__header-userName">${obj.name}</span>
-              </div>
-              <div class="sidebar__headerRight">
-             <button type="button" class="btn btn-outline-primary">
-               <i class="fas fa-ellipsis-v "></i>
-             </button>
-           </div>
-           </div>
         `;
-    parTag.appendChild(newTag);
+    parTag.insertBefore(newTag, parTag.children[0]);
   }
   //obj{message};
   //     _id: String,
@@ -106,4 +91,34 @@ class InitTag {
       `;
       parTag.appendChild(newTag);
     }
+
+    //obj(id, name, avatar) of friend
+  initFriend(socket ,info, parTag, obj){
+    const newTag = document.createElement('li');
+    newTag.classList.add('friend__items');
+    newTag.innerHTML=`
+             <img
+             src=${obj.avatar}  alt="Avatar" class="avatar" />
+             <div class="sidebarChat__info">
+              <h2 class="sidebarChat__info-name">${obj.name}</h2>
+             </div>
+    `;
+    parTag.appendChild(newTag);
+    newTag.addEventListener("click", (e) => {
+      form_typing_mess.setAttribute("style", "visibility: visible");
+      //show current room
+      info.befRoom = info.curRoom;
+      info.curRoom = obj._id;
+      if (info.befRoom != info.curRoom) {
+        //reset show_messages
+        show_messages.innerHTML = "";
+        const imgTag = show_curr_room.querySelector("#show_curr_room_img");
+        const nameTag = show_curr_room.querySelector("#show_curr_room_name");
+        imgTag.setAttribute("src", `${obj.avatar}`);
+        nameTag.innerHTML = obj.name;
+        //show old message
+        // socket.emit("onclick_room", info);
+      }
+    });
+  }
 }

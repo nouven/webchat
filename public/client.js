@@ -3,6 +3,7 @@ const socket = io();
 const initTag = new InitTag();
 const show_rooms = document.querySelector('#show_rooms');
 const show_messages = document.querySelector('#show_messages');
+const show_friends = document.querySelector('#show_friends');
 
 //typing_mess
 const form_typing_mess = document.querySelector('#form_typing_mess');
@@ -45,8 +46,9 @@ socket.on('initRoom',(obj)=>{
 socket.on('initMess',(obj)=>{
     initTag.initMess(socket, info, obj, show_messages);
 })
-socket.on('initfriend',(friend)=>{
-
+//obj{id, name, avatar} of friend
+socket.on('initFriend',(obj)=>{
+    initTag.initFriend(socket, info, show_friends, obj)
 })
 //obj{name, avatar, _id} of user
 socket.on("initSearchResult",(obj)=>{
@@ -80,7 +82,10 @@ typing_search.addEventListener('keyup',(e)=>{
 
     const result = typing_search.value.toLowerCase(); 
     if(result){ 
-        socket.emit("typing_search", result);
+        socket.emit("typing_search", {
+            result: result,
+            _id: info._id  
+        });
     }
 })
 //modal_body
@@ -94,3 +99,4 @@ modal_body_button.addEventListener('click',()=>{
         modal.classList.remove('open');
     }
 })
+//
