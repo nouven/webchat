@@ -13,6 +13,7 @@ class InitTag {
     form_typing_mess
   ) {
     const newTag = document.createElement("a");
+    newTag.classList.add("sidebarChat-link");
     newTag.setAttribute("href", `#${obj._id}`);
     newTag.innerHTML = `
           <div class="sidebarChat">
