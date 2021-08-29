@@ -49,8 +49,17 @@
 }
 
 .chat__headerInfo {
-  flex: 1;
+  display: flex;
+  flex: 0.7;
   padding-left: 20px;
+}
+
+.chat__headerRight {
+  display: flex;
+  flex: 0.3;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .chat__headerInfo-name {
@@ -136,18 +145,54 @@
   flex: 0.25;
 }
 
+.search__btn {
+  border: none;
+  background: #fff;
+  font-size: 15px;
+  padding: 0px 6px 0px 6px;
+  border-radius: 20px;
+}
+
+.sidebar__searchIcon:hover {
+  color: black;
+}
+
 .sidebar__header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 10px;
   border-right: 1px solid lightgray;
 }
 
-.sidebar__headerRight {
+.sidebar__header-wrap {
+  display: flex;
+  width: 100%;
+}
+
+.sidebar__header-container {
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+.sidebar__headerLeft {
+  display: flex;
+  flex: 0.8;
+  align-items: center;
+}
+
+.sidebar__header-userName {
+  display: block;
+  font-size: 20px;
+  margin-left: 8px;
+}
+
+.sidebar__headerRight {
+  display: flex;
+  flex: 0.2;
+  align-items: center;
   justify-content: flex-end;
-  min-width: 10vw;
 }
 
 .sidebar__headerIcon {
@@ -167,6 +212,7 @@
   display: flex;
   flex: 0.7;
   align-items: center;
+  justify-content: space-between;
   background-color: #fff;
   width: 100%;
   height: 34px;
@@ -215,12 +261,28 @@ body {
   border-radius: 50%;
 }
 
-.find__job {
+.friend {
   display: flex;
   flex-direction: column;
   flex: 0.25;
   background-color: lightblue;
 }
+
+.friend__container {
+  padding: 14px;
+}
+
+/* .friend__knowing {
+} */
+
+.friend__list {
+  display: flex;
+}
+
+.friend__items {
+  list-style: none;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   background-color: lightgray;
@@ -238,7 +300,7 @@ body {
   justify-content: flex-end;
 }
 
-.addMember__btn {
+.addRoom__btn {
   border: none;
   padding: 6px;
   background: #f6f6f6;
@@ -321,10 +383,98 @@ body {
   background: #009688;
   font-size: 16px;
   padding: 10px;
+  color: #fff;
 }
 
 .add:hover {
   opacity: 0.9;
+}
+
+.modal-friend {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.modal-friend__container {
+  background-color: #fff;
+  width: 550px;
+  min-height: 260px;
+  position: relative;
+  animation: fadeIn ease-in-out 0.3s;
+}
+.modal-friend__close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  padding: 15px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.modal-friend__close:hover {
+  opacity: 1;
+  color: black;
+}
+.modal-friend-header {
+  display: flex;
+  background: #009688;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  color: #fff;
+}
+
+.modal-friend-header-label {
+  margin-left: 8px;
+}
+.modal-friend__body {
+  padding: 16px;
+}
+.modal-friend__label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.modal-friend__input {
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 24px;
+}
+
+.modal__input:hover {
+  border: 1px solid blue;
+}
+
+.add-friend {
+  border: none;
+  color: #fff;
+  width: 100%;
+  background: #009688;
+  font-size: 16px;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.add-friend:hover {
+  opacity: 0.9;
+}
+
+.open-friend {
+  display: flex;
 }
 
 @keyframes fadeIn {

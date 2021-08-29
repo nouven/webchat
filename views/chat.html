@@ -38,11 +38,13 @@
                 <!-- <a class="dropdown-item" href="#">Something else here</a> -->
               </div>
             </div>
-            <i class="fas fa-search sidebar__searchIcon"></i>
+            <button class="search__btn">
+              <i class="fas fa-search sidebar__searchIcon"></i>
+            </button>
           </div>
 
           <div class="addMember">
-            <button class="addMember__btn">
+            <button class="addRoom__btn">
               <i class="fas fa-users"></i>
             </button>
           </div>
@@ -74,6 +76,19 @@
           </div>
 
           <div class="chat__headerRight">
+            <button class="addMember__btn">
+              <i class="fas fa-user-plus"></i>
+            </button>
+            <button class="addMember__btn">
+              <i class="fas fa-phone"></i>
+            </button>
+
+            <button class="addMember__btn">
+              <i class="fas fa-video"></i>
+            </button>
+            
+           
+            
           </div>
         </div>
 
@@ -162,25 +177,75 @@
         </header>
 
         <div class="modal__body">
-          <!-- <label for="" class="modal__label">
+          <label for="" class="modal__label">
             Room Name
-          </label> -->
+          </label>
           <input type="text" class="modal__input" placeholder="Room name">
-          <!-- <label for="" class="modal__label">
+          <label for="" class="modal__label">
             Description
           </label>
-          <input type="text" class="modal__input" placeholder="Write something"> -->
+          <input type="text" class="modal__input" placeholder="Write something">
           <button class="add">
             Create
           </button>
         </div>
       </div>
     </div>
+
+    <div class="modal-friend">
+      <div class="modal-friend__container">
+        <div class="modal-friend__close">
+          <i class="fas fa-times"></i>
+        </div>
+        <header class="modal-friend-header">
+          <i class="fas fa-suitcase"></i>
+          <label class="modal-friend-header-label" >Add friend</label>
+        </header>
+
+        <div class="modal-friend__body">
+          <label for="" class="modal-friend__label">
+            Friend Name
+          </label>
+          <input type="text" class="modal-friend__input" placeholder="Search friend name">
+
+          <button class="add-friend">
+            ADD FRIEND
+          </button>
+        </div>
+      </div>
+    </div>
+    
+
+   
+
   </div>
  
   <input type="text" value="{{user_id}}" id="user_id" >
   <script>
-    const add = document.querySelectorAll('.addMember__btn');
+    const invite = document.querySelectorAll('.addMember__btn');
+    const modalFriend = document.querySelector('.modal-friend');
+    const closeModal = document.querySelector('.modal-friend__close');
+    const modalFriendContainer = document.querySelector('.modal-friend__container');
+    for(const i of invite){
+      i.addEventListener('click',() => {
+        modalFriend.classList.add('open-friend');
+      })
+    }
+
+   closeModal.addEventListener('click',() => {
+    modalFriend.classList.remove('open-friend');
+   })
+   
+   modalFriend.addEventListener('click',() => {
+    modalFriend.classList.remove('open-friend');
+   })
+
+   modalFriendContainer.addEventListener('click',(e) =>{
+    e.stopPropagation();
+   })
+  </script>
+  <script>
+    const add = document.querySelectorAll('.addRoom__btn');
     const modal = document.querySelector('.modal');
     const close = document.querySelector('.modal__close')
     const modalContainer = document.querySelector('.modal__container');
