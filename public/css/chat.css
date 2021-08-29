@@ -227,14 +227,16 @@ body {
   padding: 14px;
 }
 
-/* .friend__knowing {
+.friend__knowing {
 }
 
 .friend__list {
+  display: flex;
 }
 
 .friend__items {
-} */
+  list-style: none;
+}
 
 ::-webkit-scrollbar {
   width: 10px;

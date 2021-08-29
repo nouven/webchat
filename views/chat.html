@@ -30,7 +30,16 @@
 
         <div class="sidebar__search">
           <div class="sidebar__searchContainer">
-            <input type="text" placeholder="Search" class="sidebar__searchInput" id="typing_search"></input>
+            <!-- <input type="text" placeholder="Search" class="sidebar__searchInput" id="typing_search"></input> -->
+            <div class="dropdown">
+              <input type ="text" placeholder="Search" class="sidebar__searchInput" id="typing_search" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              </input>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here something alse here </a>
+              </div>
+            </div>
             <i class="fas fa-search sidebar__searchIcon"></i>
           </div>
 
@@ -70,6 +79,15 @@
             <button class="addMember__btn">
               <i class="fas fa-user-plus"></i>
             </button>
+            <button class="addMember__btn">
+              <i class="fas fa-phone"></i>
+            </button>
+
+            <button class="addMember__btn">
+              <i class="fas fa-video"></i>
+            </button>
+            
+           
             
           </div>
         </div>
@@ -101,16 +119,22 @@
       </div>
 
       <div class="friend">
-        <div class="friend__container">
+        <!-- <div class="friend__container">
           <div class="friend__knowing">
             <span>Người liên hệ</span>
           </div>
           <ul class="friend__list">
             <li class="friend__items">
-
+              <img
+              src="https://scontent.fhan5-5.fna.fbcdn.net/v/t1.6435-9/228713886_2993150524340198_2752976921324728670_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=E77XdUhaw5QAX_RGbFf&_nc_oc=AQlAPmeMZS0uoWkxSOfXpVN3J1SeaEZS3pwW1t2NhQcxf5DZkCVygr56fU9froEGZHWFqlQa8g4M4Brt9nV8i1TW&_nc_ht=scontent.fhan5-5.fna&oh=a51edd9961577d5b99e44b71e9deef99&oe=614A1C69"
+              alt="Avatar" class="avatar" />
+            <div class="sidebarChat__info">
+              <h2 class="sidebarChat__info-name">Thực tập cơ sở nhóm 13</h2>
+              <p>Last Message</p>
             </li>
           </ul>
-        </div>
+        </div> -->
+        
       </div>
 
     </div>
@@ -166,6 +190,7 @@
         </div>
       </div>
     </div>
+    
 
    
 
@@ -204,6 +229,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
     integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
     crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 <script>
   const user_id = document.querySelector('#user_id');
