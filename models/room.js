@@ -22,7 +22,7 @@ const room = new Schema({
     },
     avatar:{
         type: String,
-        default: 'https://www.bigideasfest.org/sites/default/files/imagecache/group_images_showcase/default-group.png'
+        default: 'https://media2.giphy.com/media/l1J9Llv1ztqa8cjZe/200w.webp?cid=ecf05e47tf115xsn89b7tcvplwlc8ynrs9timhyusa1hra1d&rid=200w.webp&ct=g'
     }
 },{
     timestamps: true,

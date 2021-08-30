@@ -78,7 +78,7 @@
   display: flex;
   flex: 1;
   flex-direction: column-reverse;
-  background-image: url("https://zicxa.com/vi//uploaded/files/hinh-nen-mau-tim-2.jpg");
+  background-image: url("https://raw.githubusercontent.com/TonTon69/Dashboard_UI/main/assets/img/giphy.gif");
   background-repeat: repeat;
   background-position: center;
   padding: 30px;
@@ -89,7 +89,9 @@
   position: relative;
   font-size: 16px;
   padding: 10px;
+  max-width: 70%;
   width: fit-content;
+  word-wrap: break-word;
   border-radius: 10px;
   background-color: #fff;
   margin-bottom: 30px;

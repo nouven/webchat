@@ -12,10 +12,26 @@ module.exports = function(io, socket){
     //init
     socket.on('init',(_id)=>{
         user.findById(_id).then((result)=>{
-            socket.emit('initInfo', {
-                name :result.name,
-                avatar: result.avatar,
-            });
+            if(result){
+                socket.emit('initInfo', {
+                    name :result.name,
+                    avatar: result.avatar,
+                });
+                if(result.friendReqs.length != 0){
+                    socket.emit('lengthOfReq', result.friendReqs.length);
+                    result.friendReqs.forEach(elmt=>{
+                        user.findById(elmt).then(result=>{
+                            if(result){
+                                socket.emit('initFriendReq',{
+                                    _id: result._id,
+                                    name:result.name,
+                                    avatar:result.avatar
+                                })
+                            }
+                        })
+                    })
+                }
+            }
         });
         user.find({friends: _id}).then(result=>{
             if(result){
@@ -79,13 +95,13 @@ module.exports = function(io, socket){
             }))
         }
     })
-    //typing_search
+    //typing_search_users
     //obj{result of seearch, _id }
-    socket.on("typing_search",(obj)=>{
+    socket.on("typing_search_users",(obj)=>{
         user.find({keys: obj.result, friends:{$ne: obj._id}, _id:{$ne:obj._id}}).limit(5).then(result=>{
             if(result){
                 result.forEach(elmt=>{
-                    socket.emit('initSearchResult',{
+                    socket.emit('initSearchUserResult',{
                         name: elmt.name,
                         avatar: elmt.avatar,
                         _id: elmt._id
@@ -94,9 +110,9 @@ module.exports = function(io, socket){
             }
         })
     })
-    //modal_body-click
+    // create_room
     //obj{name, _id of user}
-    socket.on("modal_body-click",(obj)=>{
+    socket.on("create_room",(obj)=>{
         room.create({
             name: obj.name,
             users: obj.user
@@ -112,4 +128,87 @@ module.exports = function(io, socket){
             })
         })
     })
+    //friendReq
+    //obj{id, id} of sender & receiver
+    socket.on('friendReq',obj=>{
+        user.findOne({_id: obj.receiver, friendReqs:{$ne: obj.sender}}).then(result=>{
+            if(result){
+                result.friendReqs.push(obj.sender);
+                result.save();
+                io.emit("friendReq",obj);
+            }
+        })
+    })
+        //data is _id of sender
+    socket.on("friendReqTrue",obj=>{
+        if(obj){
+            user.findById(obj.receiver).then(result=>{
+                socket.emit('lengthOfReq', result.friendReqs.length);
+            })
+            user.findById(obj.sender).then(result=>{
+                if(result){
+                    socket.emit('initFriendReq', {
+                        _id: result._id,
+                        name: result.name,
+                        avatar: result.avatar
+                    })
+                }
+            })
+        }
+    });
+    //delete or accept friendReq
+        //obj{_id, data};j
+    socket.on("deleteFriendReq", obj =>{
+        user.findById(obj._id).then(result=>{
+            if(result){
+                let arr = result.friendReqs.filter(elmt=>{
+                    return elmt != obj.data;
+                })
+                result.friendReqs = arr;
+                result.save();
+                socket.emit('lengthOfReq',arr.length);
+            }
+        })
+    })
+    socket.on("acceptFriendReq", obj=>{
+        user.findById(obj._id).then(result=>{
+            if(result){
+                let arr = result.friendReqs.filter(elmt=>{
+                    return elmt != obj.data;
+                })
+                result.friendReqs = arr;
+                socket.emit('lengthOfReq',arr.length);
+                result.friends.push(obj.data);
+                result.save();
+            }
+        })
+        user.findById(obj.data).then(result =>{
+            if(result){
+                result.friends.push(obj._id);
+                result.save();
+                socket.emit("initFriend",{
+                    _id: result._id,
+                    name: result.name,
+                    avatar:result.avatar
+                })
+            }
+        })
+        room.create({
+
+            
+        })
+        io.emit("acceptFriendReq", obj);
+    })
+    socket.on("acceptFriendReqTrue",(obj)=>{
+        user.findById(obj._id).then(result=>{
+            if(result){
+                socket.emit("initFriend",{
+                    _id: result._id,
+                    name: result.name,
+                    avatar:result.avatar
+                })
+            }
+        })
+    })
+    //
 }
