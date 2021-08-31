@@ -8,18 +8,27 @@ const show_friends = document.querySelector('#show_friends');
 //typing_mess
 const form_typing_mess = document.querySelector('#form_typing_mess');
 //typing_search_user
-const typing_search_users = document.querySelector('#typing_search_users');
-const typing_search_users_dropdown = document.querySelector('#typing_search_users_dropdown');
+const search_user = document.querySelector('#search_user');
+const search_user_result = document.querySelector('#search_user_result');
 //modal_body_create_room
 const input_create_room = document.querySelector('#input_create_room');
 const btn_create_room = document.querySelector('#btn_create_room');
 //modal_friend_reqs
 const friend_reqs = document.querySelector('#friend_reqs');
 const length_of_req = document.querySelector('#length_of_req');
+//modal_add_member
+const search_friend = document.querySelector('#search_friend');
+const search_friend_result= document.querySelector('#search_friend_result');
 
 //
 const show_info = document.querySelector('#show_info');
-const show_curr_room = document.querySelector('#show_curr_room');
+const chat_header = document.querySelector('#chat_header');
+const chat_header_right = document.querySelector('#chat_header_right');
+//
+// show_curr_room.style.display = 'none';
+chat_header_right.style.display = 'none';
+
+
 const info={
     _id: JSON.parse(user_id.value),
     name: '',
@@ -43,7 +52,7 @@ socket.on('initInfo',(obj)=>{
 })
 //obj{room}
 socket.on('initRoom',(obj)=>{
-    initTag.room(socket, info, show_rooms, obj, show_curr_room, show_messages, form_typing_mess);
+    initTag.room(socket, info, show_rooms, obj, chat_header,chat_header_right, show_messages, form_typing_mess);
 })
 //obj{message};
 socket.on('initMess',(obj)=>{
@@ -55,7 +64,11 @@ socket.on('initFriend',(obj)=>{
 })
 //obj{name, avatar, _id} of user
 socket.on("initSearchUserResult",(obj)=>{
-    initTag.userSearchResult(socket, info, typing_search_users_dropdown, obj);
+    initTag.userSearchResult(socket, info, search_user_result, obj);
+})
+//obj{name, avatar, _id} of user
+socket.on("initSearchFriendResult",(obj)=>{
+    initTag.friendSearchResult(socket, info, search_friend_result, obj);
 })
 socket.on('lengthOfReq',data=>{
     length_of_req.innerHTML = data
@@ -64,14 +77,11 @@ socket.on("initFriendReq",(obj)=>{
     initTag.friendReq(socket, info, friend_reqs, obj);
 })
 //accep_friend_req
-socket.on("acceptFriendReq",obj=>{
-    if(obj.data === info._id){
-        socket.emit('acceptFriendReqTrue', obj);
-    }
+socket.on('typing',()=>{
+    
 })
 // typing_mess-submit;
 // visibility: visible
-form_typing_mess.style.display = "none";
 form_typing_mess.addEventListener('submit',(e)=>{
     e.preventDefault();
     const inputText = form_typing_mess.querySelector('input').value.trim();
@@ -87,35 +97,67 @@ form_typing_mess.addEventListener('submit',(e)=>{
     }
 })
 
-//typing_search-onkey
-typing_search_users.addEventListener('keyup',(e)=>{
+//search_user-onkey
+search_user.addEventListener('keyup',(e)=>{
     //remove all childNode
-    while(typing_search_users_dropdown.firstChild){
-        typing_search_users_dropdown.removeChild(typing_search_users_dropdown.firstChild);
+    while(search_user_result.firstChild){
+        search_user_result.removeChild(search_user_result.firstChild);
     }
 
-    const result = typing_search_users.value.toLowerCase(); 
+    const result = search_user.value.toLowerCase(); 
     if(result){ 
-        socket.emit("typing_search_users", {
+        socket.emit("search_user", {
             result: result,
             _id: info._id  
         });
     }
 })
-//modal_body
+        //friend_req
+socket.on("friendReqTrue",obj =>{
+    if(obj.receiver === info._id){
+        socket.emit("friendReqTrue",obj);
+    }
+})
+socket.on("acceptFriendReq",obj=>{
+    if(obj.data === info._id){
+        socket.emit('acceptFriendReqTrue', obj);
+    }
+})
+
+
+
+//modal_create_room
 btn_create_room.addEventListener('click',()=>{
     let input = input_create_room.value.trim();
     input_create_room.value = "";
-    if(input){
+    if(input != ''){
         socket.emit("create_room",{
             name: input,
             user: info._id
         });
     }
 })
-//friend_req
-socket.on("friendReq",obj =>{
-    if(obj.receiver === info._id){
-        socket.emit("friendReqTrue",obj);
+//add friend into room
+    //search_friend-onkey
+search_friend.addEventListener('keyup',(e)=>{
+    //remove all childNode
+    while(search_friend_result.firstChild){
+        search_friend_result.removeChild(search_friend_result.firstChild);
+    }
+
+    const result = search_friend.value.toLowerCase(); 
+    if(result){ 
+        socket.emit("search_friend", {
+            curRoom : info.curRoom,
+            result: result,
+            _id: info._id  
+        });
+    }
+})
+socket.on('add_to_room_true',(obj)=>{
+    if(obj._id === info._id){
+        socket.emit('add_to_room_true',{
+            curRoom: obj.curRoom,
+        });
     }
 })

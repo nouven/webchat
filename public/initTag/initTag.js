@@ -1,10 +1,5 @@
 class InitTag {
-  // const roomId = room.id;
-  // const avatar = room.avatar;
-  // const name = room.name;
-  //obj{rom};
-  room(
-    socket,info,parTag,obj,show_curr_room,show_messages,form_typing_mess){
+  room(socket, info, parTag, obj, show_curr_room, chat_header_right, show_messages, form_typing_mess){
     const newTag = document.createElement("a");
     newTag.classList.add("sidebarChat-link");
     newTag.setAttribute("href", `#${obj._id}`);
@@ -22,6 +17,7 @@ class InitTag {
     //onclick
     newTag.addEventListener("click", (e) => {
       form_typing_mess.setAttribute("style", "visibility: visible");
+      chat_header_right.setAttribute('style', 'visibility: visible');
       //show current room
       info.befRoom = info.curRoom;
       info.curRoom = obj._id;
@@ -75,9 +71,11 @@ class InitTag {
         `;
     }
     newTag.querySelector(".chat__time").style.display = "none";
-    newTag.addEventListener("click", (e) => {
+    newTag.addEventListener("mouseover", (e) => {
       newTag.querySelector(".chat__time").style.display = "block";
-      console.log("clicked");
+    });
+    newTag.addEventListener("mouseout", (e) => {
+      newTag.querySelector(".chat__time").style.display = "none";
     });
     parTag.insertBefore(newTag, parTag.children[0]);
   }
@@ -88,9 +86,7 @@ class InitTag {
       newTag.innerHTML = `
         <img src=${obj.avatar} class="avatar_onchat" />
         ${obj.name}
-        <button>
-          <i class="fas fa-user-plus"></i>
-        </button>
+        <button type="button" class="btn btn-success">add</button>
       `;
       parTag.appendChild(newTag);
       const addFriendBtn = newTag.querySelector('button');
@@ -102,6 +98,24 @@ class InitTag {
       });
     }
 
+    friendSearchResult(socket, info, parTag, obj){
+      const newTag = document.createElement('a');
+      newTag.setAttribute("class", "dropdown-item");
+      newTag.innerHTML = `
+        <img src=${obj.avatar} class="avatar_onchat" />
+        ${obj.name}
+        <button type="button" class="btn btn-success">add</button>
+      `;
+      parTag.appendChild(newTag);
+      const addBtn = newTag.querySelector('.btn-success');
+      addBtn.addEventListener('click',(e)=>{
+        newTag.style.display = 'none';
+        socket.emit('add_to_room',{
+          curRoom : info.curRoom,
+          _id: obj._id
+        })
+      })
+    }
     //obj(id, name, avatar) of friend
   friend(socket ,info, parTag, obj){
     const newTag = document.createElement('li');

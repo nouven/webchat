@@ -21,9 +21,9 @@
           <div class="sidebar__searchContainer">
             <!-- <input type="text" placeholder="Search" class="sidebar__searchInput" id="typing_search"></input> -->
             <div class="dropdown">
-              <input type ="text" placeholder="Search" class="sidebar__searchInput" id="typing_search_users" class="btn btn-secondary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <input type ="text" autocomplete="off" placeholder="Search" class="sidebar__searchInput" id="search_user" class="btn btn-secondary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               </input>
-              <div class="dropdown-menu" id="typing_search_users_dropdown" aria-labelledby="dropdownMenuButton">
+              <div class="dropdown-menu" id="search_user_result" aria-labelledby="dropdownMenuButton">
                 <!-- <a class="dropdown-item" href="#">Action</a> -->
               </div>
             </div>
@@ -34,11 +34,11 @@
 
           <div class="addMember">
             <!-- Button trigger modal -->
-              <button type="button" class="btn addRoom__btn" data-toggle="modal" data-target="#exampleModalCenter">
+              <button type="button" class="btn addRoom__btn" data-toggle="modal" data-target="#create_room">
                   <i class="fas fa-users"></i>
               </button>
               <!-- Modal -->
-              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal fade" id="create_room" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -73,7 +73,7 @@
 
       <!-- Chat -->
       <div class="chat">
-        <div class="chat__header" id="show_curr_room">
+        <div class="chat__header" id="chat_header">
           <img id="show_curr_room_img"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHSR0zLO6F4gwew26l3DZYUTxtBc_VywwEaw&usqp=CAU"
             alt="Avatar" class="avatar" />
@@ -83,10 +83,35 @@
             <p class="chat__headerInfo-status">Description</p>
           </div>
 
-          <div class="chat__headerRight">
-            <button class="btn addMember__btn">
+          <div class="chat__headerRight" id="chat_header_right">
+
+            <!-- Button trigger modal -->
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add_member">
               <i class="fas fa-user-plus"></i>
             </button>
+            <!-- Modal -->
+            <div class="modal fade" id="modal_add_member" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">
+                      <input type="text" name="" id="search_friend" autocomplete="off" placeholder="search...">
+                      <i class="fas fa-search-plus"></i>
+                    </h5>
+                  </div>
+                  <div class="modal-body" id="search_friend_result">
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <button class="btn addMember__btn">
+              <i class="fas fa-user-plus"></i>
+            </button> -->
             <button class="btn phone__btn">
               <i class="fas fa-phone"></i>
             </button>
@@ -134,13 +159,13 @@
               <div class="sidebar__headerRight" style="position: relative;">
 
                 <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalLong">
+                  <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal_friend_reqs">
                       <div id="length_of_req" style="color:white;background-color: red; border-radius: 40% ; min-width: 20px;max-height: 20px; font-size: 12px;position: absolute;transform: translate(15px, -10px);font-weight: 1000; "></div>
                       <i class="fas fa-user-friends"></i>
                   </button>
 
                   <!-- Modal -->
-                  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal fade" id="modal_friend_reqs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -158,19 +183,15 @@
 
               </div>
 
-              <div class="dropdown">
-                <button  class="btn btn-outline-primary" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   <i class="fas fa-ellipsis-v "></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">
-                    <button type="button" class="btn btn-primary">Logout</button>
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    <button id="logout"  type="button" class="btn btn-primary">Logout</button>
-                  </a>
-                </div>
-              </div>
+                   <!-- Default dropleft button -->
+                  <div class="btn-group dropleft">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v "></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <button type="button" class="btn btn-outline-primary">logout</button>
+                    </div>
+                  </div>
               <!-- <div class="sidebar__headerRight">
                  <button type="button" class="btn btn-outline-primary">
                  </button>
@@ -197,7 +218,7 @@
     </div>
 
      <!-- Modal -->
-    <div class="modal">
+    <!-- <div class="modal">
       <div class="modal__container">
         <div class="modal__close">
           <i class="fas fa-times"></i>
@@ -240,7 +261,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
     
 
    

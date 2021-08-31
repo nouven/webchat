@@ -95,9 +95,9 @@ module.exports = function(io, socket){
             }))
         }
     })
-    //typing_search_users
+    //search_user
     //obj{result of seearch, _id }
-    socket.on("typing_search_users",(obj)=>{
+    socket.on("search_user",(obj)=>{
         user.find({keys: obj.result, friends:{$ne: obj._id}, _id:{$ne:obj._id}}).limit(5).then(result=>{
             if(result){
                 result.forEach(elmt=>{
@@ -110,23 +110,71 @@ module.exports = function(io, socket){
             }
         })
     })
-    // create_room
-    //obj{name, _id of user}
-    socket.on("create_room",(obj)=>{
-        room.create({
-            name: obj.name,
-            users: obj.user
-        }).then(()=>{
-            room.findOne({name: obj.name, users: obj.user}).then(result=>{
+    //add member to room
+        //search_friend
+    socket.on("search_friend",(obj)=>{
+        if(obj.curRoom){
+            user.find({keys: obj.result, friends: obj._id, _id:{$ne:obj._id}}).limit(5).then(result=>{
+                if(result){
+                    result.forEach(elmt=>{
+                        socket.emit('initSearchFriendResult',{
+                            name: elmt.name,
+                            avatar: elmt.avatar,
+                            _id: elmt._id
+                        })
+                    })
+                }
+            })
+        }
+    })
+    socket.on('add_to_room',obj=>{
+        if(obj.curRoom){
+            room.findById(obj.curRoom).then(result=>{
+                if(result){
+                    const arr = result.users.filter(elmt=>{
+                        return elmt == obj._id
+                    })
+                    if(arr.length == 0){
+                        result.users.push(obj._id);
+                        result.save();
+                        io.emit('add_to_room_true',obj);
+                    }
+                }
+            })
+        }
+    });
+    socket.on('add_to_room_true',(obj)=>{
+        if(obj.curRoom){
+            room.findById(obj.curRoom).then(result=>{
                 if(result){
                     socket.emit('initRoom',{
                         _id: result._id,
-                        name: result.name,
+                        name:result.name,
                         avatar: result.avatar
                     })
                 }
             })
-        })
+        }
+    })
+    // create_room
+    //obj{name, _id of user}
+    socket.on("create_room",(obj)=>{
+        if(obj.name != ''){
+            room.create({
+                name: obj.name,
+                users: obj.user
+            }).then(()=>{
+                room.findOne({name: obj.name, users: obj.user}).then(result=>{
+                    if(result){
+                        socket.emit('initRoom',{
+                            _id: result._id,
+                            name: result.name,
+                            avatar: result.avatar
+                        })
+                    }
+                })
+            })
+        }
     })
     //friendReq
     //obj{id, id} of sender & receiver
@@ -135,7 +183,7 @@ module.exports = function(io, socket){
             if(result){
                 result.friendReqs.push(obj.sender);
                 result.save();
-                io.emit("friendReq",obj);
+                io.emit("friendReqTrue",obj);
             }
         })
     })
@@ -143,7 +191,8 @@ module.exports = function(io, socket){
     socket.on("friendReqTrue",obj=>{
         if(obj){
             user.findById(obj.receiver).then(result=>{
-                socket.emit('lengthOfReq', result.friendReqs.length);
+                const lengthOfReq = result.friendReqs.length;
+                socket.emit('lengthOfReq', lengthOfReq);
             })
             user.findById(obj.sender).then(result=>{
                 if(result){
