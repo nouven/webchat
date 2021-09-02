@@ -1,5 +1,5 @@
 class InitTag {
-  room(socket, info, parTag, obj){
+  room(socket, info, parTag, obj) {
     const newTag = document.createElement("a");
     newTag.classList.add("sidebarChat-link");
     newTag.setAttribute("href", `#${obj._id}`);
@@ -18,7 +18,7 @@ class InitTag {
     newTag.addEventListener("click", (e) => {
       modal_add_member.setAttribute("style", "visibility: visible");
       form_typing_mess.setAttribute("style", "visibility: visible");
-      chat_header_right.setAttribute('style', 'visibility: visible');
+      chat_header_right.setAttribute("style", "visibility: visible");
       //show current room
       info.befRoom = info.curRoom;
       info.curRoom = obj._id;
@@ -36,21 +36,24 @@ class InitTag {
   }
 
   //obj(id, name, avatar) of friend
-  friend(socket ,info, parTag, obj){
-    const newTag = document.createElement('li');
-    newTag.classList.add('friend__items');
-    newTag.innerHTML=`
-             <img
-             src=${obj.avatar}  alt="Avatar" class="avatar" />
+  friend(socket, info, parTag, obj) {
+    const newTag = document.createElement("li");
+    newTag.classList.add("friend__items");
+    newTag.innerHTML = `
+            <div class= "friend__status-wrap">
+              <img src=${obj.avatar}  alt="Avatar" class="avatar" />
+              <div class="friend__status"></div> 
+            </div>
+    
              <div class="sidebarChat__info">
               <h2 class="sidebarChat__info-name">${obj.name}</h2>
              </div>
     `;
     parTag.appendChild(newTag);
     newTag.addEventListener("click", (e) => {
-      modal_add_member.style.display = 'none';
+      modal_add_member.style.display = "none";
       form_typing_mess.setAttribute("style", "visibility: visible");
-      chat_header_right.setAttribute('style', 'visibility: visible');
+      chat_header_right.setAttribute("style", "visibility: visible");
       //reset show_messages
       show_messages.innerHTML = "";
       const imgTag = chat_header.querySelector("#show_curr_room_img");
@@ -61,7 +64,6 @@ class InitTag {
         _id_1: obj._id,
         _id_2: info._id,
       });
-      
     });
   }
   //obj{info}
@@ -82,23 +84,34 @@ class InitTag {
   //     name: String,
   //     content: String,
   mess(socket, info, obj, parTag) {
-    const newTag = document.createElement("div");
+    const newTag = document.createElement("p");
+    newTag.classList.add("chat__sender");
     if (obj._id != info._id) {
       newTag.innerHTML = `
-          <p class="chat__sender">
-            <img src=${obj.avatar} class="avatar_onchat" />
+          <div class="messages">
+            <div class="messages__avt">
+              <img src=${obj.avatar} class="avatar_onchat" />
+            </div>
             <span class="chat__name">${obj.name}</span>
-            ${obj.content}<br>
-            <span class="chat__time">${obj.createdAt}</span>
-          </p>
+            <div class="messages__content">
+            <div class="content__sender">
+              ${obj.content}<br>
+              <span class="chat__time">${obj.createdAt}</span>
+            </div>
+            </div>
+          </div>
         `;
     } else {
+      newTag.classList.add("chat__receiver");
       newTag.innerHTML = `
-          <p class="chat__receiver chat__sender">
-            <span class="chat__name"></span>
-            ${obj.content}<br>
-            <span class="chat__time">${obj.createdAt}</span>
-          </p>
+        <div class="messages">
+          <div>
+            <div class="content">
+              ${obj.content}<br>
+              <span class="chat__time">${obj.createdAt}</span>
+            </div>
+          </div>
+        </div>
         `;
     }
     newTag.querySelector(".chat__time").style.display = "none";
@@ -110,69 +123,81 @@ class InitTag {
     });
     parTag.insertBefore(newTag, parTag.children[0]);
   }
-    //obj{name, avatar} of user,
-    userSearchResult(socket, info, parTag, obj){
-      const newTag = document.createElement('a');
-      newTag.setAttribute("class", "dropdown-item");
-      newTag.innerHTML = `
-        <img src=${obj.avatar} class="avatar_onchat" />
-        ${obj.name}
-        <button type="button" class="btn btn-success">add</button>
-      `;
-      parTag.appendChild(newTag);
-      const addFriendBtn = newTag.querySelector('button');
-      addFriendBtn.addEventListener('click',(e)=>{
-        socket.emit("friendReq",{
-          sender: info._id,
-          receiver:obj._id
-        });
-      });
-    }
-
-    friendSearchResult(socket, info, parTag, obj){
-      const newTag = document.createElement('a');
-      newTag.setAttribute("class", "dropdown-item");
-      newTag.innerHTML = `
-        <img src=${obj.avatar} class="avatar_onchat" />
-        ${obj.name}
-        <button type="button" class="btn btn-success">add</button>
-      `;
-      parTag.appendChild(newTag);
-      const addBtn = newTag.querySelector('.btn-success');
-      addBtn.addEventListener('click',(e)=>{
-        newTag.style.display = 'none';
-        socket.emit('add_to_room',{
-          curRoom : info.curRoom,
-          _id: obj._id
-        })
-      })
-    }
-    //obj{id,name, avatar};
-  friendReq(socket, info, parTag, obj){
-    const newTag = document.createElement('div');
+  //obj{name, avatar} of user,
+  userSearchResult(socket, info, parTag, obj) {
+    const newTag = document.createElement("div");
+    newTag.setAttribute("class", "dropdown-item");
+    newTag.classList.add("edit__dropdown");
     newTag.innerHTML = `
-        <img src=${obj.avatar} class="avatar_onchat" />
+    <div class="user__info">
+    <img src=${obj.avatar} class="avatar_onchat" />
         ${obj.name}
-        <button type="button" class="btn btn-danger">delete</button>
-        <button type="button" class="btn btn-success">accept</button>
+        </div>
+        <button type="button" class="btn btn-success edit__btn">add</button>
+      `;
+    parTag.appendChild(newTag);
+    const addFriendBtn = newTag.querySelector("button");
+    addFriendBtn.addEventListener("click", (e) => {
+      socket.emit("friendReq", {
+        sender: info._id,
+        receiver: obj._id,
+      });
+    });
+  }
+
+  friendSearchResult(socket, info, parTag, obj) {
+    const newTag = document.createElement("a");
+    newTag.setAttribute("class", "dropdown-item");
+    newTag.classList.add("edit__dropdown");
+    newTag.innerHTML = `
+    <div class="user__info">
+    <img src=${obj.avatar} class="avatar_onchat" />
+        ${obj.name}
+        </div>
+        <button type="button" class="btn btn-success edit__btn">add</button>
+      `;
+    parTag.appendChild(newTag);
+    const addBtn = newTag.querySelector(".btn-success");
+    addBtn.addEventListener("click", (e) => {
+      newTag.style.display = "none";
+      socket.emit("add_to_room", {
+        curRoom: info.curRoom,
+        _id: obj._id,
+      });
+    });
+  }
+  //obj{id,name, avatar};
+  friendReq(socket, info, parTag, obj) {
+    const newTag = document.createElement("div");
+    newTag.classList.add("friendrqs");
+    newTag.innerHTML = `
+      <div class = "friendrqs__info">
+        <img src=${obj.avatar} class="avatar" />
+        <span style="font-size: 20px;margin-left: 6px;">
+          ${obj.name}
+        </span>
+      </div>
+        <div class="friendrqs__btn">
+          <button type="button" class="btn btn-danger edit__btn">Delete</button>
+          <button type="button" class="btn btn-success edit__btn">Accept</button>
+        </div>
     `;
     parTag.appendChild(newTag);
-    const delete_btn = newTag.querySelector('.btn-danger');
-    const accept_btn = newTag.querySelector('.btn-success');
-    delete_btn.addEventListener('click', (e)=>{
-      newTag.style.display = 'none';
+    const delete_btn = newTag.querySelector(".btn-danger");
+    const accept_btn = newTag.querySelector(".btn-success");
+    delete_btn.addEventListener("click", (e) => {
+      newTag.style.display = "none";
       socket.emit("deleteFriendReq", {
         _id: info._id,
         data: obj._id,
       });
-    })
-    accept_btn.addEventListener('click', (e)=>{
-      newTag.style.display = 'none';
+    });
+    accept_btn.addEventListener("click", (e) => {
+      newTag.style.display = "none";
       socket.emit("acceptFriendReq", {
         _id: info._id,
         data: obj._id,
       });
-    })
-    
+    });
   }
 }
