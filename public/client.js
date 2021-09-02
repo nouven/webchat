@@ -73,10 +73,22 @@ socket.on("initSearchFriendResult",(obj)=>{
     initTag.friendSearchResult(socket, info, search_friend_result, obj);
 })
 socket.on('lengthOfReq',data=>{
+    console.log(data);
     length_of_req.innerHTML = data
 })
 socket.on("initFriendReq",(obj)=>{
     initTag.friendReq(socket, info, friend_reqs, obj);
+})
+socket.on('online_status',obj=>{
+    if(obj._id_2 === info._id){
+        show_friends.querySelector(`#f${obj._id_1}`).setAttribute('style', 'background: rgb(49, 162, 76)');
+        socket.emit('online_status', obj);
+    }
+})
+socket.on('offline_status',obj=>{
+    if(obj._id_2 === info._id){
+        show_friends.querySelector(`#f${obj._id_1}`).setAttribute('style', 'background: #e60000');
+    }
 })
 //accep_friend_req
 socket.on('typing',()=>{

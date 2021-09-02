@@ -3,13 +3,28 @@ const room = require('./models/room');
 const { emit } = require('./models/user');
 module.exports = function(io, socket){
     console.log(socket.id+" connected!");
-    socket.on('disconnect',(data)=>{
-        console.log(socket._id);
-        console.log(socket.id+' disconnected!');
+    socket.on('disconnect',()=>{
+        user.find({friends: socket._id}).then(result=>{
+            if(result){
+                result.forEach(elmt=>{
+                    io.emit('offline_status',{
+                        _id_1: socket._id,
+                        _id_2: elmt._id
+                    })
+                })
+            }
+        });
     })
 //init<==========================================================>
     socket.on('init',(_id)=>{
+        //online_status
         socket._id = _id;
+        socket.on('online_status',obj=>{
+            io.emit('online_status',{
+                _id_1: obj._id_2,
+                _id_2: obj._id_1
+            })
+        })
         user.findById(_id).then((result)=>{
             if(result){
                 socket.emit('initInfo', {
@@ -39,6 +54,10 @@ module.exports = function(io, socket){
                         _id: elmt._id,
                         name: elmt.name,
                         avatar: elmt.avatar,
+                    })
+                    io.emit('online_status',{
+                        _id_1: socket._id,
+                        _id_2: elmt._id
                     })
                 })
             }
@@ -202,8 +221,9 @@ module.exports = function(io, socket){
     socket.on("friendReqTrue",obj=>{
         if(obj){
             user.findById(obj.receiver).then(result=>{
-                const lengthOfReq = result.friendReqs.length;
-                socket.emit('lengthOfReq', lengthOfReq);
+                if(result){
+                    socket.emit('lengthOfReq', result.friendReqs.length);
+                }
             })
             user.findById(obj.sender).then(result=>{
                 if(result){

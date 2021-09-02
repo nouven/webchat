@@ -42,7 +42,7 @@ class InitTag {
     newTag.innerHTML = `
             <div class= "friend__status-wrap">
               <img src=${obj.avatar}  alt="Avatar" class="avatar" />
-              <div class="friend__status"></div> 
+              <div class="friend__status" id="f${obj._id}"></div> 
             </div>
     
              <div class="sidebarChat__info">
