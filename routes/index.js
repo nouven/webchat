@@ -10,36 +10,16 @@ const room = require('../models/room');
 
 const passport = require('passport');
 const { isValidObjectId } = require('mongoose');
+const session = require('express-session');
 function route (app){
     //test
     app.get('/test',(req, res)=>{
-        user.find({_id: {$ne: "612b01881901f03002b782f5"}}).then(result=>{
-            if(result){
-                result.forEach(elmt=>{
-                    console.log(elmt.name);
-                })
-            }
-        })
-        
-            // users:["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d" ,"6129bbab62382d3721655b64"]
-            // room.create({
-            //     name: 'room_1',
-            //     users:["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d" ,"6129bbab62382d3721655b64"]
-            // })
-
-        // })
-        // room1 = new room({
-        //     name: 'room_1',
-        //     users: ["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d","6129bbab62382d3721655b64"],
-        // });
-        // room2 = new room({
-        //     name: 'room_2',
-        //     users: ["6129bb3062382d3721655b61","6129bb1d62382d3721655b5d"],
-        // });
-        // room1.save();
-        // room2.save();
-        res.send('successssssssll');
-
+        app.use(session({
+            secret: 'cats',
+            resave: false,
+            saveUninitialized: true,
+        }))
+        res.send("hahah");
     })
     app.post('/test',
         upload.single('avatar'),
@@ -67,7 +47,7 @@ function route (app){
     );
     app.get( '/auth/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/',
+        successRedirect: '/signup',
         failureRedirect: '/login'
     }));
     app.use('/signup', signinRoute);

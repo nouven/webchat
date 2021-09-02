@@ -12,9 +12,13 @@ const passport = require('passport');
 const session = require('express-session');
 
 const oauth = require('./configs/oauth');
-// app.use(session({secret: 'cats'}));
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(session({
+//     secret: 'cats',
+//     resave: false,
+//     saveUninitialized: true,
+// }))
 
 //body parsevar
 bodyParser = require('body-parser')

@@ -19,6 +19,7 @@ const length_of_req = document.querySelector('#length_of_req');
 //modal_add_member
 const search_friend = document.querySelector('#search_friend');
 const search_friend_result= document.querySelector('#search_friend_result');
+const modal_add_member = document.querySelector('.modal_add_member');
 
 //
 const show_info = document.querySelector('#show_info');
@@ -27,6 +28,7 @@ const chat_header_right = document.querySelector('#chat_header_right');
 //
 // show_curr_room.style.display = 'none';
 chat_header_right.style.display = 'none';
+form_typing_mess.style.display = 'none';
 
 
 const info={
@@ -52,7 +54,7 @@ socket.on('initInfo',(obj)=>{
 })
 //obj{room}
 socket.on('initRoom',(obj)=>{
-    initTag.room(socket, info, show_rooms, obj, chat_header,chat_header_right, show_messages, form_typing_mess);
+    initTag.room(socket, info, show_rooms, obj);
 })
 //obj{message};
 socket.on('initMess',(obj)=>{
@@ -80,8 +82,15 @@ socket.on("initFriendReq",(obj)=>{
 socket.on('typing',()=>{
     
 })
+socket.on('onclick_friend', id=>{
+    info.befRoom = info.curRoom;
+    info.curRoom = id;
+    socket.emit('onclick_room', info);
+})
 // typing_mess-submit;
 // visibility: visible
+
+//<<==============================>
 form_typing_mess.addEventListener('submit',(e)=>{
     e.preventDefault();
     const inputText = form_typing_mess.querySelector('input').value.trim();
@@ -96,7 +105,7 @@ form_typing_mess.addEventListener('submit',(e)=>{
         }));
     }
 })
-
+// MAKE FRIEND<<====================================>
 //search_user-onkey
 search_user.addEventListener('keyup',(e)=>{
     //remove all childNode
@@ -118,14 +127,14 @@ socket.on("friendReqTrue",obj =>{
         socket.emit("friendReqTrue",obj);
     }
 })
-socket.on("acceptFriendReq",obj=>{
+socket.on("acceptFriendReqTrue",obj=>{
     if(obj.data === info._id){
         socket.emit('acceptFriendReqTrue', obj);
     }
 })
 
 
-
+//CREATE ROOM <====================================================>
 //modal_create_room
 btn_create_room.addEventListener('click',()=>{
     let input = input_create_room.value.trim();
@@ -137,7 +146,8 @@ btn_create_room.addEventListener('click',()=>{
         });
     }
 })
-//add friend into room
+
+//add friend into room<===========================================>
     //search_friend-onkey
 search_friend.addEventListener('keyup',(e)=>{
     //remove all childNode

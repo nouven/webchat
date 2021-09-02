@@ -163,9 +163,13 @@
 }
 
 .sidebar__header {
+  background-color: #dadbd3;
+  min-height: 50px;
+  max-height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0px;
   padding: 10px;
   border-right: 1px solid lightgray;
 }
@@ -280,11 +284,11 @@ body {
   display: flex;
   flex-direction: column;
   flex: 0.2;
-  background-color: rgb(240, 242, 245);
+  background-color: white;
 }
 
 .friend__container {
-  padding: 14px;
+  padding: 0px;
 }
 
 /* .friend__knowing {

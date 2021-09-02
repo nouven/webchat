@@ -24,13 +24,6 @@ passport.use(new GoogleStrategy({
             name : name
         }
         console.log(doc);
-        app.use(session({
-            secret: 'keyboard cat',
-            resave: false,
-            saveUninitialized: true,
-            cookie: { secure: true }
-          }))
-        user.create(doc);
       return done(null, profile);
   }
 ));

@@ -1,5 +1,5 @@
 class InitTag {
-  room(socket, info, parTag, obj, show_curr_room, chat_header_right, show_messages, form_typing_mess){
+  room(socket, info, parTag, obj){
     const newTag = document.createElement("a");
     newTag.classList.add("sidebarChat-link");
     newTag.setAttribute("href", `#${obj._id}`);
@@ -16,6 +16,7 @@ class InitTag {
     parTag.appendChild(newTag);
     //onclick
     newTag.addEventListener("click", (e) => {
+      modal_add_member.setAttribute("style", "visibility: visible");
       form_typing_mess.setAttribute("style", "visibility: visible");
       chat_header_right.setAttribute('style', 'visibility: visible');
       //show current room
@@ -24,13 +25,43 @@ class InitTag {
       if (info.befRoom != info.curRoom) {
         //reset show_messages
         show_messages.innerHTML = "";
-        const imgTag = show_curr_room.querySelector("#show_curr_room_img");
-        const nameTag = show_curr_room.querySelector("#show_curr_room_name");
+        const imgTag = chat_header.querySelector("#show_curr_room_img");
+        const nameTag = chat_header.querySelector("#show_curr_room_name");
         imgTag.setAttribute("src", `${obj.avatar}`);
         nameTag.innerHTML = obj.name;
         //show old message
         socket.emit("onclick_room", info);
       }
+    });
+  }
+
+  //obj(id, name, avatar) of friend
+  friend(socket ,info, parTag, obj){
+    const newTag = document.createElement('li');
+    newTag.classList.add('friend__items');
+    newTag.innerHTML=`
+             <img
+             src=${obj.avatar}  alt="Avatar" class="avatar" />
+             <div class="sidebarChat__info">
+              <h2 class="sidebarChat__info-name">${obj.name}</h2>
+             </div>
+    `;
+    parTag.appendChild(newTag);
+    newTag.addEventListener("click", (e) => {
+      modal_add_member.style.display = 'none';
+      form_typing_mess.setAttribute("style", "visibility: visible");
+      chat_header_right.setAttribute('style', 'visibility: visible');
+      //reset show_messages
+      show_messages.innerHTML = "";
+      const imgTag = chat_header.querySelector("#show_curr_room_img");
+      const nameTag = chat_header.querySelector("#show_curr_room_name");
+      imgTag.setAttribute("src", `${obj.avatar}`);
+      nameTag.innerHTML = obj.name;
+      socket.emit("onclick_friend", {
+        _id_1: obj._id,
+        _id_2: info._id,
+      });
+      
     });
   }
   //obj{info}
@@ -116,35 +147,6 @@ class InitTag {
         })
       })
     }
-    //obj(id, name, avatar) of friend
-  friend(socket ,info, parTag, obj){
-    const newTag = document.createElement('li');
-    newTag.classList.add('friend__items');
-    newTag.innerHTML=`
-             <img
-             src=${obj.avatar}  alt="Avatar" class="avatar" />
-             <div class="sidebarChat__info">
-              <h2 class="sidebarChat__info-name">${obj.name}</h2>
-             </div>
-    `;
-    parTag.appendChild(newTag);
-    newTag.addEventListener("click", (e) => {
-      form_typing_mess.setAttribute("style", "visibility: visible");
-      //show current room
-      info.befRoom = info.curRoom;
-      info.curRoom = obj._id;
-      if (info.befRoom != info.curRoom) {
-        //reset show_messages
-        show_messages.innerHTML = "";
-        const imgTag = show_curr_room.querySelector("#show_curr_room_img");
-        const nameTag = show_curr_room.querySelector("#show_curr_room_name");
-        imgTag.setAttribute("src", `${obj.avatar}`);
-        nameTag.innerHTML = obj.name;
-        //show old message
-        // socket.emit("onclick_room", info);
-      }
-    });
-  }
     //obj{id,name, avatar};
   friendReq(socket, info, parTag, obj){
     const newTag = document.createElement('div');
