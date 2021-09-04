@@ -11,10 +11,17 @@ const message = new Schema({
 },{
     timestamps: true,
 })
+const user = new Schema({
+    _id: String,
+    unSeenMess:{
+        default: 0,
+        type: 'Number'
+    } 
+})
 
 const room = new Schema({
     name: String,
-    users: [String],
+    users: [user],
     messages:[message],
     type: {
         type: Number,

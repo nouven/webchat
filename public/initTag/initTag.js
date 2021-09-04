@@ -3,22 +3,49 @@ class InitTag {
     const newTag = document.createElement("a");
     newTag.classList.add("sidebarChat-link");
     newTag.setAttribute("href", `#${obj._id}`);
-    newTag.innerHTML = `
+    if(obj.unSeenMess == 0){
+      newTag.innerHTML = `
           <div class="sidebarChat">
+          <div style:"position: relative">
             <img
               src=${obj.avatar}
               alt="Avatar" class="avatar" />
+              <div id="r${obj._id}" style="color:white;background-color: red; border-radius: 40% ; text-align:center; min-width: 20px;max-height: 20px; font-size: 12px;position: absolute;transform: translate(29px, -40px);font-weight: 1000; ">
+              </div>
+          </div>
             <div class="sidebarChat__info">
               <h2 class="sidebarChat__info-name">${obj.name}</h2>
               <p>Last Message</p>
             </div>
           </div>`;
+    }else{
+      newTag.innerHTML = `
+          <div class="sidebarChat">
+          <div style:"position: relative">
+            <img
+              src=${obj.avatar}
+              alt="Avatar" class="avatar" />
+              <div id="r${obj._id}" style="color:white;background-color: red; border-radius: 40% ; text-align:center; min-width: 20px;max-height: 20px; font-size: 12px;position: absolute;transform: translate(29px, -40px);font-weight: 1000; ">
+              ${obj.unSeenMess}
+              </div>
+          </div>
+            <div class="sidebarChat__info">
+              <h2 class="sidebarChat__info-name">${obj.name}</h2>
+              <p>Last Message</p>
+            </div>
+          </div>`;
+    }
     parTag.appendChild(newTag);
     //onclick
     newTag.addEventListener("click", (e) => {
       modal_add_member.setAttribute("style", "visibility: visible");
       form_typing_mess.setAttribute("style", "visibility: visible");
       chat_header_right.setAttribute("style", "visibility: visible");
+      //updata unSeenMess
+      socket.emit("updateUnSeenMess",{
+        curRoom: obj._id,
+        _id: info._id,
+      });
       //show current room
       info.befRoom = info.curRoom;
       info.curRoom = obj._id;

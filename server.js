@@ -62,10 +62,14 @@ module.exports = function(io, socket){
                 })
             }
         });
-        room.find({users:_id, type: 1}).then((result)=>{
+        room.find({"users._id":_id, "users.unSeenMess":{$gt:-1} , type: 1}).then((result)=>{
             if(result){
                 result.forEach(elmt=>{
+                    const arr = elmt.users.filter(elmt=>{
+                        return elmt._id === _id;
+                    });
                     socket.emit('initRoom',{
+                        unSeenMess: arr[0].unSeenMess,
                         _id: elmt._id,
                         name: elmt.name,
                         avatar: elmt.avatar
@@ -97,7 +101,7 @@ module.exports = function(io, socket){
         //obj{_id, _id};
     socket.on('onclick_friend',obj=>{
         console.log(obj);
-        room.findOne({users: obj._id_2, users:obj._id_1, type: 10}).then(result=>{
+        room.findOne({users:{$all: [{_id: obj._id_1}, {_id: obj._id_2}]}, type: 10}).then(result=>{
             if(result){
                 console.log(result._id);
                 socket.emit("onclick_friend", result._id);
@@ -115,6 +119,14 @@ module.exports = function(io, socket){
                     avatar:obj.avatar,
                     content: obj.content 
                 });
+                result.users.forEach(elmt=>{
+                    ++elmt.unSeenMess;
+                    io.emit('updateUnSeenMess',{
+                        curRoom: obj.curRoom,
+                        _id: elmt._id,
+                        unSeenMess: elmt.unSeenMess
+                    })
+                })
                 result.save();
             });
             io.to(obj.curRoom).emit('initMess',({
@@ -124,6 +136,24 @@ module.exports = function(io, socket){
                 content: obj.content
             }))
         }
+    })
+    socket.on('updateUnSeenMess',obj=>{
+        room.findById(obj.curRoom).then((result)=>{
+            if(result){
+                const arr = result.users.filter(elmt=>{
+                    return elmt._id === obj._id;
+                });
+                if(arr.length){
+                    arr[0].unSeenMess = 0;
+                }
+                socket.emit('updateUnSeenMess',{
+                    curRoom: obj.curRoom,
+                    _id: obj._id,
+                    unSeenMess: 0
+                })
+                result.save();
+            }
+        });
     })
 //add member to room<=======================================================>
         //search_friend
@@ -147,10 +177,10 @@ module.exports = function(io, socket){
             room.findById(obj.curRoom).then(result=>{
                 if(result){
                     const arr = result.users.filter(elmt=>{
-                        return elmt == obj._id
+                        return elmt._id == obj._id
                     })
                     if(arr.length == 0){
-                        result.users.push(obj._id);
+                        result.users.push({_id: obj._id});
                         result.save();
                         io.emit('add_to_room_true',obj);
                     }
@@ -162,7 +192,11 @@ module.exports = function(io, socket){
         if(obj.curRoom){
             room.findById(obj.curRoom).then(result=>{
                 if(result){
+                    const arr = result.users.filter(elmt=>{
+                        return elmt._id === obj._id
+                    })
                     socket.emit('initRoom',{
+                        unSeenMess: 0,
                         _id: result._id,
                         name:result.name,
                         avatar: result.avatar
@@ -177,11 +211,12 @@ module.exports = function(io, socket){
         if(obj.name != ''){
             room.create({
                 name: obj.name,
-                users: obj.user
+                users: {_id: obj.user}
             }).then(()=>{
-                room.findOne({name: obj.name, users: obj.user}).then(result=>{
+                room.findOne({name: obj.name, users:{_id: obj.user}}).then(result=>{
                     if(result){
                         socket.emit('initRoom',{
+                            unSeenMess: 0,
                             _id: result._id,
                             name: result.name,
                             avatar: result.avatar
@@ -276,7 +311,7 @@ module.exports = function(io, socket){
             }
         })
         room.create({
-            users: [obj._id, obj.data],
+            users: [{_id: obj._id}, {_id:obj.data}],
             type: 10
         })
         io.emit("acceptFriendReqTrue", obj);

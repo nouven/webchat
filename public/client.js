@@ -90,6 +90,22 @@ socket.on('offline_status',obj=>{
         show_friends.querySelector(`#f${obj._id_1}`).setAttribute('style', 'background: #e60000');
     }
 })
+//obj{curRoom, _id, unSeenMess}
+socket.on("updateUnSeenMess", obj=>{
+    if(obj._id === info._id){
+        if(obj.curRoom != info.curRoom){
+            if(obj.unSeenMess !=0){
+                document.querySelector(`#r${obj.curRoom}`).innerHTML = obj.unSeenMess;
+            }
+        }else{
+            document.querySelector(`#r${obj.curRoom}`).innerHTML = '';
+            socket.emit("updateUnSeenMess",{
+                curRoom: obj.curRoom,
+                _id: info._id,
+            });
+        }
+    }
+})
 //accep_friend_req
 socket.on('typing',()=>{
     
@@ -176,10 +192,9 @@ search_friend.addEventListener('keyup',(e)=>{
         });
     }
 })
+//obj{curRoom, _id} 
 socket.on('add_to_room_true',(obj)=>{
     if(obj._id === info._id){
-        socket.emit('add_to_room_true',{
-            curRoom: obj.curRoom,
-        });
+        socket.emit('add_to_room_true',obj);
     }
 })
