@@ -82,7 +82,12 @@ socket.on("initFriendReq",(obj)=>{
 socket.on('online_status',obj=>{
     if(obj._id_2 === info._id){
         show_friends.querySelector(`#f${obj._id_1}`).setAttribute('style', 'background: rgb(49, 162, 76)');
-        socket.emit('online_status', obj);
+        socket.emit('online_status_2', obj);
+    }
+})
+socket.on('online_status_2',obj=>{
+    if(obj._id_2 === info._id){
+        show_friends.querySelector(`#f${obj._id_1}`).setAttribute('style', 'background: rgb(49, 162, 76)');
     }
 })
 socket.on('offline_status',obj=>{

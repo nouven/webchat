@@ -86,7 +86,7 @@
   display: flex;
   flex: 1;
   flex-direction: column-reverse;
-  background-image: url("https://i.pinimg.com/originals/3d/08/e0/3d08e03cb40252526fee2036a67f07f1.gif");
+  background-image: url("https://images.pexels.com/photos/235986/pexels-photo-235986.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");
   background-repeat: repeat;
   background-position: center;
   padding: 30px;
@@ -611,6 +611,20 @@ body {
   border: 2px solid #fff;
 }
 
+.friend__status__unSeenMess {
+  padding: 0%;
+  font-weight: 700;
+  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: -7px;
+  text-align: center;
+  border-radius: 40%;
+  min-width: 20px;
+  max-height: 20px;
+  color: white;
+  background: #e60000;
+}
 .messages {
   display: flex;
 }

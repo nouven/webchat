@@ -19,8 +19,8 @@ module.exports = function(io, socket){
     socket.on('init',(_id)=>{
         //online_status
         socket._id = _id;
-        socket.on('online_status',obj=>{
-            io.emit('online_status',{
+        socket.on('online_status_2',obj=>{
+            io.emit('online_status_2',{
                 _id_1: obj._id_2,
                 _id_2: obj._id_1
             })
@@ -50,15 +50,25 @@ module.exports = function(io, socket){
         user.find({friends: _id}).then(result=>{
             if(result){
                 result.forEach(elmt=>{
-                    socket.emit('initFriend',{
-                        _id: elmt._id,
-                        name: elmt.name,
-                        avatar: elmt.avatar,
-                    })
-                    io.emit('online_status',{
-                        _id_1: socket._id,
-                        _id_2: elmt._id
-                    })
+                    room.findOne({ "users._id":{$all:[elmt._id, _id]}, type: 10}).then(result=>{
+                        if(result){
+                            const arr = result.users.filter(elmt2=>{
+                                return elmt2._id === socket._id;
+                            })
+                            socket.emit('initFriend',{
+                                room_id: result._id,
+                                unSeenMess: arr[0].unSeenMess,
+                                _id: elmt._id,
+                                name: elmt.name,
+                                avatar: elmt.avatar,
+                            })
+                        }
+                    }).then(()=>{
+                        io.emit('online_status',{
+                            _id_1: socket._id,
+                            _id_2: elmt._id
+                        })
+                    });
                 })
             }
         });
@@ -88,9 +98,7 @@ module.exports = function(io, socket){
         }
         socket.join(obj.curRoom);
         room.findById(obj.curRoom).then((result)=>{
-            if(result.messages.length == 0){
-                return;
-            }else{
+            if(result.messages.length != 0){
                 result.messages.forEach(elmt=>{
                     socket.emit('initMess',elmt);
                 })
@@ -100,8 +108,7 @@ module.exports = function(io, socket){
         //onclick_friend
         //obj{_id, _id};
     socket.on('onclick_friend',obj=>{
-        console.log(obj);
-        room.findOne({users:{$all: [{_id: obj._id_1}, {_id: obj._id_2}]}, type: 10}).then(result=>{
+        room.findOne({ "users._id":[obj._id_1, obj._id_2], type: 10}).then(result=>{
             if(result){
                 console.log(result._id);
                 socket.emit("onclick_friend", result._id);

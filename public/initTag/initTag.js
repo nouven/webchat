@@ -66,31 +66,54 @@ class InitTag {
   friend(socket, info, parTag, obj) {
     const newTag = document.createElement("li");
     newTag.classList.add("friend__items");
-    newTag.innerHTML = `
-            <div class= "friend__status-wrap">
-              <img src=${obj.avatar}  alt="Avatar" class="avatar" />
-              <div class="friend__status" id="f${obj._id}"></div> 
-            </div>
-    
-             <div class="sidebarChat__info">
-              <h2 class="sidebarChat__info-name">${obj.name}</h2>
-             </div>
-    `;
+    if(obj.unSeenMess == 0){
+      newTag.innerHTML = `
+              <div class= "friend__status-wrap">
+                <div id="r${obj.room_id}" class="friend__status__unSeenMess">
+                </div>
+                <img src=${obj.avatar}  alt="Avatar" class="avatar" />
+                <div class="friend__status" id="f${obj._id}"></div> 
+              </div>
+               <div class="sidebarChat__info">
+                <h2 class="sidebarChat__info-name">${obj.name}</h2>
+               </div>
+      `;
+    }else{
+      newTag.innerHTML = `
+              <div class= "friend__status-wrap">
+                <div id="r${obj.room_id}" class="friend__status__unSeenMess">
+                ${obj.unSeenMess}
+                </div>
+                <img src=${obj.avatar}  alt="Avatar" class="avatar" />
+                <div class="friend__status" id="f${obj._id}"></div> 
+              </div>
+               <div class="sidebarChat__info">
+                <h2 class="sidebarChat__info-name">${obj.name}</h2>
+               </div>
+      `;
+    }
     parTag.appendChild(newTag);
     newTag.addEventListener("click", (e) => {
       modal_add_member.style.display = "none";
       form_typing_mess.setAttribute("style", "visibility: visible");
       chat_header_right.setAttribute("style", "visibility: visible");
-      //reset show_messages
-      show_messages.innerHTML = "";
-      const imgTag = chat_header.querySelector("#show_curr_room_img");
-      const nameTag = chat_header.querySelector("#show_curr_room_name");
-      imgTag.setAttribute("src", `${obj.avatar}`);
-      nameTag.innerHTML = obj.name;
-      socket.emit("onclick_friend", {
-        _id_1: obj._id,
-        _id_2: info._id,
+      socket.emit("updateUnSeenMess",{
+        curRoom: obj.room_id,
+        _id: info._id,
       });
+      //reset show_messages
+      info.befRoom = info.curRoom;
+      info.curRoom = obj.room_id;
+      if (info.befRoom != info.curRoom) {
+        //reset show_messages
+        show_messages.innerHTML = "";
+        const imgTag = chat_header.querySelector("#show_curr_room_img");
+        const nameTag = chat_header.querySelector("#show_curr_room_name");
+        imgTag.setAttribute("src", `${obj.avatar}`);
+        nameTag.innerHTML = obj.name;
+        //show old message
+        socket.emit("onclick_room", info);
+      }
     });
   }
   //obj{info}
