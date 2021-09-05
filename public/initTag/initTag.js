@@ -3,7 +3,7 @@ class InitTag {
     const newTag = document.createElement("a");
     newTag.classList.add("sidebarChat-link");
     newTag.setAttribute("href", `#${obj._id}`);
-    if(obj.unSeenMess == 0){
+    if (obj.unSeenMess == 0) {
       newTag.innerHTML = `
           <div class="sidebarChat">
           <div style:"position: relative">
@@ -18,7 +18,7 @@ class InitTag {
               <p>Last Message</p>
             </div>
           </div>`;
-    }else{
+    } else {
       newTag.innerHTML = `
           <div class="sidebarChat">
           <div style:"position: relative">
@@ -42,7 +42,7 @@ class InitTag {
       form_typing_mess.setAttribute("style", "visibility: visible");
       chat_header_right.setAttribute("style", "visibility: visible");
       //updata unSeenMess
-      socket.emit("updateUnSeenMess",{
+      socket.emit("updateUnSeenMess", {
         curRoom: obj._id,
         _id: info._id,
       });
@@ -66,7 +66,7 @@ class InitTag {
   friend(socket, info, parTag, obj) {
     const newTag = document.createElement("li");
     newTag.classList.add("friend__items");
-    if(obj.unSeenMess == 0){
+    if (obj.unSeenMess == 0) {
       newTag.innerHTML = `
               <div class= "friend__status-wrap">
                 <div id="r${obj.room_id}" class="friend__status__unSeenMess">
@@ -78,7 +78,7 @@ class InitTag {
                 <h2 class="sidebarChat__info-name">${obj.name}</h2>
                </div>
       `;
-    }else{
+    } else {
       newTag.innerHTML = `
               <div class= "friend__status-wrap">
                 <div id="r${obj.room_id}" class="friend__status__unSeenMess">
@@ -97,7 +97,7 @@ class InitTag {
       modal_add_member.style.display = "none";
       form_typing_mess.setAttribute("style", "visibility: visible");
       chat_header_right.setAttribute("style", "visibility: visible");
-      socket.emit("updateUnSeenMess",{
+      socket.emit("updateUnSeenMess", {
         curRoom: obj.room_id,
         _id: info._id,
       });
@@ -183,7 +183,9 @@ class InitTag {
     <img src=${obj.avatar} class="avatar_onchat" />
         ${obj.name}
         </div>
-        <button type="button" class="btn btn-success edit__btn">add</button>
+        <div>
+          <button type="button" class="btn btn-success edit__btn">add</button>
+        </div>
       `;
     parTag.appendChild(newTag);
     const addFriendBtn = newTag.querySelector("button");

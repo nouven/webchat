@@ -96,7 +96,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <div class="modal-title" id="exampleModalLongTitle">
-                      <input type="text" name="" id="search_friend" autocomplete="off" placeholder="search...">
+                      <input type="text" name="" id="search_friend" autocomplete="off" placeholder="Search...">
                       <button class="search__btn" style="padding: 3px; outline: none; border: none;border-radius: 0px 15px 15px 0px;">
                         <i class="fas fa-search sidebar__searchIcon"></i>
                       </button>
@@ -158,7 +158,7 @@
           <div class="sidebar__header">
             <div class="sidebar__header-wrap" id="show_info">
               <!-- info here -->
-              <div class="sidebar__headerRight" style="position: relative;">
+              <div class="sidebar__headerRight">
 
                 <!-- Button trigger modal -->
                   <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal_friend_reqs">
@@ -186,14 +186,18 @@
               </div>
 
                    <!-- Default dropleft button -->
-                  <div class="btn-group dropleft sidebar__3dot">
-                    <button type="button" class="btn btn-outline-primary dot__edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v "></i>
+                  <div class=" dropbottom sidebar__3dot">
+                    <button type="button" class="btn btn-outline-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-caret-down"></i>
                     </button>
-                    <div class="dropdown-menu">
-                        <button type="button" class="btn btn-outline-primary">log out</button>
+                    <div class="dropdown-menu ">
+                      <a class="dropdown-item" href="#">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span style="font-size: 16px; font-weight: 700; margin-left: 10px;color:#fff;">Log out</span>
+                      </a>
                     </div>
                   </div>
+                 
               <!-- <div class="sidebar__headerRight">
                  <button type="button" class="btn btn-outline-primary">
                  </button>
@@ -201,14 +205,18 @@
             </div>
           </div>
           </div>
-          <ul class="friend__list" id="show_friends">
-            <!-- <li class="friend__items">
-              <img src="https://raw.githubusercontent.com/TonTon69/Dashboard_UI/main/assets/img/giphy.gif" alt="Avatar" class="avatar" />
-              <div class="sidebarChat__info">
-                <h2 class="sidebarChat__info-name">Vũ</h2>
-              </div>
-            </li> -->
-            </ul>
+
+          <div style="flex: 1; background: linear-gradient(to right, #6c959c, #456480);border-radius: 16px 0 0 16px;">
+            <ul class="friend__list" id="show_friends">
+              <!-- <li class="friend__items">
+                <img src="https://raw.githubusercontent.com/TonTon69/Dashboard_UI/main/assets/img/giphy.gif" alt="Avatar" class="avatar" />
+                <div class="sidebarChat__info">
+                  <h2 class="sidebarChat__info-name">Vũ</h2>
+                </div>
+              </li> -->
+              </ul>
+          </div>
+
           </div>
         </div>
       </div>
