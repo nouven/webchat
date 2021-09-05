@@ -305,32 +305,62 @@ module.exports = function(io, socket){
                 result.friends.push(obj.data);
                 result.save();
             }
+        }).then(()=>{
+            room.create({
+                users: [{_id: obj._id}, {_id:obj.data}],
+                type: 10
+            })
+        }).then(()=>{
+            user.findById(obj.data).then(result =>{
+                if(result){
+                    result.friends.push(obj._id);
+                    result.save();
+                    const name = result.name;
+                    const avatar = result.avatar;
+                    room.findOne({ "users._id":{$all:[obj._id, obj.data]}, type: 10}).then(result=>{
+                        if(result){
+                            const arr = result.users.filter(elmt2=>{
+                                return elmt2._id === obj._id;
+                            })
+                            socket.emit('initFriend',{
+                                room_id: result._id,
+                                unSeenMess: arr[0].unSeenMess,
+                                _id: obj.data,
+                                name: name,
+                                avatar: avatar,
+                            })
+                        }
+                    })
+                }
+            })
+        }).then(()=>{
+            io.emit("acceptFriendReqTrue", obj);
         })
-        user.findById(obj.data).then(result =>{
-            if(result){
-                result.friends.push(obj._id);
-                result.save();
-                socket.emit("initFriend",{
-                    _id: result._id,
-                    name: result.name,
-                    avatar:result.avatar
-                })
-            }
-        })
-        room.create({
-            users: [{_id: obj._id}, {_id:obj.data}],
-            type: 10
-        })
-        io.emit("acceptFriendReqTrue", obj);
     })
     socket.on("acceptFriendReqTrue",(obj)=>{
         user.findById(obj._id).then(result=>{
             if(result){
-                socket.emit("initFriend",{
-                    _id: result._id,
-                    name: result.name,
-                    avatar:result.avatar
-                })
+                const name = result.name;
+                const avatar = result.avatar;
+                room.findOne({ "users._id":{$all:[obj._id, obj.data]}, type: 10}).then(result=>{
+                    if(result){
+                        const arr = result.users.filter(elmt2=>{
+                            return elmt2._id === obj.data;
+                        })
+                        socket.emit('initFriend',{
+                            room_id: result._id,
+                            unSeenMess: arr[0].unSeenMess,
+                            _id: obj._id,
+                            name: name,
+                            avatar: avatar,
+                        })
+                    }
+                }).then(()=>{
+                        io.emit('online_status',{
+                            _id_1: socket._id,
+                            _id_2: obj._id
+                        })
+                });
             }
         })
     })
