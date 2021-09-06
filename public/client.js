@@ -25,7 +25,15 @@ const modal_add_member = document.querySelector('.modal_add_member');
 const show_info = document.querySelector('#show_info');
 const chat_header = document.querySelector('#chat_header');
 const chat_header_right = document.querySelector('#chat_header_right');
-//
+
+const btn_show_members = document.querySelector('#btn_show_members');
+const show_members =  document.querySelector('#show_members');
+
+//logout
+$('#logout').click(()=>{
+    document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    location.reload();
+})
 // show_curr_room.style.display = 'none';
 chat_header_right.style.display = 'none';
 form_typing_mess.style.display = 'none';
@@ -95,6 +103,19 @@ socket.on('offline_status',obj=>{
         show_friends.querySelector(`#f${obj._id_1}`).setAttribute('style', 'background: #e60000');
     }
 })
+//show member of room
+btn_show_members.addEventListener('click',()=>{
+    while(show_members.firstChild){
+        show_members.removeChild(show_members.firstChild);
+    }
+    socket.emit('show_member', {
+        curRoom: info.curRoom
+    })
+})
+socket.on('show_member',obj=>{
+    initTag.showMember(socket, info, show_members, obj);
+})
+
 //obj{curRoom, _id, unSeenMess}
 socket.on("updateUnSeenMess", obj=>{
     if(obj._id === info._id){
@@ -112,18 +133,14 @@ socket.on("updateUnSeenMess", obj=>{
     }
 })
 //accep_friend_req
-socket.on('typing',()=>{
-    
-})
-socket.on('onclick_friend', id=>{
-    info.befRoom = info.curRoom;
-    info.curRoom = id;
-    socket.emit('onclick_room', info);
+socket.on('typing',(obj)=>{
+    initTag.typing(socket, info, show_messages, obj);
 })
 // typing_mess-submit;
 // visibility: visible
 
 //<<==============================>
+const inputTextField = form_typing_mess.querySelector('input')
 form_typing_mess.addEventListener('submit',(e)=>{
     e.preventDefault();
     const inputText = form_typing_mess.querySelector('input').value.trim();
@@ -137,6 +154,12 @@ form_typing_mess.addEventListener('submit',(e)=>{
             curRoom: info.curRoom
         }));
     }
+})
+inputTextField.addEventListener('keyup',(e)=>{
+    e.preventDefault();
+        socket.emit('typing_mess-keyup',({
+            curRoom: info.curRoom
+        }));
 })
 // MAKE FRIEND<<====================================>
 //search_user-onkey

@@ -105,16 +105,6 @@ module.exports = function(io, socket){
             }
         })
     })
-        //onclick_friend
-        //obj{_id, _id};
-    socket.on('onclick_friend',obj=>{
-        room.findOne({ "users._id":[obj._id_1, obj._id_2], type: 10}).then(result=>{
-            if(result){
-                console.log(result._id);
-                socket.emit("onclick_friend", result._id);
-            }
-        });
-    })
     //typing_mess-submit
     //obj{name, id ,content, curRoom} of sender
     socket.on('typing_mess-submit',(obj)=>{
@@ -143,6 +133,10 @@ module.exports = function(io, socket){
                 content: obj.content
             }))
         }
+    })
+    //obj{curRoom};
+    socket.on('typing_mess-keyup', obj=>{
+        socket.to(obj.curRoom).emit('typing', obj);
     })
     socket.on('updateUnSeenMess',obj=>{
         room.findById(obj.curRoom).then((result)=>{
@@ -364,5 +358,22 @@ module.exports = function(io, socket){
             }
         })
     })
-    //
+    //obj{curRoom};
+    socket.on('show_member', obj=>{
+        room.findById(obj.curRoom).then(result=>{
+            if(result){
+                result.users.forEach(elmt=>{
+                    user.findById(elmt._id).then(result=>{
+                        if(result){
+                            socket.emit('show_member',{
+                                name: result.name,
+                                avatar: result.avatar,
+                                _id: result._id
+                            })
+                        }
+                    })
+                })
+            }
+        })
+    })
 }

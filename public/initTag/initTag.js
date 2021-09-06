@@ -124,7 +124,26 @@ class InitTag {
     // newTag.classList.add("sidebar__header-wrap");
     newTag.classList.add("sidebar__headerLeft");
     newTag.innerHTML = `
-              <img src=${obj.avatar} alt="Avatar" class="avatar" />
+              <img src=${obj.avatar} alt="Avatar" class="avatar" data-toggle="modal" data-target="#exampleModalCenterInfo"/>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalCenterInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Update Avatar</h5>
+                    </div>
+                  <form action="/upload" method="post" enctype="multipart/form-data" id="form_chat">
+                    <div class="modal-body">
+                      <input type="file" name="avatar" id="file" />
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" name="_id" value="${info._id}">Save changes</button>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
               <span class="sidebar__header-userName">${obj.name}</span>
         `;
     parTag.insertBefore(newTag, parTag.children[0]);
@@ -196,6 +215,25 @@ class InitTag {
       });
     });
   }
+  showMember(socket, info, parTag, obj) {
+    const newTag = document.createElement("div");
+    newTag.setAttribute("class", "dropdown-item");
+    newTag.classList.add("edit__dropdown");
+    newTag.innerHTML = `
+    <div class="user__info">
+    <img src=${obj.avatar} class="avatar_onchat" />
+        ${obj.name}
+        </div>
+      `;
+    parTag.appendChild(newTag);
+    // const addFriendBtn = newTag.querySelector("button");
+    // addFriendBtn.addEventListener("click", (e) => {
+    //   socket.emit("friendReq", {
+    //     sender: info._id,
+    //     receiver: obj._id,
+    //   });
+    // });
+  }
 
   friendSearchResult(socket, info, parTag, obj) {
     const newTag = document.createElement("a");
@@ -251,5 +289,22 @@ class InitTag {
         data: obj._id,
       });
     });
+  }
+  //user typing
+  typing(socket, info, parTag, obj){
+    const newTag = document.createElement('div');
+    newTag.innerHTML = `
+    <div class="col-3">
+    <div class="snippet" data-title=".dot-typing">
+      <div class="stage">
+        <div class="dot-typing"> ... </div>
+      </div>
+    </div>
+    </div>
+    `
+    parTag.insertBefore(newTag, parTag.children[0]);
+    setTimeout(()=>{
+      newTag.remove();
+    },500);
   }
 }

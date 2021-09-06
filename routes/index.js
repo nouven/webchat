@@ -21,19 +21,27 @@ function route (app){
         }))
         res.send("hahah");
     })
-    app.post('/test',
+    app.post('/upload',
         upload.single('avatar'),
         (req, res, next)=>{
-            req.body.avatar = req.file.path.split('/').slice(1).join('/');
-            const test3= new test({
-                name: "beta",
-                avatar: req.body.avatar
-            });
-            test3.save().then((result)=>{
-                test.findOne({name: 'test3'}).then((result)=>{
-                    res.send(`<img = src=${result.avata}>`);
-                })
-            });
+            const avatar = req.body.avatar = req.file.path.split('/').slice(1).join('/');
+            const _id = req.body._id;
+            console.log(avatar, _id);
+            user.findById(_id).then(result=>{
+                result.avatar = avatar;
+                result.save();
+            }).then(()=>{
+                res.redirect('/');
+            })
+            // const test3= new test({
+            //     name: "beta",
+            //     avatar: req.body.avatar
+            // });
+            // test3.save().then((result)=>{
+            //     test.findOne({name: 'test3'}).then((result)=>{
+            //         res.send(`<img = src=${result.avata}>`);
+            //     })
+            // });
     });
 
 
