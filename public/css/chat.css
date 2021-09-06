@@ -148,6 +148,7 @@
   outline: none;
   padding: 10px;
   background-color: rgb(54, 66, 93);
+  color: #fff;
 }
 
 .chat__footer-button {
