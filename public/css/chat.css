@@ -58,7 +58,7 @@
   align-items: center;
   border-bottom: 1px solid lightgray;
   border-radius: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   background: linear-gradient(to right, #526e8a, #4e5483);
 }
 
@@ -184,7 +184,7 @@
   align-items: center;
   padding-left: 10px;
   border-radius: 15px 0px 0px 15px;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
 }
 
 .sidebar__header-wrap {
@@ -267,7 +267,7 @@
   background: linear-gradient(to right, #6c959c, #456480);
   overflow-y: auto;
   border-radius: 0px 15px 15px 0;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .sidebarChat-link {
