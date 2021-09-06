@@ -165,22 +165,26 @@ class InitTag {
             <div class="messages__content">
             <div class="content__sender">
               ${obj.content}<br>
-              <span class="chat__time">${obj.createdAt}</span>
             </div>
+            </div>
+            <div class="messages__time">
+            <span class="chat__time">${obj.createdAt}</span>
             </div>
           </div>
         `;
     } else {
       newTag.classList.add("chat__receiver");
       newTag.innerHTML = `
-        <div class="messages">
-          <div>
-            <div class="content">
-              ${obj.content}<br>
-              <span class="chat__time">${obj.createdAt}</span>
-            </div>
-          </div>
-        </div>
+      <div class="messages">
+      <div class="messages__time messages__time-receiver">
+        <span class="chat__time">${obj.createdAt}</span>
+      </div>
+      <div class="messages__content messages__content-receiver">
+      <div class="content__sender">
+        ${obj.content}<br>
+      </div>
+      </div>
+    </div>
         `;
     }
     newTag.querySelector(".chat__time").style.display = "none";
@@ -291,8 +295,8 @@ class InitTag {
     });
   }
   //user typing
-  typing(socket, info, parTag, obj){
-    const newTag = document.createElement('div');
+  typing(socket, info, parTag, obj) {
+    const newTag = document.createElement("div");
     newTag.innerHTML = `
     <div class="col-3">
     <div class="snippet" data-title=".dot-typing">
@@ -301,10 +305,10 @@ class InitTag {
       </div>
     </div>
     </div>
-    `
+    `;
     parTag.insertBefore(newTag, parTag.children[0]);
-    setTimeout(()=>{
+    setTimeout(() => {
       newTag.remove();
-    },500);
+    }, 500);
   }
 }

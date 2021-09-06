@@ -113,6 +113,7 @@
 .chat__time {
   font-size: 12px;
   margin-left: 10px;
+  color: #fff;
 }
 
 .chat__name {
@@ -125,7 +126,6 @@
 
 .chat__receiver {
   margin-left: auto;
-  background-color: #78e08f;
 }
 
 .chat__footer {
@@ -138,11 +138,77 @@
   position: relative;
 }
 
-.chat__checking {
+/* .chat__checking {
   position: absolute;
   top: -40px;
   left: 80px;
   color: #fff;
+} */
+
+.chat-bubble {
+  padding: 16px 28px;
+  -webkit-border-radius: 20px;
+  -webkit-border-bottom-left-radius: 2px;
+  -moz-border-radius: 20px;
+  -moz-border-radius-bottomleft: 2px;
+  border-radius: 20px;
+  border-bottom-left-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: -50px;
+  left: 40px;
+}
+.typing {
+  align-items: center;
+  display: flex;
+  height: 17px;
+}
+
+.typing-name {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.typing .dot {
+  animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
+  background-color: #6cad96;
+  border-radius: 50%;
+  height: 7px;
+  margin-right: 4px;
+  vertical-align: middle;
+  width: 7px;
+  display: inline-block;
+}
+.typing .dot:nth-child(1) {
+  animation-delay: 200ms;
+}
+.typing .dot:nth-child(2) {
+  animation-delay: 300ms;
+}
+.typing .dot:nth-child(3) {
+  animation-delay: 400ms;
+}
+.typing .dot:last-child {
+  margin-right: 0;
+}
+
+@keyframes mercuryTypingAnimation {
+  0% {
+    transform: translateY(0px);
+    background-color: #6cad96;
+  }
+  28% {
+    transform: translateY(-7px);
+    background-color: #9ecab9;
+  }
+  44% {
+    transform: translateY(0px);
+    background-color: #b5d9cb;
+  }
 }
 
 .chat__footer-form {
@@ -692,6 +758,23 @@ body {
 .dropdown-item:hover {
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 10px;
+}
+
+.messages__time {
+  background-color: #000;
+  opacity: 0.8;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+}
+
+.messages__time-receiver {
+  margin: 0 12px 0 0;
+}
+
+.messages__content-receiver {
+  background-color: #78e08f;
 }
 
 @keyframes fadeIn {
