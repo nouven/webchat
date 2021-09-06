@@ -133,9 +133,7 @@ socket.on("updateUnSeenMess", obj=>{
     }
 })
 //accep_friend_req
-socket.on('typing',(obj)=>{
-    initTag.typing(socket, info, show_messages, obj);
-})
+const typing = document.querySelector('#typing');
 // typing_mess-submit;
 // visibility: visible
 
@@ -156,10 +154,15 @@ form_typing_mess.addEventListener('submit',(e)=>{
     }
 })
 inputTextField.addEventListener('keyup',(e)=>{
-    e.preventDefault();
         socket.emit('typing_mess-keyup',({
             curRoom: info.curRoom
         }));
+})
+socket.on('typing',(obj)=>{
+    typing.style.display = 'flex';
+    setTimeout(()=>{
+        typing.style.display = 'none';
+    },2000)
 })
 // MAKE FRIEND<<====================================>
 //search_user-onkey
