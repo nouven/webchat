@@ -688,7 +688,6 @@ body {
   border-radius: 10px;
   min-width: 12px;
   min-height: 12px;
-  /* background: rgb(49, 162, 76); */
   background: #e60000;
   border: 2px solid #fff;
 }
@@ -733,9 +732,9 @@ body {
   font-size: 18px;
 }
 
-/* .dropdown-menu-items{
-
-} */
+.friend__search:hover {
+  background-color: rgb(223, 201, 201) !important;
+}
 
 .friendrqs {
   display: flex;
