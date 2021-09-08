@@ -625,6 +625,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #fff;
 }
 
 .edit__btn {
@@ -755,6 +756,10 @@ body {
   border-radius: 16px;
 }
 
+.dropdown__friend {
+  background-color: #fff;
+}
+
 .dropdown-item:hover {
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 10px;
@@ -775,6 +780,10 @@ body {
 
 .messages__content-receiver {
   background-color: #78e08f;
+}
+
+.room__members:hover {
+  background-color: rgba(230, 197, 197, 0.651);
 }
 
 @keyframes fadeIn {

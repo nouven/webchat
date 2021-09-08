@@ -1,47 +1,333 @@
-<head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <title>Sign up</title>
-  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
-  <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css' rel='stylesheet'>
-  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-  <link rel="stylesheet" href="../css/signup.css">
-  <style>
-    .err{
-      color: red;
-    }
-  </style>
-</head>
-
-<body oncontextmenu='return false' class='snippet-body'>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card">
-          <form method="post" action="" class="box" id="formSignup">
-            <h1>SIGN UP</h1>
-            <p class="text-muted"> please fill in the form correctly</p>
-              <span class="err">{{errMess}}</span>
-              <input id="name" type="text" name="name" placeholder="Name">
-              <span id="nameErr" class="err"></span>
-              <input id="email" type="text" name="email" placeholder="Email">
-              <span id="emailErr"class="err"></span>
-              <input id="password" type="password" name="password" placeholder="Password">
-              <span id="passwordErr"class="err"></span>
-              <input id="repassword" type="password" name="repassword" placeholder="RePassword">
-              <span id="repasswordErr"class="err"></span>
-              <a class="forgot text-muted" href="/login">Login?</a>
-
-              <input type="submit" name="" value="Sign Up" >
-            <div class="col-md-12">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="../css/signup.css" />
+    <title>Sign up</title>
+  </head>
+  <body>
+    <div class="container sign-up-mode">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <!-- Sign up form -->
+          <form method="post" action="" class="sign-up-form" id="formSignup">
+            <h2 class="title">Sign up</h2>
+            <div class="input-field">
+              <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  placeholder="Username"
+                />
+              </div>
+              <div class="input-valid">
+                <span class="form-message"></span>
+              </div>
+            </div>
+            <div class="input-field">
+              <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="input-valid">
+                <span class="form-message"></span>
+              </div>
+            </div>
+            <div class="input-field">
+              <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                />
+              </div>
+              <div class="input-valid">
+                <span class="form-message"></span>
+              </div>
+            </div>
+            <div class="input-field">
+              <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input
+                  type="password"
+                  id="repassword"
+                  name="repassword"
+                  placeholder="Re-Type Your Password"
+                />
+              </div>
+              <div class="input-valid">
+                <span class="form-message"></span>
+              </div>
+            </div>
+            <input type="submit" class="btn" name="" value="Sign Up" />
+            <p class="social-text">Or Sign up with social platforms</p>
+            <div class="social-media">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
             </div>
           </form>
         </div>
       </div>
+
+      <!-- Panel -->
+      <div class="panels-container">
+        <div class="panel left-panel"></div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>Already have an account?</h3>
+            <p>Click here to sign in and join with us.</p>
+            <button class="btn transparent" id="sign-in-btn">
+              <a
+                href="/login"
+                style="
+                  color: #fff;
+                  font-size: 16px;
+                  text-decoration: none;
+                  display: block;
+                  padding: 10px;
+                "
+                >Sign in</a
+              >
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <script type='text/javascript'
-    src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
-  <script type='text/javascript'></script>
-  <script src="../validates/signupValidate.js"></script>
-</body>
+    <script>
+      // Đối tượng `Validator`
+      function Validator(options) {
+        function getParent(element, selector) {
+          while (element.parentElement) {
+            if (element.parentElement.matches(selector)) {
+              return element.parentElement;
+            }
+            element = element.parentElement;
+          }
+        }
+
+        var selectorRules = {};
+
+        // Hàm thực hiện validate
+        function validate(inputElement, rule) {
+          var errorElement = getParent(
+            inputElement,
+            options.formGroupSelector
+          ).querySelector(options.errorSelector);
+          var errorMessage;
+
+          // Lấy ra các rules của selector
+          var rules = selectorRules[rule.selector];
+
+          // Lặp qua từng rule & kiểm tra
+          // Nếu có lỗi thì dừng việc kiểm
+          for (var i = 0; i < rules.length; ++i) {
+            switch (inputElement.type) {
+              case "radio":
+              case "checkbox":
+                errorMessage = rules[i](
+                  formElement.querySelector(rule.selector + ":checked")
+                );
+                break;
+              default:
+                errorMessage = rules[i](inputElement.value);
+            }
+            if (errorMessage) break;
+          }
+
+          if (errorMessage) {
+            errorElement.innerText = errorMessage;
+            getParent(inputElement, options.formGroupSelector).classList.add(
+              "invalid"
+            );
+          } else {
+            errorElement.innerText = "";
+            getParent(inputElement, options.formGroupSelector).classList.remove(
+              "invalid"
+            );
+          }
+
+          return !errorMessage;
+        }
+
+        // Lấy element của form cần validate
+        var formElement = document.querySelector(options.form);
+        if (formElement) {
+          // Khi submit form
+          formElement.onsubmit = function (e) {
+            e.preventDefault();
+
+            var isFormValid = true;
+
+            // Lặp qua từng rules và validate
+            options.rules.forEach(function (rule) {
+              var inputElement = formElement.querySelector(rule.selector);
+              var isValid = validate(inputElement, rule);
+              if (!isValid) {
+                isFormValid = false;
+              }
+            });
+
+            if (isFormValid) {
+              // Trường hợp submit với javascript
+              if (typeof options.onSubmit === "function") {
+                var enableInputs = formElement.querySelectorAll("[name]");
+                var formValues = Array.from(enableInputs).reduce(function (
+                  values,
+                  input
+                ) {
+                  switch (input.type) {
+                    case "radio":
+                      values[input.name] = formElement.querySelector(
+                        'input[name="' + input.name + '"]:checked'
+                      ).value;
+                      break;
+                    case "checkbox":
+                      if (!input.matches(":checked")) {
+                        values[input.name] = "";
+                        return values;
+                      }
+                      if (!Array.isArray(values[input.name])) {
+                        values[input.name] = [];
+                      }
+                      values[input.name].push(input.value);
+                      break;
+                    case "file":
+                      values[input.name] = input.files;
+                      break;
+                    default:
+                      values[input.name] = input.value;
+                  }
+
+                  return values;
+                },
+                {});
+                options.onSubmit(formValues);
+              }
+              // Trường hợp submit với hành vi mặc định
+              else {
+                formElement.submit();
+              }
+            }
+          };
+
+          // Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input, ...)
+          options.rules.forEach(function (rule) {
+            // Lưu lại các rules cho mỗi input
+            if (Array.isArray(selectorRules[rule.selector])) {
+              selectorRules[rule.selector].push(rule.test);
+            } else {
+              selectorRules[rule.selector] = [rule.test];
+            }
+
+            var inputElements = formElement.querySelectorAll(rule.selector);
+
+            Array.from(inputElements).forEach(function (inputElement) {
+              // Xử lý trường hợp blur khỏi input
+              inputElement.onblur = function () {
+                validate(inputElement, rule);
+              };
+
+              // Xử lý mỗi khi người dùng nhập vào input
+              inputElement.oninput = function () {
+                var errorElement = getParent(
+                  inputElement,
+                  options.formGroupSelector
+                ).querySelector(options.errorSelector);
+                errorElement.innerText = "";
+                getParent(
+                  inputElement,
+                  options.formGroupSelector
+                ).classList.remove("invalid");
+              };
+            });
+          });
+        }
+      }
+
+      // Định nghĩa rules
+      // Nguyên tắc của các rules:
+      // 1. Khi có lỗi => Trả ra message lỗi
+      // 2. Khi hợp lệ => Không trả ra cái gì cả (undefined)
+      Validator.isRequired = function (selector, message) {
+        return {
+          selector: selector,
+          test: function (value) {
+            return value ? undefined : message || "Vui lòng nhập trường này";
+          },
+        };
+      };
+
+      Validator.isEmail = function (selector, message) {
+        return {
+          selector: selector,
+          test: function (value) {
+            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            return regex.test(value)
+              ? undefined
+              : message || "Trường này phải là email";
+          },
+        };
+      };
+
+      Validator.minLength = function (selector, min, message) {
+        return {
+          selector: selector,
+          test: function (value) {
+            return value.length >= min
+              ? undefined
+              : message || `Vui lòng nhập tối thiểu ${min} kí tự`;
+          },
+        };
+      };
+
+      Validator.isConfirmed = function (selector, getConfirmValue, message) {
+        return {
+          selector: selector,
+          test: function (value) {
+            return value === getConfirmValue()
+              ? undefined
+              : message || "Giá trị nhập vào không chính xác";
+          },
+        };
+      };
+    </script>
+    <script>
+      Validator({
+        form: "#formSignup",
+        formGroupSelector: ".input-field",
+        errorSelector: ".form-message",
+        rules: [
+          Validator.isRequired("#name", "Vui lòng nhập tên đầy đủ của bạn"),
+          Validator.isEmail("#email"),
+          Validator.minLength("#password", 6),
+          Validator.isRequired("#repassword"),
+          Validator.isConfirmed(
+            "#repassword",
+            function () {
+              return document.querySelector("#formSignup #password").value;
+            },
+            "Mật khẩu nhập lại không chính xác"
+          ),
+        ],
+      });
+    </script>
+  </body>
+</html>
