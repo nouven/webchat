@@ -9,7 +9,7 @@ const user = require('../models/user');
 passport.use(new GoogleStrategy({
     clientID:     process.env.google_client_id,
     clientSecret: process.env.google_client_secret,
-    callbackURL: "https://localhost:3000/auth/google/callback",
+    callbackURL: "https://webchatntv.herokuapp.com/auth/google/callback",
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
