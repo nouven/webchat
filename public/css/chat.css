@@ -390,7 +390,6 @@ body {
   border-radius: 50%;
 }
 .avatar_onchat {
-
   margin-right: 3px;
   vertical-align: middle;
   width: 35px;
@@ -641,7 +640,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
   background-color: #fff;
 }
 
@@ -812,18 +811,78 @@ body {
     opacity: 1;
   }
 }
-.modal-video-call-footer{
+.modal-video-call-footer {
   display: flex;
   justify-content: space-around;
   background-color: rgba(0, 0, 0, 0.85);
   outline: none;
 }
-.modal-video-call-header{
+.modal-video-call-header {
   margin-bottom: 0%;
   outline: none;
   background-color: rgba(0, 0, 0, 0.9);
 }
-.show_video_call{
+.show_video_call {
   display: flex;
   justify-content: space-around;
+}
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: rgb(238, 71, 71);
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: -160%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

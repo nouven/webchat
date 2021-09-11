@@ -206,7 +206,7 @@ class InitTag {
     newTag.innerHTML = `
     <div class="user__info">
     <img src=${obj.avatar} class="avatar_onchat" />
-        <span style="color: #fff">${obj.name}</span>
+        <span style="color: #000">${obj.name}</span>
         </div>
         <div>
           <button type="button" class="btn btn-success edit__btn">add</button>
@@ -246,6 +246,7 @@ class InitTag {
     const newTag = document.createElement("a");
     newTag.setAttribute("class", "dropdown-item");
     newTag.classList.add("edit__dropdown");
+    newTag.classList.add("friend__search");
     newTag.innerHTML = `
     <div class="user__info">
     <img src=${obj.avatar} class="avatar_onchat" />

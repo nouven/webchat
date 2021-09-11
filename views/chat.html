@@ -40,23 +40,33 @@
 
             <!-- Modal -->
 <div class="modal fade" id="modal_video_call" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="min-width: 800px;">
     <div class="modal-content">
-      <div class="modal-header modal-video-call-header" >
-      </div>
-      <div class="modal-body">
-        <div>
-          <div>
-            <video  id="localStream" width="50%" preload="none" controls></video>
+     
+      <div class="modal-body" style="padding:0;">
+        <div style="position:relative;">
+          <video  id="remoteStream" width="100%" preload="none" controls>
+          </video>
+          <div style="left: 47%;
+          bottom: 32px;
+          position: absolute;">
+            <button type="button" id="destroy_video_call" class="btn btn-danger" data-dismiss="modal">
+              <i class="fas fa-phone-slash"></i>
+            </button>
           </div>
-          <div>
-            <video  id="remoteStream" width="50%" preload="none" controls></video>
+          <div style="position: absolute;
+          right: 0;
+          bottom: 7px;
+          border: 2px solid orange;
+          max-width: 200px;">
+            <video  id="localStream" width="100%" preload="none" controls></video>
           </div>
         </div>
+          
       </div>
-      <div class="modal-footer ">
+      <!-- <div class="modal-footer ">
         <button type="button" id="destroy_video_call" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -75,14 +85,18 @@
               </div>
             </div>
             <button class="search__btn">
-              <i class="fas fa-search sidebar__searchIcon"></i>
+              <i style="color: #000;" class="fas fa-search sidebar__searchIcon"></i>
             </button>
           </div>
 
           <div class="addMember">
             <!-- Button trigger modal -->
               <button type="button" class="btn btn-outline-primary addRoom__btn" data-toggle="modal" data-target="#create_room">
-                  <i class="fas fa-users"></i>
+                  
+                  <div class="popup" onmouseover="myFunction()">
+                    <i class="fas fa-users"></i>
+                    <span class="popuptext" id="myPopup">Create room</span>
+                  </div>
               </button>
               <!-- Modal -->
               <div class="modal fade" id="create_room" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -145,7 +159,7 @@
                     <div class="modal-title" id="exampleModalLongTitle">
                       <input type="text" name="" id="search_friend" autocomplete="off" placeholder="Search...">
                       <button class="search__btn" style="padding: 3px; outline: none; border: none;border-radius: 0px 15px 15px 0px;">
-                        <i class="fas fa-search sidebar__searchIcon"></i>
+                        <i style="color: #000;" class="fas fa-search sidebar__searchIcon"></i>
                       </button>
                     </div>
                   </div>
@@ -337,3 +351,13 @@
 <script src="../initTag/initTag.js"></script>
 <script src="../client.js"></script>
 
+
+
+
+<script>
+  // When the user clicks on <div>, open the popup
+  function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
+  </script>
