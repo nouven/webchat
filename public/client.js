@@ -261,6 +261,7 @@ socket.on('add_to_room_true',(obj)=>{
     //answer
     socket.on('answerCall',obj=>{
         if(obj._id === info._id){
+            $('#answer_call_header').empty();
             const newTag = document.createElement("div");
             newTag.classList.add("friendrqs");
             newTag.innerHTML = `
@@ -296,7 +297,6 @@ socket.on('add_to_room_true',(obj)=>{
         })
     })
     $('#destroy_video_call').click(()=>{
-        peer.disconnect();
     })
 
     function openStream(){
