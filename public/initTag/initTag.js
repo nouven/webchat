@@ -202,6 +202,7 @@ class InitTag {
     const newTag = document.createElement("div");
     newTag.setAttribute("class", "dropdown-item");
     newTag.classList.add("edit__dropdown");
+    newTag.classList.add("friend__search");
     newTag.innerHTML = `
     <div class="user__info">
     <img src=${obj.avatar} class="avatar_onchat" />
@@ -224,6 +225,7 @@ class InitTag {
     const newTag = document.createElement("div");
     newTag.setAttribute("class", "dropdown-item");
     newTag.classList.add("edit__dropdown");
+    newTag.classList.add("room__members");
     newTag.innerHTML = `
     <div class="user__info">
     <img src=${obj.avatar} class="avatar_onchat" />

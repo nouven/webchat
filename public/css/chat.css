@@ -630,6 +630,7 @@ body {
   align-items: center;
   justify-content: space-between;
   
+  background-color: #fff;
 }
 
 .edit__btn {
@@ -692,7 +693,6 @@ body {
   border-radius: 10px;
   min-width: 12px;
   min-height: 12px;
-  /* background: rgb(49, 162, 76); */
   background: #e60000;
   border: 2px solid #fff;
 }
@@ -737,9 +737,9 @@ body {
   font-size: 18px;
 }
 
-/* .dropdown-menu-items{
-
-} */
+.friend__search:hover {
+  background-color: rgb(223, 201, 201) !important;
+}
 
 .friendrqs {
   display: flex;
@@ -758,6 +758,10 @@ body {
 .dropdown-menu {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 16px;
+}
+
+.dropdown__friend {
+  background-color: #fff;
 }
 
 .dropdown-item:hover {
@@ -780,6 +784,10 @@ body {
 
 .messages__content-receiver {
   background-color: #78e08f;
+}
+
+.room__members:hover {
+  background-color: rgba(230, 197, 197, 0.651);
 }
 
 @keyframes fadeIn {
