@@ -7,8 +7,8 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const user = require('../models/user');
 
 passport.use(new GoogleStrategy({
-    clientID:     process.env.googleClientID,
-    clientSecret: process.env.googleClientSecret,
+    clientID:     process.env.google_client_id,
+    clientSecret: process.env.google_client_secret,
     callbackURL: "https://localhost:3000/auth/google/callback",
     passReqToCallback   : true
   },
