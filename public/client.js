@@ -233,7 +233,8 @@ socket.on('add_to_room_true',(obj)=>{
 //video call
     var peer = new Peer({
         key: 'peerjs',
-        path:'/myapp',
+        host:'peerserverwebchat.herokuapp.com',
+        secure:true,
         port: 443
     });
     peer.on('open', id=>{
