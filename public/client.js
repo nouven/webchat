@@ -261,10 +261,29 @@ socket.on('add_to_room_true',(obj)=>{
     //answer
     socket.on('answerCall',obj=>{
         if(obj._id === info._id){
+            const newTag = document.createElement("div");
+            newTag.classList.add("friendrqs");
+            newTag.innerHTML = `
+                    <div class="chat-bubble-calling"  >
+                      <div class="typing" >
+                        <div class="typing-name">
+                            <img src=${obj.avatar} class="avatar" />&nbsp
+                            ${obj.name} calling
+                        </div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                      </div>
+                    </div>
+            `;
+            $('#answer_call_header').append(newTag);
             $('#answer_call').modal('show');
         }
     })
     peer.on('call', call=>{
+        $('#btn_deny_the_call').click(()=>{
+            $('#answer_call').modal('hide');
+        });
         $('#btn_accept_the_call').click(()=>{
             $('#answer_call').modal('hide');
             openStream().then(stream=>{
@@ -276,10 +295,10 @@ socket.on('add_to_room_true',(obj)=>{
             })
         })
     })
+    $('#destroy_video_call').click(()=>{
+        peer.disconnect();
+    })
 
-    $('#btn_deny_the_call').click(()=>{
-        $('#answer_call').modal('hide');
-    });
     function openStream(){
         const config ={ audio: true, video: true};
         return navigator.mediaDevices.getUserMedia(config);

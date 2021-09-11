@@ -160,6 +160,18 @@
   top: -50px;
   left: 40px;
 }
+.chat-bubble-calling {
+  padding: 16px 28px;
+  -webkit-border-radius: 20px;
+  -webkit-border-bottom-left-radius: 2px;
+  -moz-border-radius: 20px;
+  -moz-border-radius-bottomleft: 2px;
+  border-radius: 20px;
+  border-bottom-left-radius: 2px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+}
 .typing {
   align-items: center;
   display: flex;
@@ -810,4 +822,8 @@ body {
   margin-bottom: 0%;
   outline: none;
   background-color: rgba(0, 0, 0, 0.9);
+}
+.show_video_call{
+  display: flex;
+  justify-content: space-around;
 }

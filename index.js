@@ -3,8 +3,12 @@ const app = express();
 
 const path = require('path')
 const cookieParser = require('cookie-parser');
-const http = require('http');
-const server = http.createServer(app);
+const https = require('https');
+const fs = require('fs');
+const server = https.createServer({
+    key: fs.readFileSync(path.join(__dirname, 'cert','key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'cert','cert.pem')),
+},app);
 const {Server} = require('socket.io');
 const io = new Server(server);
 const exphbs = require('express-handlebars');

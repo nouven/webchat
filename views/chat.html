@@ -45,11 +45,17 @@
       <div class="modal-header modal-video-call-header" >
       </div>
       <div class="modal-body">
-        <video  id="localStream" width="300" preload="none" controls></video>
-        <video  id="remoteStream" width="300" preload="none" controls></video>
+        <div>
+          <div>
+            <video  id="localStream" width="50%" preload="none" controls></video>
+          </div>
+          <div>
+            <video  id="remoteStream" width="50%" preload="none" controls></video>
+          </div>
+        </div>
       </div>
       <div class="modal-footer ">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="destroy_video_call" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -224,7 +230,7 @@
               <div class="dot"></div>
               <div class="dot"></div>
             </div>
-            </div>
+          </div>
         </div>
       </div>
 
