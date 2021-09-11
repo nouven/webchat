@@ -15,7 +15,7 @@ class InitTag {
           </div>
             <div class="sidebarChat__info">
               <h2 class="sidebarChat__info-name">${obj.name}</h2>
-              <p>Last Message</p>
+              <p>...</p>
             </div>
           </div>`;
     } else {
@@ -31,7 +31,7 @@ class InitTag {
           </div>
             <div class="sidebarChat__info">
               <h2 class="sidebarChat__info-name">${obj.name}</h2>
-              <p>Last Message</p>
+              <p>...</p>
             </div>
           </div>`;
     }
@@ -97,6 +97,7 @@ class InitTag {
       modal_add_member.style.display = "none";
       form_typing_mess.setAttribute("style", "visibility: visible");
       chat_header_right.setAttribute("style", "visibility: visible");
+      info.friend_id = obj._id;
       socket.emit("updateUnSeenMess", {
         curRoom: obj.room_id,
         _id: info._id,
@@ -204,7 +205,7 @@ class InitTag {
     newTag.innerHTML = `
     <div class="user__info">
     <img src=${obj.avatar} class="avatar_onchat" />
-        ${obj.name}
+        <span style="color: #fff">${obj.name}</span>
         </div>
         <div>
           <button type="button" class="btn btn-success edit__btn">add</button>

@@ -4,16 +4,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../font/fontawesome-free-5.15.3-web/css/all.css" />
   <!-- CSS only -->
+  <link rel="shortcut icon" href="#" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/chat.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <title>Document</title>
+  <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+  <title>Web Chat</title>
 </head>
 
 <body>
   <div class="app">
+
+
     <div class="app__body">
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="answer_call" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-video-call-header">
+        <div class="modal-title" id="answer_call_header">
+
+        </div>
+      </div>
+      <div class="modal-footer modal-video-call-footer">
+        <button type="button" id="btn_deny_the_call" class="btn btn-danger" data-dismiss="modal" ><i class="fas fa-phone-slash"></i></button>
+        <button type="button" id="btn_accept_the_call" class="btn btn-success" data-toggle="modal" data-target="#modal_video_call"><i class="fas fa-phone-volume"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+            <!-- Modal -->
+<div class="modal fade" id="modal_video_call" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-video-call-header" >
+      </div>
+      <div class="modal-body">
+        <video  id="localStream" width="300" preload="none" controls></video>
+        <video  id="remoteStream" width="300" preload="none" controls></video>
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
       <!-- Side bar -->
       <div class="sidebar">
@@ -81,7 +121,7 @@
 
           <div class="chat__headerInfo">
             <h3 class="chat__headerInfo-name" id="show_curr_room_name"></h3>
-            <p class="chat__headerInfo-status">Description</p>
+            <p class="chat__headerInfo-status">...</p>
           </div>
 
           <div class="chat__headerRight" id="chat_header_right">
@@ -119,9 +159,17 @@
               <i class="fas fa-phone"></i>
             </button>
 
-            <button class="video__btn btn btn-outline-primary">
+            <!-- <button id="btn_video_call" class="video__btn btn btn-outline-primary">
+              <i class="fas fa-video"></i>
+            </button> -->
+
+
+
+            <!-- Button trigger modal -->
+            <button id="btn_video_call" class="video__btn btn btn-outline-primary" class="btn btn-primary" data-toggle="modal" data-target="#modal_video_call">
               <i class="fas fa-video"></i>
             </button>
+
 
             <button class = 'modal_add_member btn btn-outline-primary' id="btn_show_members" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_show_member_haha">
               <i class="fas fa-info"></i>
@@ -148,6 +196,7 @@
         </div>
         <div class="chat__body" id="show_messages">
 
+
           <!-- <p class="chat__sender">
             <span class="chat__name">Vũ</span>
             Messages
@@ -170,7 +219,7 @@
           <i class="fas fa-link chat__footer-icons"></i>
           <div class="chat-bubble" id="typing" >
             <div class="typing" >
-              <div class="typing-name">Typing</div>
+              <div class="typing-name">typing</div>
               <div class="dot"></div>
               <div class="dot"></div>
               <div class="dot"></div>

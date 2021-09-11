@@ -1,6 +1,7 @@
 const user = require('./models/user');
 const room = require('./models/room');
 const { emit } = require('./models/user');
+const peers = [];
 module.exports = function(io, socket){
     console.log(socket.id+" connected!");
     socket.on('disconnect',()=>{
@@ -14,6 +15,12 @@ module.exports = function(io, socket){
                 })
             }
         });
+        const index = peers.findIndex(elmt=>{
+            return elmt.userId === socket._id
+        })
+        if(index != -1){
+            peers.splice(index,1);
+        }
     })
 //init<==========================================================>
     socket.on('init',(_id)=>{
@@ -375,5 +382,32 @@ module.exports = function(io, socket){
                 })
             }
         })
+    })
+    //video_call
+    socket.on('initPeer',obj=>{
+        peers.push(obj);
+    })
+    socket.on('calling',obj=>{
+        user.findById(obj.userId).then(result=>{
+            if(result){
+                io.emit('answerCall',{
+                    _id: obj.friendId,
+                    avatar: result.avatar,
+                    name: result.name
+                })
+            }
+        })
+        const peer = peers.find(elmt =>{
+            return elmt.userId === obj.friendId
+        })
+        if(peer){
+            socket.emit('calling',{
+                peerId: peer.peerId
+            })
+        }else{
+            socket.emit('calling',{
+                peerId: 'null'
+            })
+        }
     })
 }

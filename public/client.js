@@ -41,6 +41,7 @@ form_typing_mess.style.display = 'none';
 
 const info={
     _id: JSON.parse(user_id.value),
+    friend_id: '',
     name: '',
     avatar:"",
     curRoom : '',
@@ -153,7 +154,7 @@ form_typing_mess.addEventListener('submit',(e)=>{
         }));
     }
 })
-inputTextField.addEventListener('keyup',(e)=>{
+inputTextField.addEventListener('keydown',(e)=>{
         socket.emit('typing_mess-keyup',({
             curRoom: info.curRoom
         }));
@@ -229,3 +230,77 @@ socket.on('add_to_room_true',(obj)=>{
         socket.emit('add_to_room_true',obj);
     }
 })
+//video call
+    var peer = new Peer({
+        key: 'peerjs',
+        port: 443
+    });
+    peer.on('open', id=>{
+        socket.emit('initPeer', {
+            userId: info._id,
+            peerId: id
+        }); 
+    });
+    $('#btn_video_call').click(()=>{
+        socket.emit('calling', {
+            userId: info._id,
+            friendId: info.friend_id,
+        })
+    })
+    socket.on('calling',peerId=>{
+        const id = peerId.peerId
+        openStream().then(stream=>{
+            playStream('localStream', stream);
+            const call = peer.call(id, stream);
+            call.on('stream', remoteStream =>{
+                playStream('remoteStream', remoteStream);
+            })
+        })
+
+    })
+    //answer
+    socket.on('answerCall',obj=>{
+        if(obj._id === info._id){
+            $('#answer_call').modal('show');
+        }
+    })
+    peer.on('call', call=>{
+        $('#btn_accept_the_call').click(()=>{
+            $('#answer_call').modal('hide');
+            openStream().then(stream=>{
+                call.answer(stream);
+                playStream('localStream', stream);
+                call.on('stream', remoteStream =>{
+                    playStream('remoteStream', remoteStream);
+                })
+            })
+        })
+    })
+
+    $('#btn_deny_the_call').click(()=>{
+        $('#answer_call').modal('hide');
+    });
+    function openStream(){
+        const config ={ audio: true, video: true};
+        return navigator.mediaDevices.getUserMedia(config);
+    }
+    function playStream(idVideoTag, stream){
+        const video = document.getElementById(idVideoTag);
+        video.srcObject = stream;
+
+        var playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+              // Automatic playback started!
+              // Show playing UI.
+            })
+            .catch(error => {
+              // Auto-play was prevented
+              // Show paused UI.
+            });
+        }
+    }
+
+// $('#btn_video_call').click(()=>{
+    // $('#modal_video_call').modal('show');
+// })

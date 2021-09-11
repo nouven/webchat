@@ -292,6 +292,9 @@
   color: #fff;
   font-weight: 500;
 }
+/* .user__info{
+  color: #fff;
+} */
 
 .sidebar__headerRight {
   display: flex;
@@ -375,6 +378,7 @@ body {
   border-radius: 50%;
 }
 .avatar_onchat {
+
   margin-right: 3px;
   vertical-align: middle;
   width: 35px;
@@ -625,6 +629,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
 .edit__btn {
@@ -786,4 +791,15 @@ body {
     transform: translateY(0);
     opacity: 1;
   }
+}
+.modal-video-call-footer{
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(0, 0, 0, 0.85);
+  outline: none;
+}
+.modal-video-call-header{
+  margin-bottom: 0%;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.9);
 }
