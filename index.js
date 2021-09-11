@@ -5,6 +5,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser');
 const https = require('https');
 const fs = require('fs');
+require('dotenv').config();
 const server = https.createServer({
     key: fs.readFileSync(path.join(__dirname, 'cert','key.pem')),
     cert: fs.readFileSync(path.join(__dirname, 'cert','cert.pem')),
@@ -54,6 +55,6 @@ io.on("connection",(socket)=>{
 
 
 
-server.listen(3000, ()=>{
+server.listen(process.env.port || 3000, ()=>{
     console.log('listening on port 3000');
 })
