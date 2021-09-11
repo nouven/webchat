@@ -3,13 +3,14 @@ const app = express();
 
 const path = require('path')
 const cookieParser = require('cookie-parser');
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 require('dotenv').config();
-const server = https.createServer({
-    key: fs.readFileSync(path.join(__dirname, 'cert','key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'cert','cert.pem')),
-},app);
+// const server = https.createServer({
+//     key: fs.readFileSync(path.join(__dirname, 'cert','key.pem')),
+//     cert: fs.readFileSync(path.join(__dirname, 'cert','cert.pem')),
+// },app);
+const server = http.createServer();
 const {Server} = require('socket.io');
 const io = new Server(server);
 const exphbs = require('express-handlebars');
