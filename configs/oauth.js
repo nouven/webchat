@@ -9,6 +9,7 @@ const user = require('../models/user');
 passport.use(new GoogleStrategy({
     clientID:     process.env.google_client_id,
     clientSecret: process.env.google_client_secret,
+    // callbackURL: "http://localhost:3000/auth/google/callback",
     callbackURL: "https://webchatntv.herokuapp.com/auth/google/callback",
     passReqToCallback   : true
   },
@@ -16,12 +17,12 @@ passport.use(new GoogleStrategy({
         const _id =  profile.id;
         const email =  profile.emails[0].value;
         const name =profile.name.familyName+" "+profile.name.givenName;
-        const doc = {
-            _id : _id,
-            email: email,
-            name : name
-        }
-        console.log(doc);
+        // const doc = {
+        //     _id : _id,
+        //     email: email,
+        //     name : name
+        // }
+        // console.log(doc);
       return done(null, profile);
   }
 ));

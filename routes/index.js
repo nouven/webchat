@@ -54,12 +54,107 @@ function route (app){
         })
     );
     app.get( '/auth/google/callback',
-    passport.authenticate( 'google', {
-        successRedirect: '/signup',
-        failureRedirect: '/login'
-    }));
+    passport.authenticate('google', { session: false, failureRedirect: '/signup' }),
+    function(req, res) {
+        if(req.user != null){
+            const _id = req.user.id;
+            const name = req.user.name.familyName +" "+req.user.name.givenName;
+            const email = req.user.email;
+            user.findOne({email: email}).then(result=>{
+                if(result == null){
+                    user.create({
+                        name: name,
+                        email: email,
+                        keys: generateKeywords(name.toLowerCase()),
+                        password: 'temppass'
+                    }).then(()=>{
+                        user.findOne({email: email}).then(result=>{
+                            if(result){
+                                const cookie = result._id+"/"+result.password;
+                                res.cookie('user_id', cookie, { expires: new Date(Date.now() + 60*60*1000) /*,httpOnly: true */ });
+                                res.redirect('/');
+                                return;
+                            }
+                        });
+                    });
+                }else{
+                    user.findOne({email: email}).then(result=>{
+                        if(result){
+                            const cookie = result._id+"/"+result.password;
+                            res.cookie('user_id', cookie, { expires: new Date(Date.now() + 60*60*1000) /*,httpOnly: true */ });
+                            res.redirect('/');
+                            return;
+                        }else{
+                            res.redirect('/signup');
+                        }
+                    })
+                 }
+            })
+        }
+    })
+
+    // app.get( '/auth/google/callback',
+    // passport.authenticate( 'google', {
+    //     successRedirect: '/signup',
+    //     failureRedirect: '/login'
+    // }));
     app.use('/signup', signinRoute);
     app.use('/login',loginRoute);
     app.use('/',middleware.auth, chatRoute);
 }
 module.exports  = route;
+const generateKeywords = (displayName) => {
+    // liet ke tat cac hoan vi. vd: name = ["David", "Van", "Teo"]
+    // => ["David", "Van", "Teo"], ["David", "Teo", "Van"], ["Teo", "David", "Van"],...
+    const name = displayName.split(' ').filter((word) => word);
+  
+    const length = name.length;
+    let flagArray = [];
+    let result = [];
+    let stringArray = [];
+  
+    /**
+     * khoi tao mang flag false
+     * dung de danh dau xem gia tri
+     * tai vi tri nay da duoc su dung
+     * hay chua
+     **/
+    for (let i = 0; i < length; i++) {
+      flagArray[i] = false;
+    }
+  
+    const createKeywords = (name) => {
+      const arrName = [];
+      let curName = '';
+      name.split('').forEach((letter) => {
+        curName += letter;
+        arrName.push(curName);
+      });
+      return arrName;
+    };
+  
+    function findPermutation(k) {
+      for (let i = 0; i < length; i++) {
+        if (!flagArray[i]) {
+          flagArray[i] = true;
+          result[k] = name[i];
+  
+          if (k === length - 1) {
+            stringArray.push(result.join(' '));
+          }
+  
+          findPermutation(k + 1);
+          flagArray[i] = false;
+        }
+      }
+    }
+  
+    findPermutation(0);
+  
+    const keywords = stringArray.reduce((acc, cur) => {
+      const words = createKeywords(cur);
+      return [...acc, ...words];
+    }, []);
+  
+    return keywords;
+  };
