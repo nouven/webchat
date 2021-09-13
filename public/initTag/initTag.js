@@ -72,7 +72,11 @@ class InitTag {
                 <div id="r${obj.room_id}" class="friend__status__unSeenMess">
                 </div>
                 <img src=${obj.avatar}  alt="Avatar" class="avatar" />
-                <div class="friend__status" id="f${obj._id}"></div> 
+                <div class="friend__status" id="f${obj._id}">
+                  <div class="friend__status_time">
+                  do quy nguyen
+                  </div> 
+                </div> 
               </div>
                <div class="sidebarChat__info">
                 <h2 class="sidebarChat__info-name">${obj.name}</h2>
@@ -85,7 +89,11 @@ class InitTag {
                 ${obj.unSeenMess}
                 </div>
                 <img src=${obj.avatar}  alt="Avatar" class="avatar" />
-                <div class="friend__status" id="f${obj._id}"></div> 
+                <div class="friend__status" id="f${obj._id}">
+                  <div class="friend__status_time">
+                  do quy nguyen
+                  </div> 
+                </div> 
               </div>
                <div class="sidebarChat__info">
                 <h2 class="sidebarChat__info-name">${obj.name}</h2>
@@ -299,20 +307,4 @@ class InitTag {
     });
   }
   //user typing
-  typing(socket, info, parTag, obj) {
-    const newTag = document.createElement("div");
-    newTag.innerHTML = `
-    <div class="col-3">
-    <div class="snippet" data-title=".dot-typing">
-      <div class="stage">
-        <div class="dot-typing"> ... </div>
-      </div>
-    </div>
-    </div>
-    `;
-    parTag.insertBefore(newTag, parTag.children[0]);
-    setTimeout(() => {
-      newTag.remove();
-    }, 500);
-  }
 }

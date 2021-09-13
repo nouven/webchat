@@ -695,18 +695,28 @@ body {
   background: #bcc0c4;
   border: 2px solid #fff;
 }
+.friend__status_time {
+  position: absolute;
+  bottom: -14px;
+  left: 20px;
+  border-radius: 10px;
+  min-width: 200px;
+  min-height: 16px;
+  background: red;
+  border: 2px solid #fff;
+}
 
 .friend__status__unSeenMess {
   padding: 0%;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 17px;
   position: absolute;
-  top: -10px;
+  top: 0px;
   right: -7px;
   text-align: center;
-  border-radius: 40%;
-  min-width: 20px;
-  max-height: 20px;
+  border-radius: 50%;
+  min-width: 25px;
+  max-height: 25px;
   color: white;
   background: #e60000;
 }

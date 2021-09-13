@@ -86,26 +86,27 @@ socket.on("lengthOfReq", (data) => {
 socket.on("initFriendReq", (obj) => {
   initTag.friendReq(socket, info, friend_reqs, obj);
 });
+//friend status{online-offline};
 socket.on("online_status", (obj) => {
   if (obj._id_2 === info._id) {
-    show_friends
-      .querySelector(`#f${obj._id_1}`)
-      .setAttribute("style", "background: rgb(49, 162, 76)");
+    const friend_status =show_friends.querySelector(`#f${obj._id_1}`);
+    friend_status.setAttribute("style", "background: rgb(49, 162, 76)");
+    const friend__status_time = friend_status.firstElementChild;
     socket.emit("online_status_2", obj);
   }
 });
 socket.on("online_status_2", (obj) => {
   if (obj._id_2 === info._id) {
-    show_friends
-      .querySelector(`#f${obj._id_1}`)
-      .setAttribute("style", "background: rgb(49, 162, 76)");
+    const friend_status =show_friends.querySelector(`#f${obj._id_1}`);
+    friend_status.setAttribute("style", "background: rgb(49, 162, 76)");
+    const friend__status_time = friend_status.firstElementChild;
+    console.log(friend__status_time);
   }
 });
 socket.on("offline_status", (obj) => {
   if (obj._id_2 === info._id) {
-    show_friends
-      .querySelector(`#f${obj._id_1}`)
-      .setAttribute("style", "background: #bcc0c4");
+    const friend_status =show_friends.querySelector(`#f${obj._id_1}`);
+    friend_status.setAttribute("style", "background: #bcc0c4");
   }
 });
 //show member of room
