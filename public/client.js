@@ -91,7 +91,8 @@ socket.on("online_status", (obj) => {
   if (obj._id_2 === info._id) {
     const friend_status =show_friends.querySelector(`#f${obj._id_1}`);
     friend_status.setAttribute("style", "background: rgb(49, 162, 76)");
-    const friend__status_time = friend_status.firstElementChild;
+    friend_status.firstElementChild.innerHTML="Active Now";
+    friend_status.lastElementChild.value = 0;
     socket.emit("online_status_2", obj);
   }
 });
@@ -99,14 +100,16 @@ socket.on("online_status_2", (obj) => {
   if (obj._id_2 === info._id) {
     const friend_status =show_friends.querySelector(`#f${obj._id_1}`);
     friend_status.setAttribute("style", "background: rgb(49, 162, 76)");
-    const friend__status_time = friend_status.firstElementChild;
-    console.log(friend__status_time);
+    friend_status.firstElementChild.innerHTML="Active Now";
+    friend_status.lastElementChild.value = 0;
   }
 });
 socket.on("offline_status", (obj) => {
   if (obj._id_2 === info._id) {
-    const friend_status =show_friends.querySelector(`#f${obj._id_1}`);
+    const friend_status = show_friends.querySelector(`#f${obj._id_1}`);
     friend_status.setAttribute("style", "background: #bcc0c4");
+    friend_status.firstElementChild.innerHTML="Just Now";
+    friend_status.lastElementChild.value = obj.lastTime;
   }
 });
 //show member of room

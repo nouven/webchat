@@ -1,3 +1,4 @@
+
 class InitTag {
   room(socket, info, parTag, obj) {
     const newTag = document.createElement("a");
@@ -74,8 +75,8 @@ class InitTag {
                 <img src=${obj.avatar}  alt="Avatar" class="avatar" />
                 <div class="friend__status" id="f${obj._id}">
                   <div class="friend__status_time">
-                  do quy nguyen
                   </div> 
+                  <input type="number" value=${obj.lastTime} style="display:none">
                 </div> 
               </div>
                <div class="sidebarChat__info">
@@ -91,8 +92,8 @@ class InitTag {
                 <img src=${obj.avatar}  alt="Avatar" class="avatar" />
                 <div class="friend__status" id="f${obj._id}">
                   <div class="friend__status_time">
-                  do quy nguyen
                   </div> 
+                  <input type="number" value=${obj.lastTime} style="display:none">
                 </div> 
               </div>
                <div class="sidebarChat__info">
@@ -124,6 +125,27 @@ class InitTag {
         socket.emit("onclick_room", info);
       }
     });
+    setInterval(()=>{
+      let lastTime = newTag.querySelector('input').value;
+      if(lastTime != 0){
+        let sTimeOff = Number.parseInt((Date.now() - lastTime)/1000); 
+        let mthTimeOff = Number.parseInt(sTimeOff/(60*60*24*30));
+        let dTimeOff = Number.parseInt(sTimeOff/(60*60*24));
+        let hTimeOff = Number.parseInt(sTimeOff/(60*60));
+        let mTimeOff = Number.parseInt(sTimeOff/(60));
+        if(mthTimeOff != 0){
+          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Active ${mthTimeOff}mth ago`;
+        }else if(dTimeOff !=0){
+          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Active ${dTimeOff}d ago`;
+        }else if(hTimeOff != 0){
+          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Active ${hTimeOff}h ago`;
+        }else if(mTimeOff != 0){
+          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Active ${mTimeOff}m ago`;
+        }else{
+          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Just now`;
+        }
+      }
+    },3000);
   }
   //obj{info}
   info(socket, info, parTag, obj) {

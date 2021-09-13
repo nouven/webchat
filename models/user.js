@@ -8,7 +8,10 @@ const user = new Schema({
     friendReqs:[String],
     keys:[String],
     cookie:[String],
-    // lastTime: [number],
+    lastTime: {
+        type: Number,
+        default: 0
+    },
     avatar:{
         type: String,
         default: "https://raw.githubusercontent.com/TonTon69/Dashboard_UI/main/assets/img/giphy.gif",

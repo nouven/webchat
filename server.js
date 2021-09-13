@@ -5,10 +5,18 @@ const peers = [];
 module.exports = function(io, socket){
     console.log(socket.id+" connected!");
     socket.on('disconnect',()=>{
+        const lastTimeVal = Date.now();
+        user.findById(socket._id).then(result=>{
+            if(result){
+                result.lastTime = lastTimeVal;
+                result.save();
+            }
+        })
         user.find({friends: socket._id}).then(result=>{
             if(result){
                 result.forEach(elmt=>{
                     io.emit('offline_status',{
+                        lastTime: lastTimeVal,
                         _id_1: socket._id,
                         _id_2: elmt._id
                     })
@@ -34,6 +42,8 @@ module.exports = function(io, socket){
         })
         user.findById(_id).then((result)=>{
             if(result){
+                result.lastTime = 0;
+                result.save();
                 socket.emit('initInfo', {
                     name :result.name,
                     avatar: result.avatar,
@@ -68,6 +78,7 @@ module.exports = function(io, socket){
                                 _id: elmt._id,
                                 name: elmt.name,
                                 avatar: elmt.avatar,
+                                lastTime: elmt.lastTime
                             })
                         }
                     }).then(()=>{
