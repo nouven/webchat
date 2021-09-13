@@ -105,7 +105,7 @@ socket.on("offline_status", (obj) => {
   if (obj._id_2 === info._id) {
     show_friends
       .querySelector(`#f${obj._id_1}`)
-      .setAttribute("style", "background: #e60000");
+      .setAttribute("style", "background: #bcc0c4");
   }
 });
 //show member of room

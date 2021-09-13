@@ -25,6 +25,8 @@ function route (app){
         upload.single('avatar'),
         (req, res, next)=>{
             const avatar = req.body.avatar = req.file.path.split('/').slice(1).join('/');
+            console.log(req.file.path);
+            console.log(avatar);
             const _id = req.body._id;
             console.log(avatar, _id);
             user.findById(_id).then(result=>{
