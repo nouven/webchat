@@ -144,7 +144,9 @@ module.exports = function(io, socket){
                 })
                 result.save();
             });
+            let createDate = new Date();
             io.to(obj.curRoom).emit('initMess',({
+                createdAt: createDate.toJSON(),
                 _id: obj._id,
                 name: obj.name,
                 avatar:obj.avatar,

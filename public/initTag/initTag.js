@@ -186,6 +186,18 @@ class InitTag {
   mess(socket, info, obj, parTag) {
     const newTag = document.createElement("p");
     newTag.classList.add("chat__sender");
+    console.log(typeof obj.createdAt);
+    let date = new Date(obj.createdAt);
+    let dateNow = new Date();
+    if(date.getDate() - dateNow.getDate() > 0){
+      date = date.toLocaleDateString();
+    }else{
+      date = date.toLocaleTimeString();
+    }
+    // console.log(date);
+    // console.log(Date.parse(date))
+    // console.log(date.getDate().toString());
+    // console.log(date.toLocaleDateString());
     if (obj._id != info._id) {
       newTag.innerHTML = `
           <div class="messages">
@@ -199,7 +211,7 @@ class InitTag {
             </div>
             </div>
             <div class="messages__time">
-            <span class="chat__time">${obj.createdAt}</span>
+            <span class="chat__time">${date}</span>
             </div>
           </div>
         `;
@@ -208,7 +220,7 @@ class InitTag {
       newTag.innerHTML = `
       <div class="messages">
       <div class="messages__time messages__time-receiver">
-        <span class="chat__time">${obj.createdAt}</span>
+        <span class="chat__time">${date}</span>
       </div>
       <div class="messages__content messages__content-receiver">
       <div class="content__sender">
