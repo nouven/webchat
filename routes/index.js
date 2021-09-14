@@ -73,7 +73,7 @@ function route (app){
                         user.findOne({email: email}).then(result=>{
                             if(result){
                                 const cookie = result._id+"/"+result.password;
-                                res.cookie('user_id', cookie, { expires: new Date(Date.now() + 60*60*1000) /*,httpOnly: true */ });
+                                res.cookie('user_id', cookie, { expires: new Date(Date.now() + 72*60*60*1000) /*,httpOnly: true */ });
                                 res.redirect('/');
                                 return;
                             }
