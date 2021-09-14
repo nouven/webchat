@@ -120,6 +120,7 @@
   left: 50px;
   font-size: 14px;
   color: #000;
+  min-width: 300px;
 }
 
 .chat__receiver {
