@@ -87,7 +87,7 @@
       <div class="sidebar">
 
         <div class="sidebar__search">
-          <div class="sidebar__searchContainer">
+          <div class="sidebar__searchContainer inverted">
             <!-- <input type="text" placeholder="Search" class="sidebar__searchInput" id="typing_search"></input> -->
             <div class="dropdown">
               <input type ="text" autocomplete="off" placeholder="Search" class="sidebar__searchInput" id="search_user" class="btn btn-secondary dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -141,7 +141,7 @@
             </div>
           </div> -->
 
-          <div class="tuyendung">
+          <div class="tuyendung inverted">
             <a href="http://webchatntvjob.herokuapp.com/" class="button" target="_blank">Tìm kiếm các thông tin tuyển dụng ngay. Đi làm thôi🤩🤩</a>
           </div>
         
@@ -153,7 +153,7 @@
         <div class="chat__header" id="chat_header">
           <img id="show_curr_room_img"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHSR0zLO6F4gwew26l3DZYUTxtBc_VywwEaw&usqp=CAU"
-            alt="Avatar" class="avatar" />
+            alt="Avatar" class="avatar inverted" />
 
           <div class="chat__headerInfo">
             <h3 class="chat__headerInfo-name" id="show_curr_room_name"></h3>
@@ -161,7 +161,15 @@
           </div>
 
           <div class="chat__headerRight" id="chat_header_right">
-
+            <!-- DarkMode -->
+            <div>
+              <input onclick="DarkMode()" type="checkbox" class="checkbox" id="darkmode" />
+              <label class="label" for="darkmode">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <div class="ball"></div>
+              </label>
+            </div>
             <!-- Button trigger modal -->
             <!-- Button trigger modal -->
             <button class = 'modal_add_member btn btn-outline-primary' type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add_member">
@@ -240,10 +248,10 @@
           </p> -->
           <div class="adver-gif">
             <div class="advertisement">
-              <img class="adver-img" src="https://i.pinimg.com/originals/a7/5a/59/a75a59b1116cc8282873254511f57286.gif" alt="">
+              <img class="inverted adver-img" src="https://i.pinimg.com/originals/a7/5a/59/a75a59b1116cc8282873254511f57286.gif" alt="">
             </div>
             <div class="advertisement">
-              <img class="adver-img" src="https://i.pinimg.com/originals/ed/e0/e5/ede0e5c0eea835e8d904fa8ad30be741.gif" alt="">
+              <img class="inverted adver-img" src="https://i.pinimg.com/originals/ed/e0/e5/ede0e5c0eea835e8d904fa8ad30be741.gif" alt="">
             </div>
           </div>
           <!-- <div class="advertisement">
@@ -257,10 +265,10 @@
 
           <div class="adver-gif">
             <div class="advertisement2">
-              <img class="adver-img" src="https://i.pinimg.com/originals/10/77/4c/10774c768bfbe8789ebb88c4cfffd187.gif" alt="">
+              <img class="inverted adver-img" src="https://i.pinimg.com/originals/10/77/4c/10774c768bfbe8789ebb88c4cfffd187.gif" alt="">
             </div>
             <div class="advertisement">
-              <img class="adver-img" src="https://i.pinimg.com/originals/c3/67/c2/c367c27660dcfb7acca343bcd6f8282c.gif" alt="">
+              <img class="inverted adver-img" src="https://i.pinimg.com/originals/c3/67/c2/c367c27660dcfb7acca343bcd6f8282c.gif" alt="">
             </div>
           </div>
 
@@ -268,7 +276,7 @@
         </div>
         <div class="chat__footer">
           <i class="far fa-smile chat__footer-icons"></i>
-          <form class="chat__footer-form" id="form_typing_mess">
+          <form class="chat__footer-form inverted" id="form_typing_mess">
             <input placeholder="Type a message" type="text" class="chat__footer-input" />
             <button type="submit" class="chat__footer-button"></button>
           </form>
@@ -399,3 +407,13 @@
     popup.classList.toggle("show");
   }
   </script>
+
+
+<script>
+  function DarkMode() {
+      document.documentElement.classList.toggle('darkmode')
+      document.querySelectorAll(".inverted").forEach((e) => {
+        e.classList.toggle("invert");
+      })
+  }
+</script>

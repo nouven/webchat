@@ -119,8 +119,9 @@
   top: -10px;
   left: 50px;
   font-size: 14px;
-  color: #000;
+  color: #45484b;
   min-width: 300px;
+  font-weight: 500;
 }
 
 .chat__receiver {
@@ -1074,4 +1075,55 @@ body {
   top: -7px;
   right: -8px;
   font-weight: 800;
+}
+
+.darkmode {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.label {
+  background-color: #111;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  position: relative;
+  height: 26px;
+  width: 52px;
+}
+
+.label .ball {
+  background-color: #fff;
+  margin-right: 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  height: 22px;
+  width: 22px;
+  transform: translateX(0px);
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .label .ball {
+  transform: translateX(24px);
+}
+
+.fa-moon {
+  color: #fed500;
+}
+
+.fa-sun {
+  color: #f5e626;
 }

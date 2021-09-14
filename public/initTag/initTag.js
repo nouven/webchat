@@ -9,7 +9,7 @@ class InitTag {
           <div style="position: relative;">
             <img
               src=${obj.avatar}
-              alt="Avatar" class="avatar" />
+              alt="Avatar" class="avatar inverted" />
               <div id="r${obj._id}" class= "unseen__mess">
               </div>
           </div>
@@ -25,7 +25,7 @@ class InitTag {
             <img
               src=${obj.avatar}
               alt="Avatar" class="avatar" />
-              <div id="r${obj._id}" class= "unseen__mess">
+              <div id="r${obj._id}" class= "unseen__mess inverted">
               ${obj.unSeenMess}
               </div>
           </div>
@@ -71,7 +71,7 @@ class InitTag {
               <div class= "friend__status-wrap">
                 <div id="r${obj.room_id}" class="friend__status__unSeenMess">
                 </div>
-                <img src=${obj.avatar}  alt="Avatar" class="avatar" />
+                <img src=${obj.avatar}  alt="Avatar" class="avatar inverted" />
                 <div class="friend__status" id="f${obj._id}">
                   <div class="friend__status_time">
                   </div> 
@@ -88,7 +88,7 @@ class InitTag {
                 <div id="r${obj.room_id}" class="friend__status__unSeenMess">
                 ${obj.unSeenMess}
                 </div>
-                <img src=${obj.avatar}  alt="Avatar" class="avatar" />
+                <img src=${obj.avatar}  alt="Avatar" class="avatar inverted" />
                 <div class="friend__status" id="f${obj._id}">
                   <div class="friend__status_time">
                   </div> 
@@ -164,7 +164,7 @@ class InitTag {
     // newTag.classList.add("sidebar__header-wrap");
     newTag.classList.add("sidebar__headerLeft");
     newTag.innerHTML = `
-              <img src=${obj.avatar} alt="Avatar" class="avatar" data-toggle="modal" data-target="#exampleModalCenterInfo"/>
+              <img src=${obj.avatar} alt="Avatar" class="avatar inverted" data-toggle="modal" data-target="#exampleModalCenterInfo"/>
               <!-- Modal -->
               <div class="modal fade" id="exampleModalCenterInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -211,7 +211,7 @@ class InitTag {
       newTag.innerHTML = `
           <div class="messages">
             <div class="messages__avt">
-              <img src=${obj.avatar} class="avatar_onchat" />
+              <img src=${obj.avatar} class="avatar_onchat inverted" />
             </div>
             <span class="chat__name">${obj.name}</span>
             <div class="messages__content">
@@ -256,7 +256,7 @@ class InitTag {
     newTag.classList.add("friend__search");
     newTag.innerHTML = `
     <div class="user__info">
-    <img src=${obj.avatar} class="avatar_onchat" />
+    <img src=${obj.avatar} class="avatar_onchat inverted" />
         <span style="color: #000">${obj.name}</span>
         </div>
         <div>
@@ -279,7 +279,7 @@ class InitTag {
     newTag.classList.add("room__members");
     newTag.innerHTML = `
     <div class="user__info">
-    <img src=${obj.avatar} class="avatar_onchat" />
+    <img src=${obj.avatar} class="avatar_onchat inverted" />
         ${obj.name}
         </div>
       `;
@@ -300,7 +300,7 @@ class InitTag {
     newTag.classList.add("friend__search");
     newTag.innerHTML = `
     <div class="user__info">
-    <img src=${obj.avatar} class="avatar_onchat" />
+    <img src=${obj.avatar} class="avatar_onchat inverted" />
         ${obj.name}
         </div>
         <button type="button" class="btn btn-success edit__btn">add</button>
@@ -321,7 +321,7 @@ class InitTag {
     newTag.classList.add("friendrqs");
     newTag.innerHTML = `
       <div class = "friendrqs__info">
-        <img src=${obj.avatar} class="avatar" />
+        <img src=${obj.avatar} class="avatar inverted" />
         <span style="font-size: 20px;margin-left: 6px;">
           ${obj.name}
         </span>
