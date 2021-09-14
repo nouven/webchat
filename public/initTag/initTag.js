@@ -1,4 +1,3 @@
-
 class InitTag {
   room(socket, info, parTag, obj) {
     const newTag = document.createElement("a");
@@ -22,11 +21,11 @@ class InitTag {
     } else {
       newTag.innerHTML = `
           <div class="sidebarChat">
-          <div style:"position: relative">
+          <div style="position: relative;">
             <img
               src=${obj.avatar}
               alt="Avatar" class="avatar" />
-              <div id="r${obj._id}" style="color:white;background-color: red; border-radius: 40% ; text-align:center; min-width: 20px;max-height: 20px; font-size: 12px;position: absolute;transform: translate(29px, -40px);font-weight: 1000; ">
+              <div id="r${obj._id}" class= "unseen__mess">
               ${obj.unSeenMess}
               </div>
           </div>
@@ -125,27 +124,37 @@ class InitTag {
         socket.emit("onclick_room", info);
       }
     });
-    setInterval(()=>{
-      let lastTime = newTag.querySelector('input').value;
-      if(lastTime != 0){
-        let sTimeOff = Number.parseInt((Date.now() - lastTime)/1000); 
-        let mthTimeOff = Number.parseInt(sTimeOff/(60*60*24*30));
-        let dTimeOff = Number.parseInt(sTimeOff/(60*60*24));
-        let hTimeOff = Number.parseInt(sTimeOff/(60*60));
-        let mTimeOff = Number.parseInt(sTimeOff/(60));
-        if(mthTimeOff != 0){
-          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Active ${mthTimeOff}mth ago`;
-        }else if(dTimeOff !=0){
-          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Active ${dTimeOff}d ago`;
-        }else if(hTimeOff != 0){
-          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Active ${hTimeOff}h ago`;
-        }else if(mTimeOff != 0){
-          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Active ${mTimeOff}m ago`;
-        }else{
-          newTag.querySelector(`#f${obj._id}`).firstElementChild.innerHTML = `Just now`;
+    setInterval(() => {
+      let lastTime = newTag.querySelector("input").value;
+      if (lastTime != 0) {
+        let sTimeOff = Number.parseInt((Date.now() - lastTime) / 1000);
+        let mthTimeOff = Number.parseInt(sTimeOff / (60 * 60 * 24 * 30));
+        let dTimeOff = Number.parseInt(sTimeOff / (60 * 60 * 24));
+        let hTimeOff = Number.parseInt(sTimeOff / (60 * 60));
+        let mTimeOff = Number.parseInt(sTimeOff / 60);
+        if (mthTimeOff != 0) {
+          newTag.querySelector(
+            `#f${obj._id}`
+          ).firstElementChild.innerHTML = `Active ${mthTimeOff}mth ago`;
+        } else if (dTimeOff != 0) {
+          newTag.querySelector(
+            `#f${obj._id}`
+          ).firstElementChild.innerHTML = `Active ${dTimeOff}d ago`;
+        } else if (hTimeOff != 0) {
+          newTag.querySelector(
+            `#f${obj._id}`
+          ).firstElementChild.innerHTML = `Active ${hTimeOff}h ago`;
+        } else if (mTimeOff != 0) {
+          newTag.querySelector(
+            `#f${obj._id}`
+          ).firstElementChild.innerHTML = `Active ${mTimeOff}m ago`;
+        } else {
+          newTag.querySelector(
+            `#f${obj._id}`
+          ).firstElementChild.innerHTML = `Just now`;
         }
       }
-    },3000);
+    }, 3000);
   }
   //obj{info}
   info(socket, info, parTag, obj) {
@@ -189,9 +198,9 @@ class InitTag {
     console.log(typeof obj.createdAt);
     let date = new Date(obj.createdAt);
     let dateNow = new Date();
-    if(date.getDate() - dateNow.getDate() > 0){
+    if (date.getDate() - dateNow.getDate() > 0) {
       date = date.toLocaleDateString();
-    }else{
+    } else {
       date = date.toLocaleTimeString();
     }
     // console.log(date);

@@ -409,10 +409,8 @@ body {
 .friend__items {
   list-style: none;
   display: flex;
-  padding: 4px 6px 6px 4px;
+  padding: 10px 6px 14px 16px;
   align-items: center;
-  min-width: 340px;
-  min-height: 52px;
 }
 
 .friend__items:hover {
@@ -697,13 +695,18 @@ body {
 }
 .friend__status_time {
   position: absolute;
-  bottom: -14px;
-  left: 20px;
   border-radius: 10px;
-  min-width: 200px;
-  min-height: 28px;
-  background: red;
-  border: 2px solid #fff;
+  background: #e0ede3;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 100px;
+  right: -123px;
+  min-height: 16px;
+  bottom: -3px;
+  display: flex;
+  align-items: center;
+  color: #31a24c;
+  justify-content: center;
 }
 
 .friend__status__unSeenMess {
@@ -1056,4 +1059,18 @@ body {
 .adver-img {
   width: 350px;
   height: 250px;
+}
+
+.unseen__mess {
+  color: white;
+  background-color: #f02849;
+  border-radius: 50%;
+  text-align: center;
+  min-width: 25px;
+  max-height: 25px;
+  font-size: 17px;
+  position: absolute;
+  top: -7px;
+  right: -8px;
+  font-weight: 800;
 }
