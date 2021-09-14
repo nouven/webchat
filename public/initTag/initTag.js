@@ -6,11 +6,11 @@ class InitTag {
     if (obj.unSeenMess == 0) {
       newTag.innerHTML = `
           <div class="sidebarChat">
-          <div style:"position: relative">
+          <div style="position: relative;">
             <img
               src=${obj.avatar}
               alt="Avatar" class="avatar" />
-              <div id="r${obj._id}" style="color:white;background-color: red; border-radius: 40% ; text-align:center; min-width: 20px;max-height: 20px; font-size: 12px;position: absolute;transform: translate(29px, -40px);font-weight: 1000; ">
+              <div id="r${obj._id}" class= "unseen__mess">
               </div>
           </div>
             <div class="sidebarChat__info">
