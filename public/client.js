@@ -294,10 +294,10 @@ socket.on("answerCall", (obj) => {
     $("#answer_call").modal("show");
   }
 });
+$("#btn_deny_the_call").click(() => {
+  $("#answer_call").modal("hide");
+});
 peer.on("call", (call) => {
-  $("#btn_deny_the_call").click(() => {
-    $("#answer_call").modal("hide");
-  });
   $("#btn_accept_the_call").click(() => {
     $("#answer_call").modal("hide");
     openStream().then((stream) => {
@@ -309,7 +309,11 @@ peer.on("call", (call) => {
     });
   });
 });
-$("#destroy_video_call").click(() => {});
+$("#destroy_video_call").click(() => {
+  stopStreamedVideo('localStream');
+  stopStreamedVideo('remoteStream');
+});
+
 
 function openStream() {
   const config = { audio: true, video: true };
@@ -331,6 +335,17 @@ function playStream(idVideoTag, stream) {
         // Show paused UI.
       });
   }
+}
+function stopStreamedVideo(videoElem) {
+  const video= document.getElementById(videoElem);
+  const stream = video.srcObject;
+  const tracks = stream.getTracks();
+  tracks.forEach(function(track) {
+    console.log(track);
+    track.stop();
+  });
+
+  video.srcObject = null;
 }
 
 // $('#btn_video_call').click(()=>{
