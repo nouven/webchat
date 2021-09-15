@@ -10,12 +10,16 @@ class InitTag {
             <img
               src=${obj.avatar}
               alt="Avatar" class="avatar inverted" />
-              <div id="r${obj._id}" class= "unseen__mess">
+              <div id="r${obj._id}" >
+                <div class ="unseen__mess inverted">
+                </div> 
+                <div class="last_mess ">
+                  ${obj.lastMess[0].name}: ${obj.lastMess[0].content.slice(0,7)} ...
+                </div>
               </div>
           </div>
             <div class="sidebarChat__info">
               <h2 class="sidebarChat__info-name">${obj.name}</h2>
-              <p>...</p>
             </div>
           </div>`;
     } else {
@@ -24,14 +28,18 @@ class InitTag {
           <div style="position: relative;">
             <img
               src=${obj.avatar}
-              alt="Avatar" class="avatar" />
-              <div id="r${obj._id}" class= "unseen__mess inverted">
-              ${obj.unSeenMess}
+              alt="Avatar" class="avatar inverted" />
+              <div id="r${obj._id}" >
+                <div class ="unseen__mess inverted">
+                  ${obj.unSeenMess}
+                </div> 
+                <div class="last_mess">
+                  ${obj.lastMess[0].name}: ${obj.lastMess[0].content.slice(0,8)} ...
+                </div>
               </div>
           </div>
             <div class="sidebarChat__info">
               <h2 class="sidebarChat__info-name">${obj.name}</h2>
-              <p>...</p>
             </div>
           </div>`;
     }
@@ -69,7 +77,8 @@ class InitTag {
     if (obj.unSeenMess == 0) {
       newTag.innerHTML = `
               <div class= "friend__status-wrap">
-                <div id="r${obj.room_id}" class="friend__status__unSeenMess">
+                <div id="r${obj.room_id}" >
+                  <div class="friend__status__unSeenMess"></div>
                 </div>
                 <img src=${obj.avatar}  alt="Avatar" class="avatar inverted" />
                 <div class="friend__status" id="f${obj._id}">
@@ -85,8 +94,10 @@ class InitTag {
     } else {
       newTag.innerHTML = `
               <div class= "friend__status-wrap">
-                <div id="r${obj.room_id}" class="friend__status__unSeenMess">
-                ${obj.unSeenMess}
+                <div id="r${obj.room_id}" >
+                  <div class="friend__status__unSeenMess">
+                    ${obj.unSeenMess}
+                  </div>
                 </div>
                 <img src=${obj.avatar}  alt="Avatar" class="avatar inverted" />
                 <div class="friend__status" id="f${obj._id}">

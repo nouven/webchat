@@ -100,7 +100,8 @@ module.exports = function(io, socket){
                         unSeenMess: arr[0].unSeenMess,
                         _id: elmt._id,
                         name: elmt.name,
-                        avatar: elmt.avatar
+                        avatar: elmt.avatar,
+                        lastMess:elmt.messages.slice(-1)
                     })
                 })
             }
@@ -139,7 +140,8 @@ module.exports = function(io, socket){
                     io.emit('updateUnSeenMess',{
                         curRoom: obj.curRoom,
                         _id: elmt._id,
-                        unSeenMess: elmt.unSeenMess
+                        unSeenMess: elmt.unSeenMess,
+                        lastMess : result.messages.slice(-1)
                     })
                 })
                 result.save();
@@ -170,7 +172,8 @@ module.exports = function(io, socket){
                 socket.emit('updateUnSeenMess',{
                     curRoom: obj.curRoom,
                     _id: obj._id,
-                    unSeenMess: 0
+                    unSeenMess: 0,
+                    lastMess : result.messages.slice(-1)
                 })
                 result.save();
             }

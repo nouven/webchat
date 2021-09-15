@@ -1076,6 +1076,22 @@ body {
   right: -8px;
   font-weight: 800;
 }
+.last_mess{
+  position: absolute;
+  border-radius: 10px;
+  background: #e0ede3;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 150px;
+  left: 70px;
+  min-height: 16px;
+  bottom: -8px;
+  display: flex;
+  align-items: center;
+  color: #31a24c;
+  padding-left: 10px;
+  justify-content: left;
+}
 
 .darkmode {
   filter: invert(1) hue-rotate(180deg);

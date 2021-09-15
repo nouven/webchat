@@ -128,12 +128,16 @@ socket.on("show_member", (obj) => {
 //obj{curRoom, _id, unSeenMess}
 socket.on("updateUnSeenMess", (obj) => {
   if (obj._id === info._id) {
+    if(document.querySelector(`#r${obj.curRoom}`).querySelector('.last_mess')){
+      document.querySelector(`#r${obj.curRoom}`).querySelector('.last_mess').innerHTML =    
+        `${obj.lastMess[0].name}: ${obj.lastMess[0].content.slice(0,8)} ...`;
+      };
     if (obj.curRoom != info.curRoom) {
       if (obj.unSeenMess != 0) {
-        document.querySelector(`#r${obj.curRoom}`).innerHTML = obj.unSeenMess;
+        document.querySelector(`#r${obj.curRoom}`).firstElementChild.innerHTML = obj.unSeenMess;
       }
     } else {
-      document.querySelector(`#r${obj.curRoom}`).innerHTML = "";
+      document.querySelector(`#r${obj.curRoom}`).firstElementChild.innerHTML = "";
       socket.emit("updateUnSeenMess", {
         curRoom: obj.curRoom,
         _id: info._id,
@@ -141,6 +145,10 @@ socket.on("updateUnSeenMess", (obj) => {
     }
   }
 });
+socket.on('last_mess',obj=>{
+
+})
+//
 //accep_friend_req
 const typing = document.querySelector("#typing");
 // typing_mess-submit;
@@ -344,6 +352,7 @@ function stopStreamedVideo(videoElem) {
     console.log(track);
     track.stop();
   });
+
   video.srcObject = null;
 }
 
