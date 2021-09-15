@@ -130,7 +130,7 @@ socket.on("updateUnSeenMess", (obj) => {
   if (obj._id === info._id) {
     if(document.querySelector(`#r${obj.curRoom}`).querySelector('.last_mess')){
       document.querySelector(`#r${obj.curRoom}`).querySelector('.last_mess').innerHTML =    
-        `${obj.lastMess[0].name.slice(0,6)}: ${obj.lastMess[0].content.slice(0,8)} ...`;
+        `${obj.lastMess[0].name.slice(0,6)}: ${obj.lastMess[0].content.slice(0,9)} ...`;
       };
     if (obj.curRoom != info.curRoom) {
       if (obj.unSeenMess != 0) {

@@ -14,7 +14,7 @@ class InitTag {
                 <div class ="unseen__mess inverted">
                 </div> 
                 <div class="last_mess ">
-                  ${obj.lastMess[0].name.slice(0,6)}: ${obj.lastMess[0].content.slice(0,7)} ...
+                  ${obj.lastMess[0].name.slice(0,6)}: ${obj.lastMess[0].content.slice(0,9)} ...
                 </div>
               </div>
           </div>
@@ -34,7 +34,7 @@ class InitTag {
                   ${obj.unSeenMess}
                 </div> 
                 <div class="last_mess">
-                  ${obj.lastMess[0].name.slice(0,6)}: ${obj.lastMess[0].content.slice(0,8)} ...
+                  ${obj.lastMess[0].name.slice(0,6)}: ${obj.lastMess[0].content.slice(0,9)} ...
                 </div>
               </div>
           </div>
