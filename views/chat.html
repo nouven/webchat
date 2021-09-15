@@ -51,7 +51,7 @@
      
       <div class="modal-body" style="padding:0;">
         <div style="position:relative;">
-          <video  id="remoteStream" width="100%" preload="none">
+          <video class="inverted"  id="remoteStream" width="100%" preload="none">
           </video>
           <div style="left: 40%;
           bottom: 32px;
@@ -71,7 +71,7 @@
           bottom: 7px;
           border: 2px solid orange;
           max-width: 200px;">
-            <video  id="localStream" width="100%" preload="none" muted></video>
+            <video  class="inverted" id="localStream" width="100%" preload="none" muted></video>
           </div>
         </div>
           
@@ -411,7 +411,7 @@
 
 <script>
   function DarkMode() {
-      document.documentElement.classList.toggle('darkmode')
+      document.documentElement.classList.toggle('darkmode');
       document.querySelectorAll(".inverted").forEach((e) => {
         e.classList.toggle("invert");
       })
