@@ -198,8 +198,8 @@ class InitTag {
     console.log(typeof obj.createdAt);
     let date = new Date(obj.createdAt);
     let dateNow = new Date();
-    if (date.getDate() - dateNow.getDate() > 0) {
-      date = date.toLocaleDateString();
+    if (date.getDate() - dateNow.getDate() < 0) {
+      date = date.toDateString();
     } else {
       date = date.toLocaleTimeString();
     }

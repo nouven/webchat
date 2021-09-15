@@ -344,7 +344,6 @@ function stopStreamedVideo(videoElem) {
     console.log(track);
     track.stop();
   });
-
   video.srcObject = null;
 }
 
