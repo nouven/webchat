@@ -220,6 +220,7 @@ module.exports = function(io, socket){
                         return elmt._id === obj._id
                     })
                     socket.emit('initRoom',{
+                        lastMess: result.messages.slice(-1),
                         unSeenMess: 0,
                         _id: result._id,
                         name:result.name,
@@ -235,11 +236,16 @@ module.exports = function(io, socket){
         if(obj.name != ''){
             room.create({
                 name: obj.name,
-                users: {_id: obj.user}
+                users: {_id: obj.user},
+                messages:{name:"BOT",
+                    content:"WELCOME!!!",
+                    avatar:"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg"
+                }
             }).then(()=>{
                 room.findOne({name: obj.name, users:{_id: obj.user}}).then(result=>{
                     if(result){
                         socket.emit('initRoom',{
+                            lastMess:result.messages.slice(-1), 
                             unSeenMess: 0,
                             _id: result._id,
                             name: result.name,

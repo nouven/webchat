@@ -206,7 +206,6 @@ class InitTag {
   mess(socket, info, obj, parTag) {
     const newTag = document.createElement("p");
     newTag.classList.add("chat__sender");
-    console.log(typeof obj.createdAt);
     let date = new Date(obj.createdAt);
     let dateNow = new Date();
     if (date.getDate() - dateNow.getDate() < 0) {
