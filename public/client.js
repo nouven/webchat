@@ -44,6 +44,7 @@ const info = {
   avatar: "",
   curRoom: "",
   befRoom: "",
+  countUnseenMess:0
 };
 // show_messages.addEventListener('scroll',()=>{
 //     console.log( parseInt(show_messages.scrollTop));
@@ -127,33 +128,33 @@ socket.on("show_member", (obj) => {
 
 //obj{curRoom, _id, unSeenMess}
 socket.on("updateUnSeenMess", (obj) => {
+  console.log('hahah');
   if (obj._id === info._id) {
     if(document.querySelector(`#r${obj.curRoom}`).querySelector('.last_mess')){
       document.querySelector(`#r${obj.curRoom}`).querySelector('.last_mess').innerHTML =    
         `${obj.lastMess[0].name.slice(0,6)}: ${obj.lastMess[0].content.slice(0,9)} ...`;
-      };
+    };
     if (obj.curRoom != info.curRoom) {
       if (obj.unSeenMess != 0) {
         document.querySelector(`#r${obj.curRoom}`).firstElementChild.innerHTML = obj.unSeenMess;
+        ++info.countUnseenMess;
+        document.querySelector('#title').innerHTML= `(${info.countUnseenMess}) WebChat`
       }
-    } else {
-      document.querySelector(`#r${obj.curRoom}`).firstElementChild.innerHTML = "";
-      socket.emit("updateUnSeenMess", {
-        curRoom: obj.curRoom,
-        _id: info._id,
-      });
+    }
+     else {
+        document.querySelector(`#r${obj.curRoom}`).firstElementChild.innerHTML = "";
+        socket.emit("updateUnSeenMess", {
+          curRoom: obj.curRoom,
+          _id: info._id,
+        });
     }
   }
 });
-socket.on('last_mess',obj=>{
-
-})
 //
 //accep_friend_req
 const typing = document.querySelector("#typing");
 // typing_mess-submit;
 // visibility: visible
-
 //<<==============================>
 const inputTextField = form_typing_mess.querySelector("input");
 form_typing_mess.addEventListener("submit", (e) => {
@@ -349,7 +350,6 @@ function stopStreamedVideo(videoElem) {
   const stream = video.srcObject;
   const tracks = stream.getTracks();
   tracks.forEach(function(track) {
-    console.log(track);
     track.stop();
   });
 
@@ -359,3 +359,19 @@ function stopStreamedVideo(videoElem) {
 // $('#btn_video_call').click(()=>{
 // $('#modal_video_call').modal('show');
 // })
+
+setTimeout(()=>{
+  if(info.countUnseenMess != 0){
+    document.querySelector('#title').innerHTML= `(${info.countUnseenMess}) WebChat`
+  }else{
+    document.querySelector('#title').innerHTML= ` WebChat`
+  }
+},1000)
+setInterval(()=>{
+  document.querySelector('#title').innerHTML= ` WebChat`
+  if(info.countUnseenMess !=0){
+      setTimeout(()=>{
+        document.querySelector('#title').innerHTML= `(${info.countUnseenMess}) WebChat`
+      },1500)
+  }
+},3000);

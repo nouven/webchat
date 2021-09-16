@@ -23,6 +23,7 @@ class InitTag {
             </div>
           </div>`;
     } else {
+      info.countUnseenMess += obj.unSeenMess;
       newTag.innerHTML = `
           <div class="sidebarChat">
           <div style="position: relative;">
@@ -50,6 +51,14 @@ class InitTag {
       form_typing_mess.setAttribute("style", "visibility: visible");
       chat_header_right.setAttribute("style", "visibility: visible");
       //updata unSeenMess
+
+      let x = parseInt(newTag.querySelector(`#r${obj._id}`).firstElementChild.textContent)
+      if(!x){
+        x = 0;
+      }
+      info.countUnseenMess -= x;
+
+      newTag.querySelector(`#r${obj._id}`).firstElementChild.innerHTML="";
       socket.emit("updateUnSeenMess", {
         curRoom: obj._id,
         _id: info._id,
@@ -92,6 +101,7 @@ class InitTag {
                </div>
       `;
     } else {
+      info.countUnseenMess += obj.unSeenMess;
       newTag.innerHTML = `
               <div class= "friend__status-wrap">
                 <div id="r${obj.room_id}" >
@@ -117,6 +127,16 @@ class InitTag {
       form_typing_mess.setAttribute("style", "visibility: visible");
       chat_header_right.setAttribute("style", "visibility: visible");
       info.friend_id = obj._id;
+
+      //update unseenMess
+      let x = parseInt(newTag.querySelector(`#r${obj.room_id}`).firstElementChild.textContent);
+      if(!x){
+        x = 0;
+      }
+      info.countUnseenMess -= x;
+
+
+      newTag.querySelector(`#r${obj.room_id}`).firstElementChild.innerHTML="";
       socket.emit("updateUnSeenMess", {
         curRoom: obj.room_id,
         _id: info._id,
