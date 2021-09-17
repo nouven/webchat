@@ -50,14 +50,11 @@ const info = {
 };
 show_messages.addEventListener('scroll',()=>{
     let scrollTop =  -parseInt(show_messages.scrollTop);
-    console.log(scrollTop);
-
     if(scrollTop >= (((info.block+1)* 719) + ((info.unit-16) *67))){
       chat_header.querySelector('#loader').style.display ='block';
       setTimeout(()=>{
         chat_header.querySelector('#loader').style.display ='none';
       },1000)
-      console.log('init: '+info.unit);
       socket.emit('loadMore',{
           curRoom: info.curRoom,
           block: info.block,

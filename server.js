@@ -118,9 +118,27 @@ module.exports = function(io, socket){
         socket.join(obj.curRoom);
         room.findById(obj.curRoom).then((result)=>{
             if(result.messages.length != 0){
-                result.messages.forEach(elmt=>{
+                result.messages.slice(-16).reverse().forEach(elmt=>{
                     socket.emit('initMess',elmt);
                 })
+            }
+        })
+    })
+    socket.on('loadMore',obj=>{
+        room.findById(obj.curRoom).then(result=>{
+            if(result){
+                let length = result.messages.length ;
+                if((length -16)> 0){
+                    if((length > ((obj.block *8) + obj.unit)) && (length < (((obj.block+1)*8)+ obj.unit))){
+                        result.messages.slice(0, -(obj.block*8+ obj.unit)).reverse().forEach(elmt=>{
+                            socket.emit('initMess', elmt);
+                        })
+                    }else if((length > ((obj.block *8) + obj.unit)) && (length >= (((obj.block+1)*8)+ obj.unit))){
+                        result.messages.slice(-((obj.block+1)*8+ obj.unit), -(obj.block*8+ obj.unit)).reverse().forEach(elmt=>{
+                            socket.emit('initMess', elmt);
+                        })
+                    }
+                }
             }
         })
     })
@@ -152,7 +170,8 @@ module.exports = function(io, socket){
                 _id: obj._id,
                 name: obj.name,
                 avatar:obj.avatar,
-                content: obj.content
+                content: obj.content,
+                new: 'new'
             }))
         }
     })
