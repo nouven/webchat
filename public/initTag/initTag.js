@@ -67,6 +67,8 @@ class InitTag {
       info.befRoom = info.curRoom;
       info.curRoom = obj._id;
       if (info.befRoom != info.curRoom) {
+        info.block = 0;
+        info.unit = 16;
         //reset show_messages
         show_messages.innerHTML = "";
         const imgTag = chat_header.querySelector("#show_curr_room_img");
@@ -145,6 +147,8 @@ class InitTag {
       info.befRoom = info.curRoom;
       info.curRoom = obj.room_id;
       if (info.befRoom != info.curRoom) {
+        info.block = 0;
+        info.unit = 16;
         //reset show_messages
         show_messages.innerHTML = "";
         const imgTag = chat_header.querySelector("#show_curr_room_img");
@@ -276,7 +280,12 @@ class InitTag {
     newTag.addEventListener("mouseout", (e) => {
       newTag.querySelector(".chat__time").style.display = "none";
     });
-    parTag.insertBefore(newTag, parTag.children[0]);
+    if(obj.new){
+      parTag.insertBefore(newTag, parTag.children[0]);
+      show_messages.scrollTo(0,0);
+    }else{
+      parTag.appendChild(newTag);
+    }
   }
   //obj{name, avatar} of user,
   userSearchResult(socket, info, parTag, obj) {

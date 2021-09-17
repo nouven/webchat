@@ -44,15 +44,31 @@ const info = {
   avatar: "",
   curRoom: "",
   befRoom: "",
-  countUnseenMess:0
+  countUnseenMess:0,
+  block: 0,
+  unit: 16, 
 };
-// show_messages.addEventListener('scroll',()=>{
-//     console.log( parseInt(show_messages.scrollTop));
-//     childTag = show_messages.querySelector('.chat__sender');
-//     console.log(childTag);
-//     console.log("height: "+ childTag.offsetHeight);
+show_messages.addEventListener('scroll',()=>{
+    let scrollTop =  -parseInt(show_messages.scrollTop);
+    console.log(scrollTop);
 
-// })
+    if(scrollTop >= (((info.block+1)* 719) + ((info.unit-16) *67))){
+      chat_header.querySelector('#loader').style.display ='block';
+      setTimeout(()=>{
+        chat_header.querySelector('#loader').style.display ='none';
+      },1000)
+      console.log('init: '+info.unit);
+      socket.emit('loadMore',{
+          curRoom: info.curRoom,
+          block: info.block,
+          unit: info.unit
+      })
+      info.block++;
+    }
+    // childTag = show_messages.querySelector('.chat__sender');
+    // console.log(childTag);
+    // console.log("height: "+ childTag.offsetHeight);
+})
 
 //init
 socket.emit("init", info._id);
@@ -128,7 +144,6 @@ socket.on("show_member", (obj) => {
 
 //obj{curRoom, _id, unSeenMess}
 socket.on("updateUnSeenMess", (obj) => {
-  console.log('hahah');
   if (obj._id === info._id) {
     if(document.querySelector(`#r${obj.curRoom}`).querySelector('.last_mess')){
       document.querySelector(`#r${obj.curRoom}`).querySelector('.last_mess').innerHTML =    
@@ -142,6 +157,7 @@ socket.on("updateUnSeenMess", (obj) => {
       }
     }
      else {
+       ++info.unit;
         document.querySelector(`#r${obj.curRoom}`).firstElementChild.innerHTML = "";
         socket.emit("updateUnSeenMess", {
           curRoom: obj.curRoom,

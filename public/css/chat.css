@@ -68,6 +68,7 @@
   flex-direction: column;
   color: #fff;
   margin-top: 18px;
+  position: relative;
 }
 
 .chat__headerRight {
@@ -94,6 +95,7 @@
   flex-direction: column-reverse;
   background: #fff;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
   position: relative;
 }
 
@@ -1146,4 +1148,23 @@ body {
 
 .fa-sun {
   color: #f5e626;
+}
+.loader {
+  position: absolute;
+  border: 7px solid #f3f3f3; /* Light grey */
+  border-top: 7px solid #3498db; /* Blue */
+  border-bottom: 7px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  left: 60%;
+  top: 115%;
+  animation: spin 2s linear infinite;
+  display: none;
+  z-index: 10;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
