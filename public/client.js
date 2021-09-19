@@ -157,10 +157,12 @@ socket.on("updateUnSeenMess", (obj) => {
       ++info.unit;
     }
     if(obj.lastMess[0]._id != info._id){
-      const title = `${obj.lastMess[0].name}: ${obj.lastMess[0].content}`;
-      new Notification(title,{
-        icon: './logowebchat.jpg'
-      });
+      if(Notification.permission === "granted"){
+        const title = `${obj.lastMess[0].name}: ${obj.lastMess[0].content}`;
+        new Notification(title,{
+          icon: './logowebchat.jpg'
+        });
+      }
     }
   }
 });
