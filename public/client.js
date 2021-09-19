@@ -84,10 +84,16 @@ socket.on("initFriend", (obj) => {
 });
 //obj{name, avatar, _id} of user
 socket.on("initSearchUserResult", (obj) => {
+  while (search_user_result.firstChild) {
+    search_user_result.removeChild(search_user_result.firstChild);
+  }
   initTag.userSearchResult(socket, info, search_user_result, obj);
 });
 //obj{name, avatar, _id} of user
 socket.on("initSearchFriendResult", (obj) => {
+  while (search_friend_result.firstChild) {
+    search_friend_result.removeChild(search_friend_result.firstChild);
+  }
   initTag.friendSearchResult(socket, info, search_friend_result, obj);
 });
 socket.on("lengthOfReq", (data) => {
