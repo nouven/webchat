@@ -62,9 +62,6 @@ show_messages.addEventListener('scroll',()=>{
       })
       info.block++;
     }
-    // childTag = show_messages.querySelector('.chat__sender');
-    // console.log(childTag);
-    // console.log("height: "+ childTag.offsetHeight);
 })
 
 //init
@@ -94,7 +91,6 @@ socket.on("initSearchFriendResult", (obj) => {
   initTag.friendSearchResult(socket, info, search_friend_result, obj);
 });
 socket.on("lengthOfReq", (data) => {
-  console.log(data);
   length_of_req.innerHTML = data;
 });
 socket.on("initFriendReq", (obj) => {
@@ -152,14 +148,19 @@ socket.on("updateUnSeenMess", (obj) => {
         ++info.countUnseenMess;
         document.querySelector('#title').innerHTML= `(${info.countUnseenMess}) WebChat`
       }
+    }else {
+      document.querySelector(`#r${obj.curRoom}`).firstElementChild.innerHTML = "";
+      socket.emit("updateUnSeenMess", {
+        curRoom: obj.curRoom,
+        _id: info._id,
+      });
+      ++info.unit;
     }
-     else {
-       ++info.unit;
-        document.querySelector(`#r${obj.curRoom}`).firstElementChild.innerHTML = "";
-        socket.emit("updateUnSeenMess", {
-          curRoom: obj.curRoom,
-          _id: info._id,
-        });
+    if(obj.lastMess[0]._id != info._id){
+      const title = `${obj.lastMess[0].name}: ${obj.lastMess[0].content}`;
+      new Notification(title,{
+        icon: './logowebchat.jpg'
+      });
     }
   }
 });
@@ -388,3 +389,8 @@ setInterval(()=>{
       },1500)
   }
 },3000);
+
+setTimeout(()=>{
+  if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {});
+  }},2000)

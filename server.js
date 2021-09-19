@@ -188,12 +188,6 @@ module.exports = function(io, socket){
                 if(arr.length){
                     arr[0].unSeenMess = 0;
                 }
-                // socket.emit('updateUnSeenMess',{
-                //     curRoom: obj.curRoom,
-                //     _id: obj._id,
-                //     unSeenMess: 0,
-                //     lastMess : result.messages.slice(-1)
-                // })
                 result.save();
             }
         });
